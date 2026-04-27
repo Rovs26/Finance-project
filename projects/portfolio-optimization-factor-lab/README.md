@@ -14,14 +14,14 @@ Target companies include JPMorgan Chase, MSCI, Wells Fargo, P&G Philippines, BPI
 
 ## Current Status
 
-Phase 3 portfolio optimization is completed.
+Phase 4 fixed-weight backtesting and interpretation is completed.
 
 - Phase 0 setup: completed
 - Phase 1 market data and returns: completed
 - Phase 2 CAPM and factor research: completed
 - Phase 3 portfolio optimization: completed
-- Phase 4 backtesting and interpretation: next
-- Phase 5 GitHub polish: not started
+- Phase 4 backtesting and interpretation: completed
+- Phase 5 GitHub polish: next
 
 ## Ticker Universe and Benchmark
 
@@ -94,6 +94,29 @@ Key Phase 3 findings:
 - Maximum-Sharpe allocation was concentrated most heavily in `NVDA` and `JNJ` under the historical-return assumptions.
 - The local SciPy optimizer could not be imported, so deterministic random-search fallback weights were used and documented.
 
+## Generated Phase 4 Outputs
+
+Backtest outputs:
+
+- `outputs/backtests/strategy_daily_returns.csv`
+- `outputs/backtests/strategy_cumulative_returns.csv`
+- `outputs/backtests/backtest_metrics.csv`
+- `outputs/backtests/strategy_drawdowns.csv`
+
+Figures:
+
+- `reports/figures/backtest_cumulative_returns.png`
+- `reports/figures/backtest_risk_return_comparison.png`
+- `reports/figures/backtest_drawdowns.png`
+- `reports/figures/backtest_metric_comparison.png`
+
+Core Phase 4 findings:
+
+- Maximum-Sharpe had the highest historical Sharpe ratio at approximately `1.63`.
+- Equal-weight had a Sharpe ratio of approximately `1.37` and the highest correlation to SPY among the portfolio strategies.
+- Minimum-volatility had the least severe portfolio-strategy drawdown at approximately `-30.26%`.
+- The backtest is fixed-weight and historical; it does not include walk-forward optimization, transaction costs, or rebalancing rules.
+
 ## Planned Methodology
 
 1. Load public or manually supplied market data.
@@ -130,6 +153,12 @@ Run the Phase 3 notebook:
 
 ```bash
 jupyter nbconvert --to notebook --execute notebooks/03_portfolio_optimization.ipynb --output 03_portfolio_optimization_executed.ipynb
+```
+
+Run the Phase 4 notebook:
+
+```bash
+jupyter nbconvert --to notebook --execute notebooks/04_backtesting_and_interpretation.ipynb --output 04_backtesting_and_interpretation_executed.ipynb
 ```
 
 Or open the notebook interactively:
@@ -171,4 +200,4 @@ portfolio-optimization-factor-lab/
 
 ## Notes
 
-No full backtest, dashboard, or investment recommendation is included through Phase 3. Historical market data, CAPM estimates, and optimized allocations are descriptive research outputs and do not imply future performance.
+No dashboard or investment recommendation is included through Phase 4. Historical market data, CAPM estimates, optimized allocations, and fixed-weight backtests are descriptive research outputs and do not imply future performance.

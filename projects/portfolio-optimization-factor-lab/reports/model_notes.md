@@ -79,3 +79,28 @@ Phase 3 builds simple portfolio construction outputs from the saved daily return
 ## Why Portfolio Optimization Matters for Finance Roles
 
 This phase demonstrates allocation logic, risk-return tradeoff analysis, constraints, and interpretation of model limitations. These skills are relevant for investment analytics, corporate finance, financial data analytics, risk analytics, and market research roles.
+
+## Backtesting Assumptions
+
+- Input returns: `outputs/returns/daily_returns.csv`
+- Input weights: `outputs/portfolios/portfolio_weights.csv`
+- Strategies: equal_weight, minimum_volatility, maximum_sharpe
+- Benchmark: SPY
+- Method: fixed-weight historical backtest over the full available return period
+- Rebalancing: not modeled
+- Transaction costs: not modeled
+- Taxes and turnover limits: not modeled
+
+## Phase 4 Backtest Findings
+
+- Maximum-Sharpe produced the highest fixed-weight historical cumulative return and Sharpe ratio.
+- Equal-weight produced strong results with simpler diversification and the highest correlation to SPY among the portfolio strategies.
+- Minimum-volatility produced the least severe drawdown among the portfolio strategies but had lower return than equal-weight and maximum-Sharpe.
+- SPY was included as a benchmark reference only.
+
+## Phase 4 Limitations
+
+- The fixed-weight backtest is not a walk-forward or out-of-sample validation.
+- Weights were estimated using the full sample, so results can overstate practical performance.
+- No transaction costs, rebalancing assumptions, taxes, liquidity constraints, or live execution considerations are included.
+- The backtest is intended for portfolio analytics demonstration, not investment recommendation.

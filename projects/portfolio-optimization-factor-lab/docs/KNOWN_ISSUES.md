@@ -23,8 +23,15 @@
 - Optimization results depend on historical expected returns and covariance assumptions and are not investment recommendations.
 - Plotly static PNG export continued to use the Pillow fallback because Kaleido is not installed.
 
+## Phase 4
+
+- No blocking issue found in Phase 4.
+- Backtests use fixed Phase 3 weights over the full available return period.
+- No transaction costs, taxes, turnover limits, rebalancing schedule, or walk-forward validation are included.
+- The same historical period informs optimization and backtesting, so results should not be interpreted as out-of-sample performance.
+- Plotly static PNG export continued to use the Pillow fallback because Kaleido is not installed.
+
 ## Still Open for Future Phases
 
-- Multi-factor dataset or factor source not yet finalized.
-- Full backtesting methodology not yet implemented.
+- GitHub polish and recruiter-facing packaging not yet completed.
 - Dashboard not planned for MVP.

@@ -201,3 +201,49 @@ def plot_allocation_pie_or_bar(weights_df, portfolio_col):
     fig.update_layout(margin=dict(l=40, r=20, t=60, b=40), showlegend=False)
     fig.update_yaxes(tickformat=".0%")
     return fig
+
+
+def plot_backtest_cumulative_returns(cumulative_returns):
+    """Create a cumulative return comparison chart for backtested strategies."""
+    fig = px.line(
+        cumulative_returns,
+        x=cumulative_returns.index,
+        y=cumulative_returns.columns,
+        title="Backtest Cumulative Returns",
+        labels={"value": "Cumulative return", "variable": "Strategy", "date": "Date"},
+        template=DEFAULT_TEMPLATE,
+    )
+    fig.update_layout(legend_title_text="Strategy", margin=dict(l=40, r=20, t=60, b=40))
+    fig.update_yaxes(tickformat=".0%")
+    return fig
+
+
+def plot_backtest_drawdowns(drawdowns):
+    """Create a drawdown comparison chart for backtested strategies."""
+    fig = px.line(
+        drawdowns,
+        x=drawdowns.index,
+        y=drawdowns.columns,
+        title="Backtest Drawdown Comparison",
+        labels={"value": "Drawdown", "variable": "Strategy", "date": "Date"},
+        template=DEFAULT_TEMPLATE,
+    )
+    fig.update_layout(legend_title_text="Strategy", margin=dict(l=40, r=20, t=60, b=40))
+    fig.update_yaxes(tickformat=".0%")
+    return fig
+
+
+def plot_backtest_metric_comparison(metrics_df, metric_col, title):
+    """Create a bar chart comparing one backtest metric across strategies."""
+    fig = px.bar(
+        metrics_df,
+        x="strategy",
+        y=metric_col,
+        title=title,
+        labels={"strategy": "Strategy", metric_col: metric_col.replace("_", " ").title()},
+        template=DEFAULT_TEMPLATE,
+    )
+    fig.update_layout(margin=dict(l=40, r=20, t=60, b=40), showlegend=False)
+    if metric_col != "sharpe_ratio":
+        fig.update_yaxes(tickformat=".0%")
+    return fig

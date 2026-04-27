@@ -2,42 +2,50 @@
 
 ## Current State
 
-Phase 3 portfolio optimization is complete. The project now creates equal-weight, minimum-volatility, and maximum-Sharpe portfolios from saved daily returns, excluding SPY from optimized asset portfolios.
+Phase 4 fixed-weight backtesting and interpretation is complete. The project now evaluates equal-weight, minimum-volatility, and maximum-Sharpe portfolio strategies against SPY using the saved daily returns and Phase 3 weights.
 
 ## Files Changed
 
-- `notebooks/03_portfolio_optimization.ipynb`
-- `src/optimization.py`
+- `notebooks/04_backtesting_and_interpretation.ipynb`
+- `src/backtesting.py`
 - `src/visualization.py`
+- `reports/research_memo.md`
 - `reports/model_notes.md`
 - `README.md`
 - `docs/PRODUCTION_PROGRESS.md`
 - `docs/KNOWN_ISSUES.md`
 - `docs/AGENT_HANDOFF.md`
 
-## Portfolio Outputs Created
+## Strategies Compared
 
-- `outputs/portfolios/portfolio_weights.csv`
-- `outputs/portfolios/portfolio_summary.csv`
-- `outputs/portfolios/random_portfolios.csv`
-- `reports/figures/portfolio_weights_comparison.png`
-- `reports/figures/efficient_frontier_simulation.png`
-- `reports/figures/portfolio_risk_return_comparison.png`
-- `reports/figures/max_sharpe_allocation.png`
-- `notebooks/03_portfolio_optimization_executed.ipynb`
+- equal_weight
+- minimum_volatility
+- maximum_sharpe
+- SPY benchmark reference
 
-## Key Allocation Findings
+## Benchmark Used
 
-- Equal-weight portfolio annualized return: approximately 24.69 percent.
-- Minimum-volatility portfolio annualized volatility: approximately 15.89 percent.
-- Maximum-Sharpe portfolio Sharpe ratio: approximately 1.56.
-- Minimum-volatility allocation leaned most heavily toward JNJ, KO, and PG.
-- Maximum-Sharpe allocation leaned most heavily toward NVDA and JNJ.
+- SPY
 
-## Important Implementation Note
+## Backtest Outputs Created
 
-`scipy.optimize` could not be imported because the local SciPy package expects older NumPy APIs. The optimization module attempts SciPy SLSQP first, records the exact failure, and then uses a deterministic random-search fallback.
+- `outputs/backtests/strategy_daily_returns.csv`
+- `outputs/backtests/strategy_cumulative_returns.csv`
+- `outputs/backtests/backtest_metrics.csv`
+- `outputs/backtests/strategy_drawdowns.csv`
+- `reports/figures/backtest_cumulative_returns.png`
+- `reports/figures/backtest_risk_return_comparison.png`
+- `reports/figures/backtest_drawdowns.png`
+- `reports/figures/backtest_metric_comparison.png`
+- `notebooks/04_backtesting_and_interpretation_executed.ipynb`
+
+## Key Backtest Findings
+
+- Maximum-Sharpe had the highest historical cumulative return and Sharpe ratio.
+- Equal-weight delivered strong performance with simple diversification and high correlation to SPY.
+- Minimum-volatility had the lowest volatility and least severe drawdown among the portfolio strategies.
+- SPY was used only as benchmark reference.
 
 ## Next Recommended Task
 
-Start Phase 4 by backtesting the saved static portfolio weights against historical returns and SPY. Keep the backtest simple, transparent, and focused on return, volatility, drawdown, and benchmark-relative interpretation.
+Start Phase 5 GitHub polish: clean the README, tighten reports, create career-facing summaries, and prepare the repository for recruiter review.

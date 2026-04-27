@@ -40,15 +40,17 @@ Status: Done
 
 ## Phase 4: Backtesting and Interpretation
 
-Status: Next
+Status: Done
 
-- Backtest allocation strategies.
-- Compare portfolio returns, risk, drawdowns, and benchmark-relative behavior.
-- Interpret results in a research memo.
+- Backtested fixed Phase 3 strategy weights over the full available return period.
+- Compared equal-weight, minimum-volatility, maximum-Sharpe, and SPY.
+- Calculated cumulative return, annualized return, volatility, Sharpe ratio, drawdown, best day, worst day, and correlation to SPY.
+- Saved backtest outputs, figures, and research memo.
 
 ## Phase 5: GitHub Polish
 
-Status: Not started
+Status: Next
 
 - Clean README and reports.
 - Prepare career-facing materials.
+- Keep assumptions and limitations visible.
