@@ -11,19 +11,21 @@ Status: Done
 
 ## Phase 1: Market Data and Returns
 
-Status: Next
+Status: Done
 
-- Select ticker universe.
-- Select benchmark.
-- Load market data.
-- Calculate returns and initial risk metrics.
+- Used ticker universe: AAPL, MSFT, JPM, PG, XOM, JNJ, KO, NVDA.
+- Used SPY as benchmark.
+- Downloaded adjusted close prices from Yahoo Finance through `yfinance`.
+- Calculated daily returns, monthly returns, annualized performance metrics, drawdowns, and correlations.
+- Saved Phase 1 CSV outputs and figure files.
 
 ## Phase 2: CAPM and Factor Research
 
-Status: Not started
+Status: Next
 
-- Estimate CAPM beta and alpha.
-- Explore simple factor relationships.
+- Estimate CAPM beta and alpha against SPY.
+- Research simple factor relationships.
+- Interpret benchmark-relative performance.
 
 ## Phase 3: Portfolio Optimization
 

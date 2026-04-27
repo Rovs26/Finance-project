@@ -1,41 +1,89 @@
 # Portfolio Optimization and Factor Research Lab
 
-Python portfolio project for researching market returns, factor relationships, portfolio construction, and backtesting workflows.
+Python research project for analyzing public market data, asset returns, benchmark-relative performance, factor relationships, portfolio construction, and backtesting workflows.
 
 ## Business Problem
 
-Investment, research, and finance teams need clear tools to analyze return drivers, compare portfolios, understand benchmark-relative performance, and explain portfolio choices using defensible assumptions.
+Investment, research, and finance teams need clear tools to analyze return drivers, compare assets against a benchmark, understand risk and drawdown, and explain portfolio choices using defensible assumptions.
 
 ## Target Roles and Companies
 
-Target roles:
-
-- Investment analyst
-- Financial data analyst
-- Market research analyst
-- Corporate finance analyst
-- Risk analytics analyst
-- Quantitative research intern
-- Fintech analytics analyst
+Target roles include investment analyst, financial data analyst, market research analyst, corporate finance analyst, risk analytics analyst, quantitative research intern, and fintech analytics analyst.
 
 Target companies include JPMorgan Chase, MSCI, Wells Fargo, P&G Philippines, BPI, First Metro, ING Hubs Philippines, PwC, and other finance or analytics employers.
+
+## Current Status
+
+Phase 1 market data and returns analysis is completed.
+
+- Phase 0 setup: completed
+- Phase 1 market data and returns: completed
+- Phase 2 CAPM and factor research: next
+- Phase 3 portfolio optimization: not started
+- Phase 4 backtesting and interpretation: not started
+- Phase 5 GitHub polish: not started
+
+## Ticker Universe and Benchmark
+
+Phase 1 uses public Yahoo Finance data through `yfinance`.
+
+- Asset universe: `AAPL`, `MSFT`, `JPM`, `PG`, `XOM`, `JNJ`, `KO`, `NVDA`
+- Benchmark: `SPY`
+- Period: `2019-01-01` to latest available data at notebook execution
+
+## Generated Phase 1 Outputs
+
+Market data and return outputs:
+
+- `data/processed/adjusted_close_prices.csv`
+- `outputs/returns/daily_returns.csv`
+- `outputs/returns/monthly_returns.csv`
+- `outputs/returns/asset_performance_summary.csv`
+- `outputs/returns/correlation_matrix.csv`
+
+Figures:
+
+- `reports/figures/price_history.png`
+- `reports/figures/cumulative_returns.png`
+- `reports/figures/correlation_heatmap.png`
+- `reports/figures/risk_return_scatter.png`
 
 ## Planned Methodology
 
 1. Load public or manually supplied market data.
-2. Calculate returns, volatility, drawdowns, and benchmark-relative metrics.
-3. Research CAPM and factor exposures.
-4. Build simple portfolio optimization workflows.
-5. Backtest portfolio allocations.
-6. Interpret results through a research memo and career-ready project documentation.
+2. Calculate daily and monthly returns, annualized return, volatility, Sharpe ratio, drawdown, and correlations.
+3. Compare asset performance against SPY.
+4. Research CAPM and factor exposures.
+5. Build simple portfolio optimization workflows.
+6. Backtest portfolio allocations.
+7. Interpret results through a research memo and career-ready project documentation.
 
-## Planned Repo Structure
+## How to Run
+
+Install requirements first:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+Run the Phase 1 notebook:
+
+```bash
+jupyter nbconvert --to notebook --execute notebooks/01_market_data_and_returns.ipynb --output 01_market_data_and_returns_executed.ipynb
+```
+
+Or open the notebook interactively:
+
+```bash
+jupyter notebook notebooks/01_market_data_and_returns.ipynb
+```
+
+## Repo Structure
 
 ```text
 portfolio-optimization-factor-lab/
-  README.md
-  requirements.txt
-  .gitignore
   data/
     raw/
     processed/
@@ -54,12 +102,6 @@ portfolio-optimization-factor-lab/
     backtesting.py
     visualization.py
   reports/
-    research_memo.md
-    model_notes.md
-    resume_bullets.md
-    interview_talking_points.md
-    company_positioning.md
-    linkedin_post.md
     figures/
   outputs/
     returns/
@@ -67,17 +109,8 @@ portfolio-optimization-factor-lab/
     portfolios/
     backtests/
   docs/
-    PROJECT_BRIEF.md
-    DECISION_LOG.md
-    KNOWN_ISSUES.md
-    AGENT_HANDOFF.md
-    PRODUCTION_PROGRESS.md
 ```
 
-## Data Plan
+## Notes
 
-Market data will be downloaded or manually placed later. No market data is included in the setup phase.
-
-## Current Status
-
-Setup phase only. The repository structure and placeholder files are created, but no data loading, return analysis, factor research, optimization, backtesting, dashboard, or results have been implemented.
+No CAPM model, factor model, portfolio optimization, backtest, dashboard, or investment recommendation is included in Phase 1. Historical market data is descriptive and does not imply future performance.

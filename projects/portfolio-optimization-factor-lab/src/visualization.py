@@ -1,9 +1,76 @@
-"""Visualization placeholders for portfolio research outputs."""
+"""Plotly visualization helpers for market research outputs."""
+
+import plotly.express as px
 
 
-def plot_returns():
-    """Create return visualizations after return series are available."""
+DEFAULT_TEMPLATE = "plotly_white"
 
 
-def plot_portfolio_performance():
-    """Create portfolio performance charts after backtest results are available."""
+def plot_price_history(prices):
+    """Create a line chart of adjusted close prices."""
+    fig = px.line(
+        prices,
+        x=prices.index,
+        y=prices.columns,
+        title="Adjusted Close Price History",
+        labels={"value": "Adjusted close price", "variable": "Ticker", "date": "Date"},
+        template=DEFAULT_TEMPLATE,
+    )
+    fig.update_layout(legend_title_text="Ticker", margin=dict(l=40, r=20, t=60, b=40))
+    return fig
+
+
+def plot_cumulative_returns(returns):
+    """Create a line chart of cumulative returns."""
+    cumulative_returns = (1 + returns.fillna(0)).cumprod() - 1
+    fig = px.line(
+        cumulative_returns,
+        x=cumulative_returns.index,
+        y=cumulative_returns.columns,
+        title="Cumulative Returns",
+        labels={"value": "Cumulative return", "variable": "Ticker", "date": "Date"},
+        template=DEFAULT_TEMPLATE,
+    )
+    fig.update_layout(legend_title_text="Ticker", margin=dict(l=40, r=20, t=60, b=40))
+    fig.update_yaxes(tickformat=".0%")
+    return fig
+
+
+def plot_correlation_heatmap(returns):
+    """Create a heatmap of return correlations."""
+    correlation_matrix = returns.corr()
+    fig = px.imshow(
+        correlation_matrix,
+        text_auto=".2f",
+        color_continuous_scale="RdBu",
+        zmin=-1,
+        zmax=1,
+        title="Daily Return Correlation Matrix",
+        template=DEFAULT_TEMPLATE,
+    )
+    fig.update_layout(margin=dict(l=40, r=20, t=60, b=40))
+    return fig
+
+
+def plot_risk_return_scatter(summary_df):
+    """Create a risk-return scatter plot from an asset performance summary."""
+    plot_df = summary_df.reset_index()
+    plot_df = plot_df.rename(columns={plot_df.columns[0]: "ticker"})
+    fig = px.scatter(
+        plot_df,
+        x="annualized_volatility",
+        y="annualized_return",
+        text="ticker",
+        hover_name="ticker",
+        title="Annualized Risk and Return",
+        labels={
+            "annualized_volatility": "Annualized volatility",
+            "annualized_return": "Annualized return",
+        },
+        template=DEFAULT_TEMPLATE,
+    )
+    fig.update_traces(textposition="top center")
+    fig.update_layout(margin=dict(l=40, r=20, t=60, b=40))
+    fig.update_xaxes(tickformat=".0%")
+    fig.update_yaxes(tickformat=".0%")
+    return fig
