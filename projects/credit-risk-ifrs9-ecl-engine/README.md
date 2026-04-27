@@ -85,6 +85,18 @@ Open:
 notebooks/01_data_understanding.ipynb
 ```
 
+Run the Phase 2 PD modeling notebook:
+
+```bash
+jupyter notebook
+```
+
+Open:
+
+```text
+notebooks/02_pd_modeling.ipynb
+```
+
 The dashboard placeholder can be opened later with:
 
 ```bash
@@ -113,6 +125,21 @@ Phase 1 creates:
 - Additional available category and numeric EDA figures based on dataset columns
 - `notebooks/01_data_understanding_executed.ipynb` when notebook execution tooling is available
 
+## Generated Phase 2 Outputs
+
+Phase 2 creates:
+
+- `outputs/model/pd_logistic_regression.joblib`
+- `outputs/predictions/pd_predictions.csv`
+- `reports/figures/pd_roc_curve.png`
+- `reports/figures/pd_confusion_matrix.png`
+- `reports/figures/pd_score_distribution.png`
+- `reports/figures/pd_default_rate_by_score_band.png`
+- `reports/figures/pd_top_coefficients.png`
+- `notebooks/02_pd_modeling_executed.ipynb` when notebook execution tooling is available
+
+The Phase 2 model is a baseline logistic regression only. It does not include IFRS 9 staging, LGD, EAD, ECL calculations, or dashboard logic.
+
 ## Current Status
 
-Phase 1 data understanding is completed using the manually added LendingClub-style raw dataset. No PD model, ECL engine, dashboard logic, or fake results have been implemented.
+Phase 2 PD modeling is completed using the Phase 1 modeling sample. No ECL engine, IFRS 9 staging, dashboard logic, or fake results have been implemented.

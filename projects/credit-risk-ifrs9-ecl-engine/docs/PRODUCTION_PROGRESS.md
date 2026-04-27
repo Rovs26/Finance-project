@@ -22,8 +22,19 @@ Status: Done
 
 ## Phase 2: PD Modeling
 
+Status: Done
+
+- Built reusable feature and modeling utilities.
+- Trained a baseline logistic regression PD model.
+- Evaluated ROC AUC, accuracy, precision, recall, F1, confusion matrix, and classification report.
+- Saved Phase 2 figures to `reports/figures/`.
+- Saved model artifact to `outputs/model/pd_logistic_regression.joblib`.
+- Saved PD predictions to `outputs/predictions/pd_predictions.csv`.
+
+## Phase 3: ECL Engine
+
 Status: Next
 
-- Confirm target treatment before modeling.
-- Build preprocessing for numeric and categorical candidate features.
-- Train and evaluate a simple benchmark probability of default model.
+- Define starter LGD and EAD assumptions.
+- Use PD predictions as input to a basic ECL calculation.
+- Keep IFRS 9 staging out of scope until the simple ECL engine is correct.

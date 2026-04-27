@@ -2,41 +2,45 @@
 
 ## Current State
 
-Phase 1 data understanding has been completed for the Credit Risk and IFRS 9 Expected Credit Loss Engine. The project now has reusable data preparation helpers, plotting helpers, an executable data understanding notebook, EDA figures, and a small modeling-ready sample.
+Phase 2 PD modeling has been completed for the Credit Risk and IFRS 9 Expected Credit Loss Engine. The project now has a baseline logistic regression PD model, model evaluation figures, a model card, and PD prediction outputs for Phase 3.
 
 ## Files Changed
 
 - `README.md`
-- `notebooks/01_data_understanding.ipynb`
-- `notebooks/01_data_understanding_executed.ipynb`
-- `src/data_prep.py`
+- `notebooks/02_pd_modeling.ipynb`
+- `notebooks/02_pd_modeling_executed.ipynb`
+- `src/features.py`
+- `src/modeling.py`
 - `src/visualization.py`
+- `reports/model_card.md`
 - `docs/PRODUCTION_PROGRESS.md`
 - `docs/KNOWN_ISSUES.md`
 - `docs/AGENT_HANDOFF.md`
 
-## Dataset Detected
+## Data Used
 
-- `data/raw/accepted_2007_to_2018Q4.csv.gz`
-- Multiple CSV-style files were present, so the largest file was selected.
-- Phase 1 used a 50,000-row sample for GitHub-friendly exploration and output creation.
+- `data/processed/modeling_sample.csv`
+- 50,000 rows
+- Target column: `default_flag`
 
 ## Outputs Created
 
-- `data/processed/modeling_sample.csv`
-- `reports/figures/missing_values_top20.png`
-- `reports/figures/target_distribution.png`
-- `reports/figures/default_rate_by_grade.png`
-- `reports/figures/default_rate_by_sub_grade.png`
-- `reports/figures/default_rate_by_term.png`
-- `reports/figures/default_rate_by_home_ownership.png`
-- `reports/figures/default_rate_by_purpose.png`
-- `reports/figures/default_rate_by_verification_status.png`
-- `reports/figures/numeric_distribution_loan_amnt.png`
-- `reports/figures/numeric_distribution_int_rate.png`
-- `reports/figures/numeric_distribution_annual_inc.png`
-- `reports/figures/numeric_distribution_dti.png`
+- `outputs/model/pd_logistic_regression.joblib`
+- `outputs/predictions/pd_predictions.csv`
+- `reports/figures/pd_roc_curve.png`
+- `reports/figures/pd_confusion_matrix.png`
+- `reports/figures/pd_score_distribution.png`
+- `reports/figures/pd_default_rate_by_score_band.png`
+- `reports/figures/pd_top_coefficients.png`
+
+## Metrics Achieved
+
+- ROC AUC: 0.701
+- Accuracy: 0.632
+- Precision: 0.285
+- Recall: 0.651
+- F1 score: 0.396
 
 ## Next Recommended Task
 
-Start Phase 2 by confirming the `loan_status` to `default_flag` mapping, then build a simple preprocessing and benchmark PD modeling workflow in `notebooks/02_pd_modeling.ipynb`.
+Start Phase 3 by defining transparent LGD and EAD assumptions, then use `outputs/predictions/pd_predictions.csv` to build the first ECL calculation notebook. Do not add IFRS 9 staging until the simple ECL engine is working.
