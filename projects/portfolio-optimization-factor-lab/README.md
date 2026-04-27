@@ -14,12 +14,12 @@ Target companies include JPMorgan Chase, MSCI, Wells Fargo, P&G Philippines, BPI
 
 ## Current Status
 
-Phase 1 market data and returns analysis is completed.
+Phase 2 CAPM and single-index factor research is completed.
 
 - Phase 0 setup: completed
 - Phase 1 market data and returns: completed
-- Phase 2 CAPM and factor research: next
-- Phase 3 portfolio optimization: not started
+- Phase 2 CAPM and factor research: completed
+- Phase 3 portfolio optimization: next
 - Phase 4 backtesting and interpretation: not started
 - Phase 5 GitHub polish: not started
 
@@ -48,6 +48,29 @@ Figures:
 - `reports/figures/correlation_heatmap.png`
 - `reports/figures/risk_return_scatter.png`
 
+## Generated Phase 2 Outputs
+
+CAPM and single-index research outputs:
+
+- `outputs/factors/capm_metrics.csv`
+- `outputs/factors/single_index_regression.csv`
+- `outputs/factors/rolling_beta.csv`
+- `outputs/factors/factor_summary.csv`
+
+Figures:
+
+- `reports/figures/capm_beta_by_asset.png`
+- `reports/figures/capm_alpha_by_asset.png`
+- `reports/figures/benchmark_correlation_by_asset.png`
+- `reports/figures/rolling_beta_selected_assets.png`
+
+Key Phase 2 findings:
+
+- Highest beta: `NVDA`, approximately `1.82`
+- Lowest beta: `JNJ`, approximately `0.42`
+- Highest benchmark correlation: `MSFT`, approximately `0.79`
+- Phase 2 used a NumPy regression fallback because the local statsmodels/SciPy stack is incompatible with the installed NumPy version.
+
 ## Planned Methodology
 
 1. Load public or manually supplied market data.
@@ -72,6 +95,12 @@ Run the Phase 1 notebook:
 
 ```bash
 jupyter nbconvert --to notebook --execute notebooks/01_market_data_and_returns.ipynb --output 01_market_data_and_returns_executed.ipynb
+```
+
+Run the Phase 2 notebook:
+
+```bash
+jupyter nbconvert --to notebook --execute notebooks/02_capm_factor_research.ipynb --output 02_capm_factor_research_executed.ipynb
 ```
 
 Or open the notebook interactively:
@@ -113,4 +142,4 @@ portfolio-optimization-factor-lab/
 
 ## Notes
 
-No CAPM model, factor model, portfolio optimization, backtest, dashboard, or investment recommendation is included in Phase 1. Historical market data is descriptive and does not imply future performance.
+No portfolio optimization, backtest, dashboard, or investment recommendation is included through Phase 2. Historical market data and CAPM estimates are descriptive and do not imply future performance.

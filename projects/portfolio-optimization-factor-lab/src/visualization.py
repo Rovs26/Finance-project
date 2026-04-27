@@ -74,3 +74,39 @@ def plot_risk_return_scatter(summary_df):
     fig.update_xaxes(tickformat=".0%")
     fig.update_yaxes(tickformat=".0%")
     return fig
+
+
+def plot_factor_bar(factor_df, value_col, title, y_axis_title=None):
+    """Create a bar chart for a factor metric by asset."""
+    plot_df = factor_df.reset_index()
+    plot_df = plot_df.rename(columns={plot_df.columns[0]: "ticker"})
+    fig = px.bar(
+        plot_df,
+        x="ticker",
+        y=value_col,
+        title=title,
+        labels={"ticker": "Ticker", value_col: y_axis_title or value_col},
+        template=DEFAULT_TEMPLATE,
+    )
+    fig.update_layout(margin=dict(l=40, r=20, t=60, b=40), showlegend=False)
+    return fig
+
+
+def plot_rolling_beta(rolling_beta, selected_assets=None):
+    """Create a line chart of rolling beta by asset."""
+    if selected_assets is not None:
+        available_assets = [asset for asset in selected_assets if asset in rolling_beta.columns]
+        plot_data = rolling_beta[available_assets]
+    else:
+        plot_data = rolling_beta
+
+    fig = px.line(
+        plot_data,
+        x=plot_data.index,
+        y=plot_data.columns,
+        title="126-Day Rolling Beta vs SPY",
+        labels={"value": "Rolling beta", "variable": "Ticker", "date": "Date"},
+        template=DEFAULT_TEMPLATE,
+    )
+    fig.update_layout(legend_title_text="Ticker", margin=dict(l=40, r=20, t=60, b=40))
+    return fig
