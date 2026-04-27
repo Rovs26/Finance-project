@@ -74,6 +74,7 @@ The model shows moderate discriminatory power for a starter PD benchmark. The ba
 
 - Portfolio demonstration of baseline credit risk modeling.
 - Input candidate for Phase 3 ECL engine development.
+- Input to Phase 4A business interpretation and dashboard-ready summary tables.
 - Educational analysis for early-career risk analytics, fintech analytics, and financial data analytics roles.
 
 ## Not Intended Use
@@ -90,3 +91,4 @@ The model shows moderate discriminatory power for a starter PD benchmark. The ba
 - Review coefficient stability and feature leakage risk.
 - Calibrate PD scores before ECL use.
 - Compare against additional models only after the baseline workflow is fully documented.
+- Revisit ECL assumptions after improving PD calibration and validation.

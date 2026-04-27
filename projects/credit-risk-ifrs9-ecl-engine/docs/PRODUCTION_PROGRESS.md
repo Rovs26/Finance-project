@@ -43,10 +43,20 @@ Status: Done
 - Saved scenario summary to `outputs/predictions/ecl_scenario_summary.csv`.
 - Saved Phase 3 ECL figures to `reports/figures/`.
 
-## Phase 4: Business Interpretation and Dashboard
+## Phase 4A: Business Interpretation
 
-Status: Next
+Status: Done
 
 - Build business interpretation notebook using ECL outputs.
 - Prepare dashboard-ready summary views.
-- Build Streamlit dashboard after interpretation outputs are finalized.
+- Created resume bullets, interview talking points, company positioning, and LinkedIn post drafts.
+- Polished the business memo and aligned the model card with downstream use.
+- Saved dashboard-ready tables to `outputs/predictions/`.
+
+## Phase 4B: Streamlit Dashboard
+
+Status: Next
+
+- Build Streamlit dashboard from the Phase 4A dashboard-ready tables.
+- Include portfolio overview, stage analysis, score band analysis, grade/purpose views, and scenario comparison.
+- Keep limitations visible in the dashboard.

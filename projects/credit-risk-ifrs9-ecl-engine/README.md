@@ -109,6 +109,18 @@ Open:
 notebooks/03_ecl_engine.ipynb
 ```
 
+Run the Phase 4A business interpretation notebook:
+
+```bash
+jupyter notebook
+```
+
+Open:
+
+```text
+notebooks/04_business_interpretation.ipynb
+```
+
 The dashboard placeholder can be opened later with:
 
 ```bash
@@ -177,6 +189,27 @@ Phase 3 uses simplified IFRS 9-style staging for portfolio analytics only:
 
 This is not official IFRS 9 compliance logic.
 
+## Generated Phase 4A Outputs
+
+Phase 4A creates dashboard-ready tables:
+
+- `outputs/predictions/dashboard_summary.csv`
+- `outputs/predictions/ecl_by_stage.csv`
+- `outputs/predictions/ecl_by_score_band.csv`
+- `outputs/predictions/ecl_by_grade.csv`
+- `outputs/predictions/ecl_by_purpose.csv`
+
+Phase 4A also creates portfolio presentation materials:
+
+- `reports/resume_bullets.md`
+- `reports/interview_talking_points.md`
+- `reports/company_positioning.md`
+- `reports/linkedin_post.md`
+- polished `reports/business_memo.md`
+- updated `reports/model_card.md`
+
+The dashboard-ready tables are prepared for the next Streamlit phase, but the dashboard has not been built yet.
+
 ## Current Status
 
-Phase 3 ECL engine is completed using the Phase 2 PD predictions. No dashboard has been built yet.
+Phase 4A business interpretation is completed using the Phase 3 ECL outputs. No Streamlit dashboard has been built yet. The project remains a portfolio analytics prototype, not a production bank system or official IFRS 9 model.

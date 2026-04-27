@@ -15,4 +15,7 @@
 - Phase 3 LGD is a simplified home-ownership rule, not a recovery model.
 - Phase 3 staging is a simplified PD-threshold proxy, not official IFRS 9 compliance logic.
 - Scenario analysis applies simple PD and LGD multipliers only; no macroeconomic model is included.
+- No blocking issue found in Phase 4A.
+- `ecl_by_grade.csv` and `ecl_by_purpose.csv` were created because `grade` and `purpose` are available in `outputs/ecl_results.csv`.
+- Dashboard-ready tables are prepared, but the Streamlit dashboard is not yet built.
 - Dashboard not yet implemented.
