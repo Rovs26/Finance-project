@@ -97,6 +97,18 @@ Open:
 notebooks/02_pd_modeling.ipynb
 ```
 
+Run the Phase 3 ECL engine notebook:
+
+```bash
+jupyter notebook
+```
+
+Open:
+
+```text
+notebooks/03_ecl_engine.ipynb
+```
+
 The dashboard placeholder can be opened later with:
 
 ```bash
@@ -140,6 +152,31 @@ Phase 2 creates:
 
 The Phase 2 model is a baseline logistic regression only. It does not include IFRS 9 staging, LGD, EAD, ECL calculations, or dashboard logic.
 
+## Generated Phase 3 Outputs
+
+Phase 3 creates:
+
+- `outputs/ecl_results.csv`
+- `outputs/predictions/ecl_scenario_summary.csv`
+- `reports/figures/ecl_by_stage.png`
+- `reports/figures/exposure_by_stage.png`
+- `reports/figures/ecl_by_score_band.png`
+- `reports/figures/ecl_by_grade.png`
+- `reports/figures/ecl_by_purpose.png`
+- `reports/figures/scenario_ecl_comparison.png`
+- `reports/figures/ecl_distribution.png`
+- `notebooks/03_ecl_engine_executed.ipynb` when notebook execution tooling is available
+
+Scenario analysis includes Base, Mild stress, and Severe stress cases using PD and LGD multipliers. PD and LGD are capped at 100%.
+
+Phase 3 uses simplified IFRS 9-style staging for portfolio analytics only:
+
+- Stage 1: `pd_score < 0.20`
+- Stage 2: `0.20 <= pd_score < 0.50`
+- Stage 3: `pd_score >= 0.50` or `default_flag == 1`
+
+This is not official IFRS 9 compliance logic.
+
 ## Current Status
 
-Phase 2 PD modeling is completed using the Phase 1 modeling sample. No ECL engine, IFRS 9 staging, dashboard logic, or fake results have been implemented.
+Phase 3 ECL engine is completed using the Phase 2 PD predictions. No dashboard has been built yet.

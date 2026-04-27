@@ -33,8 +33,20 @@ Status: Done
 
 ## Phase 3: ECL Engine
 
+Status: Done
+
+- Defined starter EAD and LGD assumptions.
+- Assigned simplified IFRS 9-style stages.
+- Calculated row-level ECL using PD x LGD x EAD.
+- Created Base, Mild stress, and Severe stress scenario summaries.
+- Saved ECL results to `outputs/ecl_results.csv`.
+- Saved scenario summary to `outputs/predictions/ecl_scenario_summary.csv`.
+- Saved Phase 3 ECL figures to `reports/figures/`.
+
+## Phase 4: Business Interpretation and Dashboard
+
 Status: Next
 
-- Define starter LGD and EAD assumptions.
-- Use PD predictions as input to a basic ECL calculation.
-- Keep IFRS 9 staging out of scope until the simple ECL engine is correct.
+- Build business interpretation notebook using ECL outputs.
+- Prepare dashboard-ready summary views.
+- Build Streamlit dashboard after interpretation outputs are finalized.

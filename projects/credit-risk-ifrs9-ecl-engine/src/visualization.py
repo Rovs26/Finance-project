@@ -249,3 +249,58 @@ def plot_top_coefficients(coefficients: pd.DataFrame, top_n: int = 20) -> Image.
         x_label="Absolute coefficient value",
         color="#0F766E",
     )
+
+
+def plot_ecl_by_group(
+    summary: pd.DataFrame,
+    group_col: str,
+    value_col: str = "total_ecl",
+    title: str | None = None,
+    top_n: int = 20,
+) -> Image.Image:
+    """Plot ECL or exposure by a grouped ECL summary."""
+    plot_data = summary.sort_values(value_col, ascending=False).head(top_n)
+    plot_data = plot_data.sort_values(value_col)
+    return _bar_chart(
+        labels=plot_data[group_col].tolist(),
+        values=plot_data[value_col].round(2).tolist(),
+        title=title or f"{value_col} by {group_col}",
+        x_label=value_col,
+        color="#1D4ED8",
+    )
+
+
+def plot_scenario_comparison(
+    scenario_summary: pd.DataFrame,
+    value_col: str = "total_ecl",
+) -> Image.Image:
+    """Plot total ECL across stress scenarios."""
+    plot_data = scenario_summary.sort_values(value_col)
+    return _bar_chart(
+        labels=plot_data["scenario"].tolist(),
+        values=plot_data[value_col].round(2).tolist(),
+        title="Scenario ECL Comparison",
+        x_label=value_col,
+        color="#B45309",
+        height=420,
+    )
+
+
+def plot_ecl_distribution(df: pd.DataFrame, ecl_col: str = "ecl", bins: int = 30) -> Image.Image:
+    """Plot the distribution of row-level ECL."""
+    values = pd.to_numeric(df[ecl_col], errors="coerce").dropna()
+    if values.empty:
+        labels: list[str] = []
+        counts: list[int] = []
+    else:
+        binned = pd.cut(values, bins=bins, include_lowest=True, duplicates="drop")
+        counts_series = binned.value_counts(sort=False)
+        labels = [f"{interval.left:,.0f} to {interval.right:,.0f}" for interval in counts_series.index]
+        counts = counts_series.astype(int).tolist()
+    return _bar_chart(
+        labels=labels,
+        values=counts,
+        title="ECL Distribution",
+        x_label="Row count",
+        color="#7C2D12",
+    )
