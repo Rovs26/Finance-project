@@ -2,55 +2,49 @@
 
 ## Current State
 
-Phase 4A business interpretation has been completed for the Credit Risk and IFRS 9 Expected Credit Loss Engine. The project now has dashboard-ready summary tables, a polished business memo, resume bullets, interview talking points, company positioning notes, and LinkedIn post drafts.
+Phase 4B Streamlit dashboard has been completed for the Credit Risk and IFRS 9 Expected Credit Loss Engine. The project now has an interactive dashboard that reads the existing ECL output tables and loan-level ECL results.
 
 ## Files Changed
 
 - `README.md`
-- `notebooks/04_business_interpretation.ipynb`
-- `notebooks/04_business_interpretation_executed.ipynb`
-- `reports/business_memo.md`
-- `reports/model_card.md`
-- `reports/resume_bullets.md`
-- `reports/interview_talking_points.md`
-- `reports/company_positioning.md`
-- `reports/linkedin_post.md`
+- `dashboard/app.py`
 - `docs/PRODUCTION_PROGRESS.md`
 - `docs/KNOWN_ISSUES.md`
 - `docs/AGENT_HANDOFF.md`
 
-## Input Used
+## Dashboard Pages Built
+
+- Portfolio Overview
+- IFRS 9 Staging
+- Risk Segments
+- Scenario Analysis
+- Loan-Level Explorer
+- Methodology and Limitations
+
+## Dashboard Inputs
 
 - `outputs/ecl_results.csv`
-- `outputs/predictions/ecl_scenario_summary.csv`
-- 50,000 rows
-
-## Dashboard-ready Tables Created
-
 - `outputs/predictions/dashboard_summary.csv`
 - `outputs/predictions/ecl_by_stage.csv`
 - `outputs/predictions/ecl_by_score_band.csv`
 - `outputs/predictions/ecl_by_grade.csv`
 - `outputs/predictions/ecl_by_purpose.csv`
+- `outputs/predictions/ecl_scenario_summary.csv`
 
-## Key Portfolio Outputs Created
+## Run Command
 
-- Polished business memo
-- Resume bullet variants
-- Interview talking points
-- Company-specific positioning for 15 target organizations
-- LinkedIn post drafts
+```bash
+streamlit run dashboard/app.py
+```
 
-## Key Business Findings
+## Dashboard Features
 
-- Total loans: 50,000
-- Total exposure: 750,967,975.00
-- Total ECL: 146,297,248.66
-- ECL rate: 19.48%
-- Stage 3 has the largest ECL concentration.
-- Grade C has the largest grade-level ECL concentration.
-- Debt consolidation has the largest purpose-level ECL concentration.
+- KPI cards for portfolio summary.
+- Plotly charts for stage, score band, segment, and scenario views.
+- Filterable loan-level explorer with a 500-row display limit.
+- Download button for filtered loan-level rows.
+- Visible methodology and limitations page.
 
 ## Next Recommended Task
 
-Start Phase 4B by building the Streamlit dashboard from the dashboard-ready tables. The first dashboard view should show portfolio KPIs, ECL by stage, ECL by score band, grade/purpose concentration, and scenario comparison.
+Start Phase 5 by polishing the GitHub presentation, deciding whether generated output artifacts should stay ignored or be committed, and adding final usage notes or screenshots.

@@ -55,8 +55,17 @@ Status: Done
 
 ## Phase 4B: Streamlit Dashboard
 
-Status: Next
+Status: Done
 
 - Build Streamlit dashboard from the Phase 4A dashboard-ready tables.
 - Include portfolio overview, stage analysis, score band analysis, grade/purpose views, and scenario comparison.
 - Keep limitations visible in the dashboard.
+
+## Phase 5: Polish and GitHub Cleanup
+
+Status: Next
+
+- Review README and report links for GitHub presentation.
+- Decide which ignored generated artifacts should remain reproducible only versus committed.
+- Add screenshots or usage notes if desired.
+- Clean up local environment notes and final limitations.

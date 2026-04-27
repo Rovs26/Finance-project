@@ -1,9 +1,383 @@
-"""Minimal Streamlit placeholder for the future ECL dashboard."""
+"""Streamlit dashboard for the Credit Risk and IFRS 9-style ECL project."""
 
+from __future__ import annotations
+
+from pathlib import Path
+
+import pandas as pd
+import plotly.express as px
 import streamlit as st
 
 
-st.set_page_config(page_title="Credit Risk IFRS 9 ECL Engine", layout="wide")
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PREDICTIONS_DIR = PROJECT_ROOT / "outputs" / "predictions"
+ECL_RESULTS_PATH = PROJECT_ROOT / "outputs" / "ecl_results.csv"
 
-st.title("Credit Risk and IFRS 9 ECL Engine")
-st.info("The dashboard will be built after ECL outputs are generated.")
+REQUIRED_FILES = {
+    "dashboard_summary": PREDICTIONS_DIR / "dashboard_summary.csv",
+    "ecl_by_stage": PREDICTIONS_DIR / "ecl_by_stage.csv",
+    "ecl_by_score_band": PREDICTIONS_DIR / "ecl_by_score_band.csv",
+    "scenario_summary": PREDICTIONS_DIR / "ecl_scenario_summary.csv",
+    "ecl_results": ECL_RESULTS_PATH,
+}
+
+OPTIONAL_FILES = {
+    "ecl_by_grade": PREDICTIONS_DIR / "ecl_by_grade.csv",
+    "ecl_by_purpose": PREDICTIONS_DIR / "ecl_by_purpose.csv",
+}
+
+
+def format_currency(value: float) -> str:
+    """Format a numeric value as compact currency."""
+    if pd.isna(value):
+        return "N/A"
+    value = float(value)
+    abs_value = abs(value)
+    if abs_value >= 1_000_000_000:
+        return f"${value / 1_000_000_000:,.2f}B"
+    if abs_value >= 1_000_000:
+        return f"${value / 1_000_000:,.2f}M"
+    if abs_value >= 1_000:
+        return f"${value / 1_000:,.2f}K"
+    return f"${value:,.2f}"
+
+
+def format_percent(value: float) -> str:
+    """Format a decimal value as a percentage."""
+    if pd.isna(value):
+        return "N/A"
+    return f"{float(value):.2%}"
+
+
+@st.cache_data(show_spinner=False)
+def load_csv(path: Path, required: bool = True) -> pd.DataFrame:
+    """Load a CSV file with clear Streamlit errors."""
+    if not path.exists():
+        if required:
+            st.error(f"Required file is missing: `{path.relative_to(PROJECT_ROOT)}`")
+            st.stop()
+        return pd.DataFrame()
+    try:
+        return pd.read_csv(path)
+    except Exception as exc:
+        st.error(f"Could not load `{path.relative_to(PROJECT_ROOT)}`: {exc}")
+        st.stop()
+
+
+def render_kpi_row(summary: pd.Series) -> None:
+    """Render the portfolio KPI row."""
+    cols = st.columns(6)
+    cols[0].metric("Loans", f"{int(summary['total_loans']):,}")
+    cols[1].metric("Exposure", format_currency(summary["total_exposure"]))
+    cols[2].metric("ECL", format_currency(summary["total_ecl"]))
+    cols[3].metric("ECL Rate", format_percent(summary["ecl_rate"]))
+    cols[4].metric("Avg PD", format_percent(summary["average_pd"]))
+    cols[5].metric("Avg LGD", format_percent(summary["average_lgd"]))
+
+
+def bar_chart(
+    df: pd.DataFrame,
+    x: str,
+    y: str,
+    title: str,
+    color: str | None = None,
+    labels: dict | None = None,
+) -> None:
+    """Render a Plotly bar chart."""
+    if df.empty:
+        st.info("No data available for this chart.")
+        return
+    chart = px.bar(
+        df,
+        x=x,
+        y=y,
+        color=color,
+        title=title,
+        text_auto=".2s",
+        labels=labels,
+    )
+    chart.update_layout(
+        margin=dict(l=20, r=20, t=60, b=20),
+        xaxis_title=labels.get(x, x) if labels else x,
+        yaxis_title=labels.get(y, y) if labels else y,
+        showlegend=bool(color),
+    )
+    st.plotly_chart(chart, use_container_width=True)
+
+
+def safe_table(df: pd.DataFrame, max_rows: int = 500) -> None:
+    """Display a bounded, copy-safe table."""
+    if df.empty:
+        st.info("No rows available.")
+        return
+    st.dataframe(df.head(max_rows), use_container_width=True, hide_index=True)
+    if len(df) > max_rows:
+        st.caption(f"Showing first {max_rows:,} of {len(df):,} rows.")
+
+
+def page_portfolio_overview(
+    dashboard_summary: pd.DataFrame,
+    ecl_by_stage: pd.DataFrame,
+    ecl_by_score_band: pd.DataFrame,
+) -> None:
+    """Render the portfolio overview page."""
+    st.header("Portfolio Overview")
+    summary = dashboard_summary.iloc[0]
+    render_kpi_row(summary)
+
+    st.write(
+        "The sample portfolio contains 50,000 loans. Under the simplified ECL "
+        "assumptions, expected loss is concentrated in Stage 3 and higher PD score bands."
+    )
+
+    left, right = st.columns(2)
+    with left:
+        bar_chart(
+            ecl_by_stage,
+            x="group_value",
+            y="total_ecl",
+            title="ECL by IFRS 9-style Stage",
+            labels={"group_value": "Stage", "total_ecl": "Total ECL"},
+        )
+    with right:
+        bar_chart(
+            ecl_by_score_band,
+            x="group_value",
+            y="total_ecl",
+            title="ECL by PD Score Band",
+            labels={"group_value": "PD score band", "total_ecl": "Total ECL"},
+        )
+
+
+def page_ifrs9_staging(ecl_by_stage: pd.DataFrame) -> None:
+    """Render the simplified staging page."""
+    st.header("IFRS 9 Staging")
+    st.write(
+        "Simplified staging rules: Stage 1 uses `pd_score < 0.20`; Stage 2 uses "
+        "`0.20 <= pd_score < 0.50`; Stage 3 uses `pd_score >= 0.50` or `default_flag == 1`."
+    )
+
+    safe_table(ecl_by_stage)
+
+    left, right = st.columns(2)
+    with left:
+        bar_chart(
+            ecl_by_stage,
+            x="group_value",
+            y="total_exposure",
+            title="Exposure by Stage",
+            labels={"group_value": "Stage", "total_exposure": "Total exposure"},
+        )
+    with right:
+        bar_chart(
+            ecl_by_stage,
+            x="group_value",
+            y="total_ecl",
+            title="ECL by Stage",
+            labels={"group_value": "Stage", "total_ecl": "Total ECL"},
+        )
+
+
+def page_risk_segments(ecl_by_grade: pd.DataFrame, ecl_by_purpose: pd.DataFrame) -> None:
+    """Render grade and purpose segment views."""
+    st.header("Risk Segments")
+    st.write(
+        "These views identify concentration risk by available portfolio segments. "
+        "They are useful for business review, not for standalone credit decisions."
+    )
+
+    if not ecl_by_grade.empty:
+        st.subheader("Grade")
+        bar_chart(
+            ecl_by_grade,
+            x="group_value",
+            y="total_ecl",
+            title="ECL by Grade",
+            labels={"group_value": "Grade", "total_ecl": "Total ECL"},
+        )
+        safe_table(ecl_by_grade)
+    else:
+        st.info("Grade summary file is not available.")
+
+    if not ecl_by_purpose.empty:
+        st.subheader("Purpose")
+        bar_chart(
+            ecl_by_purpose.head(12),
+            x="group_value",
+            y="total_ecl",
+            title="ECL by Purpose",
+            labels={"group_value": "Purpose", "total_ecl": "Total ECL"},
+        )
+        safe_table(ecl_by_purpose)
+    else:
+        st.info("Purpose summary file is not available.")
+
+
+def page_scenario_analysis(scenarios: pd.DataFrame) -> None:
+    """Render scenario analysis page."""
+    st.header("Scenario Analysis")
+    st.write(
+        "Stress scenarios apply transparent PD and LGD multipliers. Stressed PD and LGD "
+        "are capped at 100% in the Phase 3 ECL engine."
+    )
+
+    bar_chart(
+        scenarios,
+        x="scenario",
+        y="total_ecl",
+        title="Scenario Total ECL Comparison",
+        labels={"scenario": "Scenario", "total_ecl": "Total ECL"},
+    )
+    safe_table(scenarios)
+
+    multiplier_cols = [col for col in ["scenario", "pd_multiplier", "lgd_multiplier"] if col in scenarios.columns]
+    if multiplier_cols:
+        st.subheader("Stress Multipliers")
+        safe_table(scenarios[multiplier_cols])
+
+
+def page_loan_level_explorer(ecl_results: pd.DataFrame) -> None:
+    """Render filterable loan-level ECL explorer."""
+    st.header("Loan-Level Explorer")
+    st.write("Filter row-level ECL output and download the current filtered view.")
+
+    filtered = ecl_results.copy()
+    filter_cols = {
+        "ifrs9_stage": "IFRS 9 stage",
+        "pd_score_band": "PD score band",
+        "grade": "Grade",
+        "purpose": "Purpose",
+    }
+
+    for col, label in filter_cols.items():
+        if col in filtered.columns:
+            values = sorted(filtered[col].dropna().astype(str).unique().tolist())
+            selected = st.multiselect(label, values, default=values)
+            filtered = filtered[filtered[col].astype(str).isin(selected)]
+
+    safe_cols = [
+        "row_id",
+        "default_flag",
+        "pd_score",
+        "pd_score_band",
+        "ead",
+        "lgd",
+        "ifrs9_stage",
+        "ecl",
+        "loan_amnt",
+        "term",
+        "int_rate",
+        "grade",
+        "sub_grade",
+        "home_ownership",
+        "annual_inc",
+        "verification_status",
+        "purpose",
+        "dti",
+        "revol_util",
+        "total_acc",
+    ]
+    display_cols = [col for col in safe_cols if col in filtered.columns]
+    st.caption(f"Filtered rows: {len(filtered):,}")
+    safe_table(filtered[display_cols], max_rows=500)
+    st.download_button(
+        "Download filtered rows",
+        filtered[display_cols].to_csv(index=False).encode("utf-8"),
+        file_name="filtered_ecl_rows.csv",
+        mime="text/csv",
+    )
+
+
+def page_methodology_limitations() -> None:
+    """Render methodology and limitations page."""
+    st.header("Methodology and Limitations")
+    st.subheader("Plain-English Methodology")
+    st.write(
+        "PD estimates the likelihood of default. LGD estimates the share of exposure lost "
+        "if default happens. EAD estimates exposure at default. ECL combines them as "
+        "`PD x LGD x EAD`."
+    )
+
+    st.subheader("Simplified Assumptions")
+    st.markdown(
+        """
+        - EAD uses `loan_amnt`.
+        - LGD uses a home ownership adjustment.
+        - Staging uses PD thresholds and `default_flag`.
+        - Scenarios use PD and LGD multipliers.
+        - This dashboard is a portfolio analytics project, not a regulatory production IFRS 9 model.
+        """
+    )
+
+    st.subheader("Next Improvements")
+    st.markdown(
+        """
+        - Lifetime PD
+        - Macroeconomic overlays
+        - Discounting
+        - Model validation
+        - Monitoring
+        - Data quality checks
+        """
+    )
+
+
+def main() -> None:
+    """Run the dashboard."""
+    st.set_page_config(
+        page_title="Credit Risk IFRS 9 ECL Engine",
+        layout="wide",
+    )
+
+    st.title("Credit Risk and IFRS 9-style Expected Credit Loss Engine")
+    st.write(
+        "A portfolio analytics dashboard for reviewing PD scores, simplified IFRS 9-style "
+        "stages, ECL concentration, stress scenarios, and row-level ECL outputs."
+    )
+    st.warning(
+        "Portfolio project only: this is not a regulatory IFRS 9 production model, "
+        "not a bank decision engine, and not a validated credit approval system."
+    )
+
+    for name, path in REQUIRED_FILES.items():
+        if not path.exists():
+            st.error(f"Missing required dashboard input `{name}`: `{path.relative_to(PROJECT_ROOT)}`")
+            st.stop()
+
+    dashboard_summary = load_csv(REQUIRED_FILES["dashboard_summary"])
+    ecl_by_stage = load_csv(REQUIRED_FILES["ecl_by_stage"])
+    ecl_by_score_band = load_csv(REQUIRED_FILES["ecl_by_score_band"])
+    scenarios = load_csv(REQUIRED_FILES["scenario_summary"])
+    ecl_results = load_csv(REQUIRED_FILES["ecl_results"])
+    ecl_by_grade = load_csv(OPTIONAL_FILES["ecl_by_grade"], required=False)
+    ecl_by_purpose = load_csv(OPTIONAL_FILES["ecl_by_purpose"], required=False)
+
+    page = st.sidebar.radio(
+        "Dashboard page",
+        [
+            "Portfolio Overview",
+            "IFRS 9 Staging",
+            "Risk Segments",
+            "Scenario Analysis",
+            "Loan-Level Explorer",
+            "Methodology and Limitations",
+        ],
+    )
+    st.sidebar.caption("Data source: generated Phase 3 and Phase 4A CSV outputs.")
+
+    if page == "Portfolio Overview":
+        page_portfolio_overview(dashboard_summary, ecl_by_stage, ecl_by_score_band)
+    elif page == "IFRS 9 Staging":
+        page_ifrs9_staging(ecl_by_stage)
+    elif page == "Risk Segments":
+        page_risk_segments(ecl_by_grade, ecl_by_purpose)
+    elif page == "Scenario Analysis":
+        page_scenario_analysis(scenarios)
+    elif page == "Loan-Level Explorer":
+        page_loan_level_explorer(ecl_results)
+    else:
+        page_methodology_limitations()
+
+
+if __name__ == "__main__":
+    main()

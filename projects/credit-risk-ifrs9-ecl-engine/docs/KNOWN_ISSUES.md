@@ -17,5 +17,6 @@
 - Scenario analysis applies simple PD and LGD multipliers only; no macroeconomic model is included.
 - No blocking issue found in Phase 4A.
 - `ecl_by_grade.csv` and `ecl_by_purpose.csv` were created because `grade` and `purpose` are available in `outputs/ecl_results.csv`.
-- Dashboard-ready tables are prepared, but the Streamlit dashboard is not yet built.
-- Dashboard not yet implemented.
+- No blocking issue found in Phase 4B.
+- Dashboard depends on Streamlit and Plotly being installed in the active Python environment.
+- Dashboard uses existing generated CSV outputs; if those ignored artifacts are deleted, rerun prior phases before launching the app.
