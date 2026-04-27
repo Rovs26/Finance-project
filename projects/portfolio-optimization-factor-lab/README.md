@@ -45,6 +45,28 @@ Target companies include JPMorgan Chase, MSCI, Wells Fargo, P&G Philippines, BPI
 - The equal-weight portfolio had a Sharpe ratio of about `1.37` and the highest correlation to SPY among portfolio strategies.
 - The minimum-volatility portfolio had the least severe portfolio-strategy drawdown at about `-30.26%`.
 
+## Selected Visuals
+
+![Cumulative returns by asset](reports/figures/cumulative_returns.png)
+
+Asset-level cumulative returns for the selected equity universe and SPY benchmark.
+
+![CAPM beta by asset](reports/figures/capm_beta_by_asset.png)
+
+Benchmark sensitivity comparison showing higher-beta and more defensive assets.
+
+![Efficient frontier simulation](reports/figures/efficient_frontier_simulation.png)
+
+Random long-only portfolio simulation showing risk-return tradeoffs.
+
+![Backtest cumulative returns](reports/figures/backtest_cumulative_returns.png)
+
+Fixed-weight strategy cumulative returns versus SPY.
+
+![Backtest risk-return comparison](reports/figures/backtest_risk_return_comparison.png)
+
+Strategy-level risk-return comparison across the backtest period.
+
 ## Methodology
 
 1. Market data and returns: download prices, calculate daily/monthly returns, summarize risk and return.

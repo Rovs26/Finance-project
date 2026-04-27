@@ -52,6 +52,7 @@ Status: Done
 Status: Done
 
 - Rewrote README for recruiter and hiring-manager readability.
+- Added selected project visuals to the README from existing generated figures.
 - Polished research memo and model notes.
 - Added resume bullets, interview talking points, company positioning, and LinkedIn post drafts.
 - Updated `.gitignore` to protect raw data and generated artifacts.
@@ -60,5 +61,5 @@ Status: Done
 
 Status: Optional
 
-- Add screenshots to the README.
-- Add an optional lightweight dashboard after the GitHub version is reviewed.
+- Review README rendering on GitHub.
+- Add optional dashboard only if needed later.

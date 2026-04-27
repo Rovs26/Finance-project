@@ -26,6 +26,16 @@ The Portfolio Optimization and Factor Research Lab is complete through Phase 5. 
 - `docs/KNOWN_ISSUES.md`
 - `docs/AGENT_HANDOFF.md`
 
+## Final Packaging Update
+
+The README now includes selected visual previews from existing generated figures:
+
+- `reports/figures/cumulative_returns.png`
+- `reports/figures/capm_beta_by_asset.png`
+- `reports/figures/efficient_frontier_simulation.png`
+- `reports/figures/backtest_cumulative_returns.png`
+- `reports/figures/backtest_risk_return_comparison.png`
+
 ## Commands Verified
 
 - `python3 -m compileall src`
@@ -37,6 +47,6 @@ This project is positioned for early-career finance, investment analytics, finan
 
 ## Next Optional Improvements
 
-- Add screenshots of key figures to the README.
-- Add a lightweight dashboard only if needed.
+- Review README rendering on GitHub.
+- Add optional dashboard only if needed later.
 - Add walk-forward optimization, transaction costs, and rebalancing logic in a future technical extension.
