@@ -13,18 +13,21 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Raw and processed data
-data/raw/*
-data/processed/*
-data/external/*
+data/raw/**
+data/processed/**
+data/external/**
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/external/.gitkeep
 
 # Generated outputs
-outputs/returns/*
-outputs/factors/*
-outputs/portfolios/*
-outputs/backtests/*
+outputs/**
+!outputs/
+!outputs/.gitkeep
+!outputs/returns/
+!outputs/factors/
+!outputs/portfolios/
+!outputs/backtests/
 !outputs/returns/.gitkeep
 !outputs/factors/.gitkeep
 !outputs/portfolios/.gitkeep

@@ -1,171 +1,57 @@
 # Portfolio Optimization and Factor Research Lab
 
-Python research project for analyzing public market data, asset returns, benchmark-relative performance, factor relationships, portfolio construction, and backtesting workflows.
+Python portfolio research project that analyzes market returns, CAPM sensitivity, portfolio optimization, and fixed-weight backtests for a large-cap equity universe.
+
+## Why This Project Matters
+
+Finance and analytics teams need analysts who can connect market data, risk drivers, portfolio construction, and business interpretation. This project demonstrates that workflow end to end with Python, reproducible notebooks, clear assumptions, and employer-readable outputs.
 
 ## Business Problem
 
-Investment, research, and finance teams need clear tools to analyze return drivers, compare assets against a benchmark, understand risk and drawdown, and explain portfolio choices using defensible assumptions.
+Investment, research, corporate finance, and risk teams often need to answer practical questions:
+
+- Which assets have higher or lower sensitivity to the market?
+- How do return, volatility, drawdown, and correlation compare across securities?
+- What happens when a portfolio is built for equal weight, lower volatility, or higher historical Sharpe ratio?
+- How do these strategies perform against a benchmark?
 
 ## Target Roles and Companies
 
 Target roles include investment analyst, financial data analyst, market research analyst, corporate finance analyst, risk analytics analyst, quantitative research intern, and fintech analytics analyst.
 
-Target companies include JPMorgan Chase, MSCI, Wells Fargo, P&G Philippines, BPI, First Metro, ING Hubs Philippines, PwC, and other finance or analytics employers.
+Target companies include JPMorgan Chase, MSCI, Wells Fargo, P&G Philippines, BPI, First Metro, ING Hubs Philippines, PwC Philippines, BSP, PIDS, and related finance or analytics employers.
 
-## Current Status
-
-Phase 4 fixed-weight backtesting and interpretation is completed.
-
-- Phase 0 setup: completed
-- Phase 1 market data and returns: completed
-- Phase 2 CAPM and factor research: completed
-- Phase 3 portfolio optimization: completed
-- Phase 4 backtesting and interpretation: completed
-- Phase 5 GitHub polish: next
-
-## Ticker Universe and Benchmark
-
-Phase 1 uses public Yahoo Finance data through `yfinance`.
+## Asset Universe and Benchmark
 
 - Asset universe: `AAPL`, `MSFT`, `JPM`, `PG`, `XOM`, `JNJ`, `KO`, `NVDA`
 - Benchmark: `SPY`
+- Data source: Yahoo Finance through `yfinance`
 - Period: `2019-01-01` to latest available data at notebook execution
 
-## Generated Phase 1 Outputs
+## What The Project Does
 
-Market data and return outputs:
+- Downloads adjusted close prices and calculates daily and monthly returns.
+- Summarizes annualized return, volatility, Sharpe ratio, drawdown, and correlations.
+- Estimates CAPM-style beta, alpha, benchmark correlation, and rolling beta versus SPY.
+- Builds equal-weight, minimum-volatility, and maximum-Sharpe portfolios.
+- Runs a simple fixed-weight historical backtest for each strategy against SPY.
+- Produces research notes, career positioning materials, and GitHub-ready documentation.
 
-- `data/processed/adjusted_close_prices.csv`
-- `outputs/returns/daily_returns.csv`
-- `outputs/returns/monthly_returns.csv`
-- `outputs/returns/asset_performance_summary.csv`
-- `outputs/returns/correlation_matrix.csv`
+## Key Findings
 
-Figures:
+- `NVDA` had the highest CAPM beta at about `1.82`, while `JNJ` had the lowest beta at about `0.42`.
+- `MSFT` had the highest benchmark correlation at about `0.79`.
+- The maximum-Sharpe portfolio had the highest fixed-weight historical Sharpe ratio at about `1.63`.
+- The equal-weight portfolio had a Sharpe ratio of about `1.37` and the highest correlation to SPY among portfolio strategies.
+- The minimum-volatility portfolio had the least severe portfolio-strategy drawdown at about `-30.26%`.
 
-- `reports/figures/price_history.png`
-- `reports/figures/cumulative_returns.png`
-- `reports/figures/correlation_heatmap.png`
-- `reports/figures/risk_return_scatter.png`
+## Methodology
 
-## Generated Phase 2 Outputs
-
-CAPM and single-index research outputs:
-
-- `outputs/factors/capm_metrics.csv`
-- `outputs/factors/single_index_regression.csv`
-- `outputs/factors/rolling_beta.csv`
-- `outputs/factors/factor_summary.csv`
-
-Figures:
-
-- `reports/figures/capm_beta_by_asset.png`
-- `reports/figures/capm_alpha_by_asset.png`
-- `reports/figures/benchmark_correlation_by_asset.png`
-- `reports/figures/rolling_beta_selected_assets.png`
-
-Key Phase 2 findings:
-
-- Highest beta: `NVDA`, approximately `1.82`
-- Lowest beta: `JNJ`, approximately `0.42`
-- Highest benchmark correlation: `MSFT`, approximately `0.79`
-- Phase 2 used a NumPy regression fallback because the local statsmodels/SciPy stack is incompatible with the installed NumPy version.
-
-## Generated Phase 3 Outputs
-
-Portfolio optimization outputs:
-
-- `outputs/portfolios/portfolio_weights.csv`
-- `outputs/portfolios/portfolio_summary.csv`
-- `outputs/portfolios/random_portfolios.csv`
-
-Figures:
-
-- `reports/figures/portfolio_weights_comparison.png`
-- `reports/figures/efficient_frontier_simulation.png`
-- `reports/figures/portfolio_risk_return_comparison.png`
-- `reports/figures/max_sharpe_allocation.png`
-
-Key Phase 3 findings:
-
-- Equal-weight portfolio annualized return: approximately `24.69%`
-- Minimum-volatility portfolio annualized volatility: approximately `15.89%`
-- Maximum-Sharpe portfolio Sharpe ratio: approximately `1.56`
-- Maximum-Sharpe allocation was concentrated most heavily in `NVDA` and `JNJ` under the historical-return assumptions.
-- The local SciPy optimizer could not be imported, so deterministic random-search fallback weights were used and documented.
-
-## Generated Phase 4 Outputs
-
-Backtest outputs:
-
-- `outputs/backtests/strategy_daily_returns.csv`
-- `outputs/backtests/strategy_cumulative_returns.csv`
-- `outputs/backtests/backtest_metrics.csv`
-- `outputs/backtests/strategy_drawdowns.csv`
-
-Figures:
-
-- `reports/figures/backtest_cumulative_returns.png`
-- `reports/figures/backtest_risk_return_comparison.png`
-- `reports/figures/backtest_drawdowns.png`
-- `reports/figures/backtest_metric_comparison.png`
-
-Core Phase 4 findings:
-
-- Maximum-Sharpe had the highest historical Sharpe ratio at approximately `1.63`.
-- Equal-weight had a Sharpe ratio of approximately `1.37` and the highest correlation to SPY among the portfolio strategies.
-- Minimum-volatility had the least severe portfolio-strategy drawdown at approximately `-30.26%`.
-- The backtest is fixed-weight and historical; it does not include walk-forward optimization, transaction costs, or rebalancing rules.
-
-## Planned Methodology
-
-1. Load public or manually supplied market data.
-2. Calculate daily and monthly returns, annualized return, volatility, Sharpe ratio, drawdown, and correlations.
-3. Compare asset performance against SPY.
-4. Research CAPM and factor exposures.
-5. Build simple portfolio optimization workflows.
-6. Backtest portfolio allocations.
-7. Interpret results through a research memo and career-ready project documentation.
-
-## How to Run
-
-Install requirements first:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-Run the Phase 1 notebook:
-
-```bash
-jupyter nbconvert --to notebook --execute notebooks/01_market_data_and_returns.ipynb --output 01_market_data_and_returns_executed.ipynb
-```
-
-Run the Phase 2 notebook:
-
-```bash
-jupyter nbconvert --to notebook --execute notebooks/02_capm_factor_research.ipynb --output 02_capm_factor_research_executed.ipynb
-```
-
-Run the Phase 3 notebook:
-
-```bash
-jupyter nbconvert --to notebook --execute notebooks/03_portfolio_optimization.ipynb --output 03_portfolio_optimization_executed.ipynb
-```
-
-Run the Phase 4 notebook:
-
-```bash
-jupyter nbconvert --to notebook --execute notebooks/04_backtesting_and_interpretation.ipynb --output 04_backtesting_and_interpretation_executed.ipynb
-```
-
-Or open the notebook interactively:
-
-```bash
-jupyter notebook notebooks/01_market_data_and_returns.ipynb
-```
+1. Market data and returns: download prices, calculate daily/monthly returns, summarize risk and return.
+2. CAPM research: estimate beta, alpha, benchmark correlation, tracking error, and rolling beta versus SPY.
+3. Portfolio optimization: compare equal-weight, minimum-volatility, and maximum-Sharpe allocations.
+4. Backtesting: apply fixed Phase 3 weights over the full available return history and compare against SPY.
+5. Interpretation: document findings, assumptions, limitations, and career-facing talking points.
 
 ## Repo Structure
 
@@ -189,6 +75,12 @@ portfolio-optimization-factor-lab/
     backtesting.py
     visualization.py
   reports/
+    research_memo.md
+    model_notes.md
+    resume_bullets.md
+    interview_talking_points.md
+    company_positioning.md
+    linkedin_post.md
     figures/
   outputs/
     returns/
@@ -198,6 +90,100 @@ portfolio-optimization-factor-lab/
   docs/
 ```
 
-## Notes
+## How To Run
 
-No dashboard or investment recommendation is included through Phase 4. Historical market data, CAPM estimates, optimized allocations, and fixed-weight backtests are descriptive research outputs and do not imply future performance.
+Create and activate a virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Install requirements:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run notebooks in order:
+
+```bash
+jupyter nbconvert --to notebook --execute notebooks/01_market_data_and_returns.ipynb --output 01_market_data_and_returns_executed.ipynb
+jupyter nbconvert --to notebook --execute notebooks/02_capm_factor_research.ipynb --output 02_capm_factor_research_executed.ipynb
+jupyter nbconvert --to notebook --execute notebooks/03_portfolio_optimization.ipynb --output 03_portfolio_optimization_executed.ipynb
+jupyter nbconvert --to notebook --execute notebooks/04_backtesting_and_interpretation.ipynb --output 04_backtesting_and_interpretation_executed.ipynb
+```
+
+## Outputs Generated
+
+Return outputs:
+
+- `outputs/returns/daily_returns.csv`
+- `outputs/returns/monthly_returns.csv`
+- `outputs/returns/asset_performance_summary.csv`
+- `outputs/returns/correlation_matrix.csv`
+
+Factor outputs:
+
+- `outputs/factors/capm_metrics.csv`
+- `outputs/factors/single_index_regression.csv`
+- `outputs/factors/rolling_beta.csv`
+- `outputs/factors/factor_summary.csv`
+
+Portfolio and backtest outputs:
+
+- `outputs/portfolios/portfolio_weights.csv`
+- `outputs/portfolios/portfolio_summary.csv`
+- `outputs/portfolios/random_portfolios.csv`
+- `outputs/backtests/backtest_metrics.csv`
+- `outputs/backtests/strategy_daily_returns.csv`
+- `outputs/backtests/strategy_cumulative_returns.csv`
+- `outputs/backtests/strategy_drawdowns.csv`
+
+## Generated Artifacts
+
+- Raw and processed market data are not intended to be committed.
+- Generated CSV outputs under `outputs/` may be regenerated by rerunning the notebooks.
+- Figure files under `reports/figures/` may be regenerated from the notebooks.
+- The repository keeps source code, notebooks, docs, and reports visible for review.
+
+## Key Reports
+
+- [Research memo](reports/research_memo.md)
+- [Model notes](reports/model_notes.md)
+- [Resume bullets](reports/resume_bullets.md)
+- [Interview talking points](reports/interview_talking_points.md)
+- [Company positioning](reports/company_positioning.md)
+- [LinkedIn post drafts](reports/linkedin_post.md)
+
+## Limitations
+
+- Historical returns are descriptive and do not imply future performance.
+- The fixed-weight backtest is not walk-forward or out-of-sample validation.
+- No transaction costs, taxes, liquidity limits, turnover constraints, or rebalancing schedule are included.
+- SPY is a broad benchmark proxy, not a full multi-factor risk model.
+- Local environment limitations required fallback methods for some statistical and optimization steps.
+
+## Future Improvements
+
+- Add walk-forward optimization and periodic rebalancing.
+- Add transaction costs and turnover analysis.
+- Add factor data beyond SPY.
+- Add active return, tracking error, and attribution analysis.
+- Add optional screenshots or a lightweight dashboard after the GitHub version is polished.
+
+## Resume Bullet
+
+Built a Python portfolio research lab using public market data to calculate returns, CAPM beta, optimized long-only portfolios, and fixed-weight backtests versus SPY, producing research outputs and recruiter-ready documentation for finance analytics roles.
+
+## Interview Talking Points Summary
+
+- Explain why SPY was used as a benchmark.
+- Discuss the difference between beta, volatility, drawdown, and Sharpe ratio.
+- Compare equal-weight, minimum-volatility, and maximum-Sharpe portfolios.
+- Explain why fixed-weight backtests can overstate performance.
+- Describe how the workflow could be improved with walk-forward validation and transaction costs.
+
+## Disclaimer
+
+This is a portfolio research project for analytics and career demonstration. Results are historical research outputs, not investment advice, trading recommendations, or a production asset management system.

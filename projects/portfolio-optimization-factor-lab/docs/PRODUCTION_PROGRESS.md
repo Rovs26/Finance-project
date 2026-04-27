@@ -47,10 +47,18 @@ Status: Done
 - Calculated cumulative return, annualized return, volatility, Sharpe ratio, drawdown, best day, worst day, and correlation to SPY.
 - Saved backtest outputs, figures, and research memo.
 
-## Phase 5: GitHub Polish
+## Phase 5: Reports and GitHub Polish
 
-Status: Next
+Status: Done
 
-- Clean README and reports.
-- Prepare career-facing materials.
-- Keep assumptions and limitations visible.
+- Rewrote README for recruiter and hiring-manager readability.
+- Polished research memo and model notes.
+- Added resume bullets, interview talking points, company positioning, and LinkedIn post drafts.
+- Updated `.gitignore` to protect raw data and generated artifacts.
+
+## Optional Next Phase
+
+Status: Optional
+
+- Add screenshots to the README.
+- Add an optional lightweight dashboard after the GitHub version is reviewed.

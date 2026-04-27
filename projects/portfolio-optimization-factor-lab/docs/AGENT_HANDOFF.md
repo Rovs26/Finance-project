@@ -1,51 +1,42 @@
 # Agent Handoff
 
-## Current State
+## Final Project State
 
-Phase 4 fixed-weight backtesting and interpretation is complete. The project now evaluates equal-weight, minimum-volatility, and maximum-Sharpe portfolio strategies against SPY using the saved daily returns and Phase 3 weights.
+The Portfolio Optimization and Factor Research Lab is complete through Phase 5. It is a GitHub-ready finance analytics portfolio project covering market data, return analytics, CAPM research, portfolio optimization, fixed-weight backtesting, and employer-facing documentation.
 
-## Files Changed
+## Completed Workflow
 
-- `notebooks/04_backtesting_and_interpretation.ipynb`
-- `src/backtesting.py`
-- `src/visualization.py`
+- Phase 1: market data and returns.
+- Phase 2: CAPM and single-index factor research.
+- Phase 3: equal-weight, minimum-volatility, and maximum-Sharpe portfolio construction.
+- Phase 4: fixed-weight strategy backtesting versus SPY.
+- Phase 5: README, reports, career materials, and packaging polish.
+
+## Files Changed in Phase 5
+
+- `README.md`
+- `.gitignore`
 - `reports/research_memo.md`
 - `reports/model_notes.md`
-- `README.md`
+- `reports/resume_bullets.md`
+- `reports/interview_talking_points.md`
+- `reports/company_positioning.md`
+- `reports/linkedin_post.md`
 - `docs/PRODUCTION_PROGRESS.md`
 - `docs/KNOWN_ISSUES.md`
 - `docs/AGENT_HANDOFF.md`
 
-## Strategies Compared
+## Commands Verified
 
-- equal_weight
-- minimum_volatility
-- maximum_sharpe
-- SPY benchmark reference
+- `python3 -m compileall src`
+- `git status --short`
 
-## Benchmark Used
+## Current Positioning
 
-- SPY
+This project is positioned for early-career finance, investment analytics, financial data analytics, corporate finance, market research, and risk analytics applications. It should be presented as a portfolio research project, not as investment advice or a production asset management system.
 
-## Backtest Outputs Created
+## Next Optional Improvements
 
-- `outputs/backtests/strategy_daily_returns.csv`
-- `outputs/backtests/strategy_cumulative_returns.csv`
-- `outputs/backtests/backtest_metrics.csv`
-- `outputs/backtests/strategy_drawdowns.csv`
-- `reports/figures/backtest_cumulative_returns.png`
-- `reports/figures/backtest_risk_return_comparison.png`
-- `reports/figures/backtest_drawdowns.png`
-- `reports/figures/backtest_metric_comparison.png`
-- `notebooks/04_backtesting_and_interpretation_executed.ipynb`
-
-## Key Backtest Findings
-
-- Maximum-Sharpe had the highest historical cumulative return and Sharpe ratio.
-- Equal-weight delivered strong performance with simple diversification and high correlation to SPY.
-- Minimum-volatility had the lowest volatility and least severe drawdown among the portfolio strategies.
-- SPY was used only as benchmark reference.
-
-## Next Recommended Task
-
-Start Phase 5 GitHub polish: clean the README, tighten reports, create career-facing summaries, and prepare the repository for recruiter review.
+- Add screenshots of key figures to the README.
+- Add a lightweight dashboard only if needed.
+- Add walk-forward optimization, transaction costs, and rebalancing logic in a future technical extension.

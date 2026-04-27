@@ -31,7 +31,11 @@
 - The same historical period informs optimization and backtesting, so results should not be interpreted as out-of-sample performance.
 - Plotly static PNG export continued to use the Pillow fallback because Kaleido is not installed.
 
-## Still Open for Future Phases
+## Phase 5
 
-- GitHub polish and recruiter-facing packaging not yet completed.
-- Dashboard not planned for MVP.
+- No blocking issue found in Phase 5.
+- Generated outputs may need regeneration after cloning because `outputs/` is ignored.
+- Raw and processed market data are not committed.
+- No dashboard is included in the MVP.
+- Results are historical research outputs and not investment advice.
+- No transaction costs, rebalancing schedule, or out-of-sample walk-forward validation are included.
