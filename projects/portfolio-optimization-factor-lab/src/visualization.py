@@ -110,3 +110,94 @@ def plot_rolling_beta(rolling_beta, selected_assets=None):
     )
     fig.update_layout(legend_title_text="Ticker", margin=dict(l=40, r=20, t=60, b=40))
     return fig
+
+
+def plot_portfolio_weights(weights_df):
+    """Create a grouped bar chart comparing portfolio weights by asset."""
+    plot_df = weights_df.melt(
+        id_vars="asset", var_name="portfolio", value_name="weight"
+    )
+    fig = px.bar(
+        plot_df,
+        x="asset",
+        y="weight",
+        color="portfolio",
+        barmode="group",
+        title="Portfolio Weight Comparison",
+        labels={"asset": "Asset", "weight": "Weight", "portfolio": "Portfolio"},
+        template=DEFAULT_TEMPLATE,
+    )
+    fig.update_layout(margin=dict(l=40, r=20, t=60, b=40))
+    fig.update_yaxes(tickformat=".0%")
+    return fig
+
+
+def plot_efficient_frontier_simulation(random_portfolios, portfolio_summary=None):
+    """Create a risk-return scatter plot for simulated random portfolios."""
+    fig = px.scatter(
+        random_portfolios,
+        x="annualized_volatility",
+        y="annualized_return",
+        color="sharpe_ratio",
+        color_continuous_scale="Viridis",
+        title="Random Portfolio Risk-Return Simulation",
+        labels={
+            "annualized_volatility": "Annualized volatility",
+            "annualized_return": "Annualized return",
+            "sharpe_ratio": "Sharpe ratio",
+        },
+        template=DEFAULT_TEMPLATE,
+    )
+    if portfolio_summary is not None:
+        fig.add_scatter(
+            x=portfolio_summary["annualized_volatility"],
+            y=portfolio_summary["annualized_return"],
+            mode="markers+text",
+            text=portfolio_summary["portfolio"],
+            textposition="top center",
+            marker=dict(size=12, color="red", symbol="diamond"),
+            name="Selected portfolios",
+        )
+    fig.update_layout(margin=dict(l=40, r=20, t=60, b=40))
+    fig.update_xaxes(tickformat=".0%")
+    fig.update_yaxes(tickformat=".0%")
+    return fig
+
+
+def plot_portfolio_risk_return(summary_df):
+    """Create a risk-return comparison chart for named portfolios."""
+    fig = px.scatter(
+        summary_df,
+        x="annualized_volatility",
+        y="annualized_return",
+        text="portfolio",
+        hover_name="portfolio",
+        size="sharpe_ratio",
+        title="Portfolio Risk-Return Comparison",
+        labels={
+            "annualized_volatility": "Annualized volatility",
+            "annualized_return": "Annualized return",
+            "sharpe_ratio": "Sharpe ratio",
+        },
+        template=DEFAULT_TEMPLATE,
+    )
+    fig.update_traces(textposition="top center")
+    fig.update_layout(margin=dict(l=40, r=20, t=60, b=40))
+    fig.update_xaxes(tickformat=".0%")
+    fig.update_yaxes(tickformat=".0%")
+    return fig
+
+
+def plot_allocation_pie_or_bar(weights_df, portfolio_col):
+    """Create a bar chart for one portfolio allocation."""
+    fig = px.bar(
+        weights_df.sort_values(portfolio_col, ascending=False),
+        x="asset",
+        y=portfolio_col,
+        title=f"{portfolio_col.replace('_', ' ').title()} Allocation",
+        labels={"asset": "Asset", portfolio_col: "Weight"},
+        template=DEFAULT_TEMPLATE,
+    )
+    fig.update_layout(margin=dict(l=40, r=20, t=60, b=40), showlegend=False)
+    fig.update_yaxes(tickformat=".0%")
+    return fig

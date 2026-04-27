@@ -15,8 +15,16 @@
 - Single-index regression used the NumPy fallback, so beta and alpha were produced but regression p-values and residual volatility were not available.
 - Plotly static PNG export continued to use the Pillow fallback because Kaleido is not installed.
 
+## Phase 3
+
+- No blocking issue found in Phase 3.
+- `scipy.optimize` could not be imported. Exact local failure: `ImportError: cannot import name 'Inf' from 'numpy'`.
+- Minimum-volatility and maximum-Sharpe functions attempt SciPy SLSQP first, then use deterministic random-search fallback when SciPy is unavailable.
+- Optimization results depend on historical expected returns and covariance assumptions and are not investment recommendations.
+- Plotly static PNG export continued to use the Pillow fallback because Kaleido is not installed.
+
 ## Still Open for Future Phases
 
 - Multi-factor dataset or factor source not yet finalized.
-- Optimization assumptions not yet finalized.
+- Full backtesting methodology not yet implemented.
 - Dashboard not planned for MVP.

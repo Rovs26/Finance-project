@@ -2,12 +2,12 @@
 
 ## Current State
 
-Phase 2 CAPM and single-index factor research is complete. The project now uses saved daily returns to estimate benchmark sensitivity versus SPY, generate factor outputs, and document market-relative interpretation.
+Phase 3 portfolio optimization is complete. The project now creates equal-weight, minimum-volatility, and maximum-Sharpe portfolios from saved daily returns, excluding SPY from optimized asset portfolios.
 
 ## Files Changed
 
-- `notebooks/02_capm_factor_research.ipynb`
-- `src/factors.py`
+- `notebooks/03_portfolio_optimization.ipynb`
+- `src/optimization.py`
 - `src/visualization.py`
 - `reports/model_notes.md`
 - `README.md`
@@ -15,30 +15,29 @@ Phase 2 CAPM and single-index factor research is complete. The project now uses 
 - `docs/KNOWN_ISSUES.md`
 - `docs/AGENT_HANDOFF.md`
 
-## Benchmark Used
+## Portfolio Outputs Created
 
-- Benchmark: SPY
-- Asset universe: AAPL, MSFT, JPM, PG, XOM, JNJ, KO, NVDA
+- `outputs/portfolios/portfolio_weights.csv`
+- `outputs/portfolios/portfolio_summary.csv`
+- `outputs/portfolios/random_portfolios.csv`
+- `reports/figures/portfolio_weights_comparison.png`
+- `reports/figures/efficient_frontier_simulation.png`
+- `reports/figures/portfolio_risk_return_comparison.png`
+- `reports/figures/max_sharpe_allocation.png`
+- `notebooks/03_portfolio_optimization_executed.ipynb`
 
-## Factor Outputs Created
+## Key Allocation Findings
 
-- `outputs/factors/capm_metrics.csv`
-- `outputs/factors/single_index_regression.csv`
-- `outputs/factors/rolling_beta.csv`
-- `outputs/factors/factor_summary.csv`
-- `reports/figures/capm_beta_by_asset.png`
-- `reports/figures/capm_alpha_by_asset.png`
-- `reports/figures/benchmark_correlation_by_asset.png`
-- `reports/figures/rolling_beta_selected_assets.png`
-- `notebooks/02_capm_factor_research_executed.ipynb`
+- Equal-weight portfolio annualized return: approximately 24.69 percent.
+- Minimum-volatility portfolio annualized volatility: approximately 15.89 percent.
+- Maximum-Sharpe portfolio Sharpe ratio: approximately 1.56.
+- Minimum-volatility allocation leaned most heavily toward JNJ, KO, and PG.
+- Maximum-Sharpe allocation leaned most heavily toward NVDA and JNJ.
 
-## Key Results
+## Important Implementation Note
 
-- Highest beta: NVDA, approximately 1.82.
-- Lowest beta: JNJ, approximately 0.42.
-- Highest benchmark correlation: MSFT, approximately 0.79.
-- Regression method used: NumPy fallback for all assets due to local statsmodels/SciPy/NumPy compatibility issue.
+`scipy.optimize` could not be imported because the local SciPy package expects older NumPy APIs. The optimization module attempts SciPy SLSQP first, records the exact failure, and then uses a deterministic random-search fallback.
 
 ## Next Recommended Task
 
-Start Phase 3 portfolio optimization using the saved return data and Phase 2 risk inputs. Keep the first optimization workflow simple and interpretable before adding backtesting.
+Start Phase 4 by backtesting the saved static portfolio weights against historical returns and SPY. Keep the backtest simple, transparent, and focused on return, volatility, drawdown, and benchmark-relative interpretation.

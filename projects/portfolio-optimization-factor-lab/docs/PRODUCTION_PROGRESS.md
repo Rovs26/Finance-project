@@ -30,17 +30,20 @@ Status: Done
 
 ## Phase 3: Portfolio Optimization
 
-Status: Next
+Status: Done
 
-- Define return and risk assumptions.
-- Build initial portfolio optimization workflow.
-- Compare equal weight, minimum volatility, and risk-return efficient allocations.
+- Built equal-weight, minimum-volatility, and maximum-Sharpe portfolios.
+- Excluded SPY from optimized asset portfolios.
+- Generated random long-only portfolios for efficient frontier-style analysis.
+- Saved portfolio weights, portfolio summary, random portfolios, and Phase 3 figures.
+- Used deterministic random-search fallback because local `scipy.optimize` is unavailable.
 
 ## Phase 4: Backtesting and Interpretation
 
-Status: Not started
+Status: Next
 
 - Backtest allocation strategies.
+- Compare portfolio returns, risk, drawdowns, and benchmark-relative behavior.
 - Interpret results in a research memo.
 
 ## Phase 5: GitHub Polish

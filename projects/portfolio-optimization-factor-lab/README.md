@@ -14,13 +14,13 @@ Target companies include JPMorgan Chase, MSCI, Wells Fargo, P&G Philippines, BPI
 
 ## Current Status
 
-Phase 2 CAPM and single-index factor research is completed.
+Phase 3 portfolio optimization is completed.
 
 - Phase 0 setup: completed
 - Phase 1 market data and returns: completed
 - Phase 2 CAPM and factor research: completed
-- Phase 3 portfolio optimization: next
-- Phase 4 backtesting and interpretation: not started
+- Phase 3 portfolio optimization: completed
+- Phase 4 backtesting and interpretation: next
 - Phase 5 GitHub polish: not started
 
 ## Ticker Universe and Benchmark
@@ -71,6 +71,29 @@ Key Phase 2 findings:
 - Highest benchmark correlation: `MSFT`, approximately `0.79`
 - Phase 2 used a NumPy regression fallback because the local statsmodels/SciPy stack is incompatible with the installed NumPy version.
 
+## Generated Phase 3 Outputs
+
+Portfolio optimization outputs:
+
+- `outputs/portfolios/portfolio_weights.csv`
+- `outputs/portfolios/portfolio_summary.csv`
+- `outputs/portfolios/random_portfolios.csv`
+
+Figures:
+
+- `reports/figures/portfolio_weights_comparison.png`
+- `reports/figures/efficient_frontier_simulation.png`
+- `reports/figures/portfolio_risk_return_comparison.png`
+- `reports/figures/max_sharpe_allocation.png`
+
+Key Phase 3 findings:
+
+- Equal-weight portfolio annualized return: approximately `24.69%`
+- Minimum-volatility portfolio annualized volatility: approximately `15.89%`
+- Maximum-Sharpe portfolio Sharpe ratio: approximately `1.56`
+- Maximum-Sharpe allocation was concentrated most heavily in `NVDA` and `JNJ` under the historical-return assumptions.
+- The local SciPy optimizer could not be imported, so deterministic random-search fallback weights were used and documented.
+
 ## Planned Methodology
 
 1. Load public or manually supplied market data.
@@ -101,6 +124,12 @@ Run the Phase 2 notebook:
 
 ```bash
 jupyter nbconvert --to notebook --execute notebooks/02_capm_factor_research.ipynb --output 02_capm_factor_research_executed.ipynb
+```
+
+Run the Phase 3 notebook:
+
+```bash
+jupyter nbconvert --to notebook --execute notebooks/03_portfolio_optimization.ipynb --output 03_portfolio_optimization_executed.ipynb
 ```
 
 Or open the notebook interactively:
@@ -142,4 +171,4 @@ portfolio-optimization-factor-lab/
 
 ## Notes
 
-No portfolio optimization, backtest, dashboard, or investment recommendation is included through Phase 2. Historical market data and CAPM estimates are descriptive and do not imply future performance.
+No full backtest, dashboard, or investment recommendation is included through Phase 3. Historical market data, CAPM estimates, and optimized allocations are descriptive research outputs and do not imply future performance.

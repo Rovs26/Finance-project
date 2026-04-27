@@ -37,3 +37,45 @@ Phase 2 estimates benchmark sensitivity for each asset in the project universe. 
 ## Why This Matters for Finance Roles
 
 This phase demonstrates benchmark-relative analysis, market sensitivity interpretation, and clear communication of risk drivers. These are useful skills for investment analytics, financial data analytics, market research, corporate finance, and risk analytics roles.
+
+## Portfolio Optimization Purpose
+
+Phase 3 builds simple portfolio construction outputs from the saved daily returns. The purpose is to compare transparent allocation approaches before moving into full backtesting.
+
+## Portfolio Optimization Assumptions
+
+- Input returns: `outputs/returns/daily_returns.csv`
+- Asset universe: AAPL, MSFT, JPM, PG, XOM, JNJ, KO, NVDA
+- Benchmark excluded from optimized portfolios: SPY
+- Expected returns: historical annualized compounded returns
+- Risk model: historical annualized covariance matrix
+- Risk-free rate: 0.0
+- Constraint: long-only weights
+- Bounds: 0 percent to 100 percent per asset
+- Weight sum: 100 percent
+
+## Portfolio Definitions
+
+- Equal-weight portfolio: allocates 12.5 percent to each of the eight assets.
+- Minimum-volatility portfolio: searches for the long-only allocation with the lowest annualized volatility.
+- Maximum-Sharpe portfolio: searches for the long-only allocation with the highest return-to-volatility ratio.
+- Random portfolio simulation: generates random long-only portfolios to visualize the risk-return opportunity set.
+
+## Phase 3 Key Findings
+
+- Equal-weight portfolio: annualized return approximately 24.69 percent, annualized volatility approximately 19.38 percent, Sharpe ratio approximately 1.27.
+- Minimum-volatility portfolio: annualized return approximately 13.80 percent, annualized volatility approximately 15.89 percent, Sharpe ratio approximately 0.87.
+- Maximum-Sharpe portfolio: annualized return approximately 43.58 percent, annualized volatility approximately 27.89 percent, Sharpe ratio approximately 1.56.
+- The minimum-volatility allocation leaned most heavily toward JNJ, KO, and PG.
+- The maximum-Sharpe allocation leaned most heavily toward NVDA and JNJ, reflecting strong historical risk-adjusted behavior but also concentration risk.
+
+## Phase 3 Limitations
+
+- The local SciPy optimizer could not be imported because the installed SciPy package expects older NumPy APIs. The notebook used a deterministic random-search fallback.
+- Historical expected returns are unstable and should not be treated as forecasts.
+- No transaction costs, rebalancing rules, taxes, turnover constraints, or out-of-sample backtest are included yet.
+- Optimization can overfit historical return assumptions, especially when one asset has unusually strong historical performance.
+
+## Why Portfolio Optimization Matters for Finance Roles
+
+This phase demonstrates allocation logic, risk-return tradeoff analysis, constraints, and interpretation of model limitations. These skills are relevant for investment analytics, corporate finance, financial data analytics, risk analytics, and market research roles.
