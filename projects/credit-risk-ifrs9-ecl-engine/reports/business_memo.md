@@ -60,4 +60,4 @@ The stress scenarios apply transparent PD and LGD multipliers and cap stressed P
 
 ## Next Steps
 
-Build the Phase 4B Streamlit dashboard from the dashboard-ready CSV tables, then refine the written presentation for GitHub and internship applications.
+Add dashboard screenshots or a short demo GIF, then refine the final GitHub presentation for internship and early-career applications.

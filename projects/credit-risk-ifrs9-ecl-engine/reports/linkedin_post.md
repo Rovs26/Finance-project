@@ -26,6 +26,6 @@ Workflow:
 - Simplified ECL calculation using `PD x LGD x EAD`
 - IFRS 9-style staging proxy for portfolio analytics
 - Base, mild stress, and severe stress scenario summaries
-- Dashboard-ready CSV tables for the next Streamlit phase
+- Dashboard-ready CSV tables and a Streamlit dashboard for portfolio review
 
 Important caveat: this is a portfolio project, not a production bank system. It does not include regulatory validation, macroeconomic overlays, lifetime PD curves, discounting, or official IFRS 9 compliance logic.

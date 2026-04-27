@@ -63,9 +63,17 @@ Status: Done
 
 ## Phase 5: Polish and GitHub Cleanup
 
-Status: Next
+Status: Done
 
 - Review README and report links for GitHub presentation.
 - Decide which ignored generated artifacts should remain reproducible only versus committed.
-- Add screenshots or usage notes if desired.
+- Add usage notes for regenerated artifacts and dashboard inputs.
 - Clean up local environment notes and final limitations.
+
+## Optional: Screenshots and Live Demo
+
+Status: Next
+
+- Add dashboard screenshots or a short demo GIF.
+- Consider a lightweight demo dataset if sharing without raw LendingClub-style data.
+- Add final GitHub release notes if desired.

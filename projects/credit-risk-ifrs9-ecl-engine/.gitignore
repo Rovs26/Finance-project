@@ -23,6 +23,8 @@ data/external/*
 # Model artifacts and generated outputs
 outputs/model/*
 outputs/predictions/*
+outputs/predictions/*.csv
+outputs/ecl_results.csv
 *.pkl
 *.joblib
 *.sav

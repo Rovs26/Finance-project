@@ -38,4 +38,4 @@ It connects finance theory, Python, machine learning, risk analytics, documentat
 
 ## 10. What would you improve next?
 
-I would improve PD calibration, add time-aware validation, refine LGD and EAD assumptions, and build the Streamlit dashboard from the dashboard-ready tables.
+I would add dashboard screenshots, improve PD calibration, add time-aware validation, refine LGD and EAD assumptions, and add stronger monitoring and data quality checks.
