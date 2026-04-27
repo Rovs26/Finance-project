@@ -60,6 +60,7 @@ Status: Done
 - Build Streamlit dashboard from the Phase 4A dashboard-ready tables.
 - Include portfolio overview, stage analysis, score band analysis, grade/purpose views, and scenario comparison.
 - Keep limitations visible in the dashboard.
+- Completed dashboard UI polish with custom CSS, styled KPI cards, key insight callouts, cleaner Plotly charts, and formatted tables.
 
 ## Phase 5: Polish and GitHub Cleanup
 
@@ -72,8 +73,9 @@ Status: Done
 
 ## Optional: Screenshots and Live Demo
 
-Status: Next
+Status: In Progress
 
-- Add dashboard screenshots or a short demo GIF.
+- Added dashboard overview and scenario analysis screenshots to the README.
+- Add more dashboard screenshots or a short demo GIF if useful.
 - Consider a lightweight demo dataset if sharing without raw LendingClub-style data.
 - Add final GitHub release notes if desired.

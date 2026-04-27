@@ -63,7 +63,7 @@ Main interpretation:
 - Grade C has the largest grade-level ECL concentration.
 - Debt consolidation has the largest purpose-level ECL concentration.
 
-## Dashboard Preview
+## Dashboard Screenshots
 
 The dashboard is implemented in Streamlit and includes:
 
@@ -74,12 +74,13 @@ The dashboard is implemented in Streamlit and includes:
 - Loan-Level Explorer
 - Methodology and Limitations
 
-Screenshots are not included yet. To add screenshots later:
+**Portfolio overview with exposure, ECL, ECL rate, average PD, and average LGD**
 
-1. Run the dashboard with `streamlit run dashboard/app.py`.
-2. Capture the key pages.
-3. Save images under a future `reports/screenshots/` folder.
-4. Link them in this section.
+![Portfolio overview dashboard](reports/figures/dashboard_overview.png)
+
+**Scenario analysis comparing base, mild stress, and severe stress ECL**
+
+![Scenario analysis dashboard](reports/figures/dashboard_scenario_analysis.png)
 
 ## Methodology
 

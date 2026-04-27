@@ -2,28 +2,31 @@
 
 ## Current State
 
-Phase 5 GitHub polish has been completed for the Credit Risk and IFRS 9 Expected Credit Loss Engine. The project is functional end to end and now has a recruiter-readable README, cleaned reports, final limitation notes, and packaging guidance for generated artifacts.
+Dashboard UI polish has been completed for the Credit Risk and IFRS 9 Expected Credit Loss Engine. The Streamlit dashboard now has custom styling, professional KPI cards, page-level key insight callouts, cleaner Plotly charts, and formatted summary tables.
 
 ## Files Changed
 
 - `README.md`
-- `.gitignore`
-- `reports/business_memo.md`
-- `reports/model_card.md`
-- `reports/resume_bullets.md`
-- `reports/interview_talking_points.md`
-- `reports/company_positioning.md`
-- `reports/linkedin_post.md`
+- `dashboard/app.py`
 - `docs/PRODUCTION_PROGRESS.md`
 - `docs/KNOWN_ISSUES.md`
 - `docs/AGENT_HANDOFF.md`
 
-## Final Project State
+## Dashboard UI Polish
 
-- Data understanding, PD modeling, ECL engine, business interpretation, and Streamlit dashboard are complete.
-- Raw data and generated artifacts are intentionally ignored and can be regenerated.
-- README now explains business value, methodology, outputs, limitations, and run commands.
-- Reports are cleaned for recruiter and interview use.
+- Added custom Streamlit CSS for spacing, hierarchy, KPI cards, callouts, sidebar polish, and table presentation.
+- Added styled KPI cards on the Portfolio Overview page.
+- Added key insight callout boxes to every dashboard page.
+- Updated Plotly charts to use a consistent dark template, finance-oriented colors, cleaner margins, and concise hover labels.
+- Added formatted table display for currency and percentage columns.
+- Preserved all existing dashboard pages and data inputs.
+- No model logic, ECL assumptions, notebooks, or generated CSV outputs were changed.
+
+## Screenshot Update
+
+- Added `reports/figures/dashboard_overview.png` to the README.
+- Added `reports/figures/dashboard_scenario_analysis.png` to the README.
+- Kept captions concise and recruiter-readable.
 
 ## Commands Verified
 
@@ -45,11 +48,11 @@ streamlit run dashboard/app.py
 
 ## Optional Improvements
 
-- Add dashboard screenshots or a short demo GIF.
+- Add more dashboard screenshots or a short demo GIF if useful.
 - Add a lightweight demo dataset if sharing without raw data.
 - Review whether any small generated summary outputs should be committed or left reproducible only.
 - Add final GitHub release notes.
 
 ## Next Recommended Task
 
-Optionally add dashboard screenshots and a short live-demo note for GitHub.
+Optionally add a short live-demo note for GitHub or create a release tag.

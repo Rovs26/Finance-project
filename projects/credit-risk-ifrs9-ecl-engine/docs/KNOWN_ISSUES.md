@@ -20,6 +20,7 @@
 - No blocking issue found in Phase 4B.
 - Dashboard depends on Streamlit and Plotly being installed in the active Python environment.
 - Dashboard uses existing generated CSV outputs; if those ignored artifacts are deleted, rerun prior phases before launching the app.
+- No blocking dashboard polish issue found.
 - No blocking issue found in Phase 5.
 - Raw dataset is not committed.
 - Generated outputs may need regeneration after clone.
