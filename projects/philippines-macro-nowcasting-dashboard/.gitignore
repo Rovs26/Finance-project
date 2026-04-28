@@ -1,0 +1,39 @@
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Raw and processed data
+data/raw/**
+data/processed/**
+data/external/**
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/external/.gitkeep
+
+# Generated outputs
+outputs/**
+!outputs/
+!outputs/indicators/
+!outputs/forecasts/
+!outputs/scenarios/
+!outputs/indicators/.gitkeep
+!outputs/forecasts/.gitkeep
+!outputs/scenarios/.gitkeep
+
+# Environment files
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db

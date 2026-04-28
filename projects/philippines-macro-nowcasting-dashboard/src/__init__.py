@@ -1,0 +1,1 @@
+"""Philippines macro nowcasting package."""
