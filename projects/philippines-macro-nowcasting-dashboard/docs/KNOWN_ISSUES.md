@@ -21,5 +21,14 @@
 
 ## Still Open for Future Phases
 
-- Forecasting target not yet finalized.
+- No advanced nowcasting model has been built yet.
 - Dashboard not yet implemented.
+
+## Phase 3
+
+- No blocking issue found in Phase 3.
+- The system Python has a NumPy/SciPy/sklearn compatibility issue. The Phase 3 regression utility used a NumPy least-squares fallback instead of sklearn during execution.
+- Forecasting is limited to one-month-ahead baseline models using the current inflation-first feature table.
+- The model does not yet include policy rates, commodity prices, survey expectations, or additional high-frequency indicators.
+- Evaluation uses a single chronological holdout period, not rolling-origin validation.
+- Static Plotly image export was unavailable in the local environment, so the notebook saved PNG figure files using the built-in fallback path.

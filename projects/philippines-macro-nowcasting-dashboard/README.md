@@ -92,13 +92,13 @@ Macro data will be collected from public sources or manually placed later. No ma
 
 ## Current Status
 
-Phase 2 parsing, cleaning, and inflation-first feature engineering is complete.
+Phase 3 one-month-ahead baseline inflation forecasting is complete.
 
 - Phase 0 setup: completed
 - Phase 1 macro data collection: completed
 - Phase 2 cleaning and feature engineering: completed
-- Phase 3 baseline forecasting: next
-- Phase 4 policy interpretation: not started
+- Phase 3 baseline forecasting: completed
+- Phase 4 policy interpretation: next
 - Phase 5 dashboard: not started
 - Phase 6 GitHub polish: not started
 
@@ -141,4 +141,38 @@ Figures:
 - `reports/figures/inflation_features_missingness.png`
 - `reports/figures/macro_indicator_correlation.png`
 
-The monthly macro table is inflation-first and includes inflation lags, rolling averages, changes, and USD/PHP features where available. Forecasting, scenario analysis, and dashboard work are not yet done.
+The monthly macro table is inflation-first and includes inflation lags, rolling averages, changes, and USD/PHP features where available.
+
+## Phase 3 Baseline Forecasting
+
+Forecast target:
+
+- One-month-ahead Philippines inflation rate.
+
+Models compared:
+
+- Naive last-value benchmark
+- 3-month moving-average benchmark
+- Simple linear regression using available lag, rolling, change, and USD/PHP features
+
+Generated outputs:
+
+- `outputs/forecasts/inflation_forecast_test_predictions.csv`
+- `outputs/forecasts/forecast_metrics.csv`
+- `outputs/forecasts/latest_inflation_forecast.csv`
+
+Figures:
+
+- `reports/figures/inflation_actual_vs_forecast.png`
+- `reports/figures/forecast_error_by_model.png`
+- `reports/figures/forecast_metrics_comparison.png`
+- `reports/figures/latest_forecast_context.png`
+
+Current best baseline by RMSE is the simple linear regression model. Forecasting remains intentionally simple: no advanced nowcasting, policy-rate parser, macro scenario model, or dashboard has been built yet.
+
+## Run the Phase 3 Notebook
+
+```bash
+cd projects/philippines-macro-nowcasting-dashboard
+python3 -m jupyter nbconvert --to notebook --execute notebooks/03_baseline_forecasting.ipynb --output 03_baseline_forecasting_executed.ipynb
+```

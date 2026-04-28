@@ -33,15 +33,16 @@ Status: Done
 
 ## Phase 3: Baseline Forecasting
 
-Status: Next
+Status: Done
 
-- Define forecasting target.
-- Build transparent baseline models.
-- Evaluate forecasts.
+- Created one-month-ahead inflation target.
+- Compared naive last-value, 3-month moving-average, and simple linear regression baselines.
+- Used chronological train/test split.
+- Saved test predictions, forecast metrics, latest forecast, and forecast figures.
 
 ## Phase 4: Policy Interpretation
 
-Status: Not started
+Status: Next
 
 - Interpret macro indicators and forecast outputs.
 - Summarize policy and business implications.

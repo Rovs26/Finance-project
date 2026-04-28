@@ -2,13 +2,12 @@
 
 ## Current State
 
-Phase 2 parsing, cleaning, and inflation-first feature engineering is complete. The project has processed monthly inflation, monthly USD/PHP, annual macro context, and an inflation-first monthly macro indicator table. No forecasting, scenario analysis, or dashboard work has been performed yet.
+Phase 3 baseline inflation forecasting is complete. The project now has a one-month-ahead inflation forecasting notebook, reusable forecasting utilities, forecast outputs, and forecast diagnostic figures. No dashboard, advanced nowcasting, or policy interpretation notebook has been built yet.
 
 ## Files Changed
 
-- `notebooks/02_cleaning_and_features.ipynb`
-- `src/cleaning.py`
-- `src/features.py`
+- `notebooks/03_baseline_forecasting.ipynb`
+- `src/forecasting.py`
 - `src/visualization.py`
 - `README.md`
 - `reports/model_notes.md`
@@ -16,30 +15,41 @@ Phase 2 parsing, cleaning, and inflation-first feature engineering is complete. 
 - `docs/KNOWN_ISSUES.md`
 - `docs/AGENT_HANDOFF.md`
 
-## Raw Files Inspected
+## Models Compared
 
-- BSP historical inflation Excel: `data/raw/bsp_inflation_infrate.xls`
-- BSP peso-dollar Excel: `data/raw/bsp_peso_dollar.xlsx`
-- Additional local Excel files under `data/raw/additional_sources/`
-- World Bank annual CSV files collected in Phase 1
+- Naive last-value benchmark
+- 3-month moving-average benchmark
+- Simple linear regression using inflation lag, rolling, change, and USD/PHP features
 
-## Processed Datasets Created
+## Best Model
 
-- `data/processed/monthly_inflation.csv`
-- `data/processed/monthly_usd_php.csv`
-- `data/processed/annual_macro_context.csv`
-- `data/processed/monthly_macro_indicators.csv`
+The simple linear regression baseline had the lowest test RMSE.
+
+- MAE: `0.3785`
+- RMSE: `0.4889`
+- MAPE: `19.13%`
+- Directional accuracy: `62.33%`
+
+The notebook used the NumPy least-squares fallback because the local system Python has a NumPy/SciPy/sklearn compatibility issue.
 
 ## Outputs Created
 
-- `outputs/indicators/raw_excel_inventory.csv`
-- `outputs/indicators/data_quality_summary.csv`
-- `reports/figures/inflation_time_series.png`
-- `reports/figures/usd_php_time_series.png`
-- `reports/figures/inflation_features_missingness.png`
-- `reports/figures/macro_indicator_correlation.png`
-- `notebooks/02_cleaning_and_features_executed.ipynb`
+- `outputs/forecasts/inflation_forecast_test_predictions.csv`
+- `outputs/forecasts/forecast_metrics.csv`
+- `outputs/forecasts/latest_inflation_forecast.csv`
+- `reports/figures/inflation_actual_vs_forecast.png`
+- `reports/figures/forecast_error_by_model.png`
+- `reports/figures/forecast_metrics_comparison.png`
+- `reports/figures/latest_forecast_context.png`
+- `notebooks/03_baseline_forecasting_executed.ipynb`
+
+## Latest Forecast
+
+- Forecast origin: March 2026
+- Forecast target: April 2026
+- Latest observed inflation: `4.1`
+- Linear regression forecast: `5.0198`
 
 ## Next Recommended Task
 
-Start Phase 3 by defining the inflation forecasting target, creating a train/test split, and building transparent baseline forecasts using the monthly macro indicator table.
+Start Phase 4 policy interpretation by translating the forecast results into concise policy and business implications, documenting what the baseline can and cannot support, and preparing dashboard-ready interpretation outputs later.
