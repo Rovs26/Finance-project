@@ -22,16 +22,18 @@ Status: Done
 
 ## Phase 2: Cleaning and Features
 
-Status: Next
+Status: Done
 
-- Inspect raw workbook sheets.
-- Clean raw macro time series.
-- Align dates and frequencies.
-- Build lag, growth, and momentum features.
+- Created raw Excel inventory.
+- Parsed BSP monthly inflation and peso-dollar data.
+- Parsed World Bank annual context indicators.
+- Built inflation-first monthly macro indicator table.
+- Added lag, rolling, and change features.
+- Saved data quality summary and initial indicator figures.
 
 ## Phase 3: Baseline Forecasting
 
-Status: Not started
+Status: Next
 
 - Define forecasting target.
 - Build transparent baseline models.

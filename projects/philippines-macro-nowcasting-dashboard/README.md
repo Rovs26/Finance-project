@@ -92,12 +92,12 @@ Macro data will be collected from public sources or manually placed later. No ma
 
 ## Current Status
 
-Phase 1 macro data source inventory and initial collection is complete.
+Phase 2 parsing, cleaning, and inflation-first feature engineering is complete.
 
 - Phase 0 setup: completed
 - Phase 1 macro data collection: completed
-- Phase 2 cleaning and feature engineering: next
-- Phase 3 baseline forecasting: not started
+- Phase 2 cleaning and feature engineering: completed
+- Phase 3 baseline forecasting: next
 - Phase 4 policy interpretation: not started
 - Phase 5 dashboard: not started
 - Phase 6 GitHub polish: not started
@@ -118,4 +118,27 @@ Inventory and summary outputs:
 - `outputs/indicators/source_inventory.csv`
 - `outputs/indicators/data_collection_summary.csv`
 
-Phase 1 only collects raw source files and records availability. Cleaning, feature engineering, forecasting, scenario analysis, and dashboard work are not yet done.
+Phase 1 only collects raw source files and records availability.
+
+## Processed Phase 2 Datasets
+
+Processed datasets created:
+
+- `data/processed/monthly_inflation.csv`
+- `data/processed/monthly_usd_php.csv`
+- `data/processed/annual_macro_context.csv`
+- `data/processed/monthly_macro_indicators.csv`
+
+Indicator and quality outputs:
+
+- `outputs/indicators/raw_excel_inventory.csv`
+- `outputs/indicators/data_quality_summary.csv`
+
+Figures:
+
+- `reports/figures/inflation_time_series.png`
+- `reports/figures/usd_php_time_series.png`
+- `reports/figures/inflation_features_missingness.png`
+- `reports/figures/macro_indicator_correlation.png`
+
+The monthly macro table is inflation-first and includes inflation lags, rolling averages, changes, and USD/PHP features where available. Forecasting, scenario analysis, and dashboard work are not yet done.
