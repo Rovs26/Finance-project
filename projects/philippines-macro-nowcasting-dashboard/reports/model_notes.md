@@ -85,3 +85,25 @@ The latest available forecast origin is March 2026. The baseline linear regressi
 ## Why This Matters
 
 Phase 3 demonstrates a practical macro research workflow: define a forecast target, compare simple benchmarks, evaluate out-of-sample forecast error, and translate results into policy-relevant limitations before attempting more complex models.
+
+## Phase 4 Policy Interpretation
+
+Phase 4 produced three outputs in `outputs/scenarios/`:
+
+- `inflation_target_band_summary.csv` — BSP band position summary for the latest observation and forecast (1 row, 9 columns).
+- `policy_interpretation_summary.csv` — Nine-row policy and business interpretation table with columns: section, finding, implication, caveat.
+- `dashboard_policy_notes.md` — Pre-authored narrative text blocks for the Phase 5 Streamlit dashboard.
+
+Phase 4 also produced two figures in `reports/figures/`:
+
+- `inflation_trend_with_bsp_band.png` — Full historical inflation series with BSP target band overlay and latest forecast point.
+- `phase4_metrics_bar.png` — Horizontal bar chart comparing model RMSE across the three Phase 3 baselines.
+
+The baseline linear regression model is not designed for policy prescription. The Phase 4 interpretation documents what the model output implies analytically, subject to the caveats documented in Phase 3 and reinforced here.
+
+## Phase 4 Limitations
+
+- Scenario descriptions are analytical frames, not forward-looking policy guidance.
+- The model does not include rice prices, oil prices, core inflation, or BSP policy rate.
+- Band breach classification uses strict greater-than/less-than logic against the stated BSP target bounds (2.0%–4.0%, 2025–2028). Any future change to the BSP target period would require updating the constants in the notebook Cell 3.
+- matplotlib 3.10.9 was installed during Phase 4 execution to resolve a NumPy 2.x compatibility issue with the previously installed matplotlib 3.7.2. This resolves the Phase 3 documented NumPy/matplotlib conflict.

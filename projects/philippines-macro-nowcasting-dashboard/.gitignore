@@ -29,6 +29,8 @@ outputs/**
 !outputs/indicators/.gitkeep
 !outputs/forecasts/.gitkeep
 !outputs/scenarios/.gitkeep
+!outputs/scenarios/*.csv
+!outputs/scenarios/*.md
 
 # Environment files
 .env

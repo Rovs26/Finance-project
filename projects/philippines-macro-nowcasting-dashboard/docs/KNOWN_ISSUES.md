@@ -32,3 +32,13 @@
 - The model does not yet include policy rates, commodity prices, survey expectations, or additional high-frequency indicators.
 - Evaluation uses a single chronological holdout period, not rolling-origin validation.
 - Static Plotly image export was unavailable in the local environment, so the notebook saved PNG figure files using the built-in fallback path.
+
+## Phase 4
+
+- No blocking issue found in Phase 4.
+- matplotlib 3.7.2 was incompatible with the installed NumPy 2.4.1 (compiled against NumPy 1.x). This caused an import error during initial notebook execution. Resolved by upgrading matplotlib to 3.10.9 via pip during Phase 4 setup. The notebook now executes cleanly.
+- Policy rate data remains unparsed. BSP key rates page is referenced in the source inventory but manual handling is required. Policy rate is not included in the forecasting features.
+- The model used in Phase 4 interpretation is the same baseline linear regression from Phase 3. No new modeling was done in Phase 4.
+- Scenario descriptions are analytical frames. They do not constitute macroeconomic guidance, investment advice, or BSP guidance.
+- This project is not an official BSP forecast. All outputs are portfolio research materials only.
+- BSP target band constants (2.0%–4.0%, midpoint 3.0%, 2025–2028) are hardcoded in the Phase 4 notebook. If BSP announces a new target period, update the constants in notebook Cell 3 and re-execute before Phase 5 dashboard launch.

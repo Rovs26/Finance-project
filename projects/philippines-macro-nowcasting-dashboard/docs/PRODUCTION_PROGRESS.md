@@ -42,16 +42,24 @@ Status: Done
 
 ## Phase 4: Policy Interpretation
 
-Status: Next
+Status: Done
 
-- Interpret macro indicators and forecast outputs.
-- Summarize policy and business implications.
+- Reviewed 819-month Philippines inflation history relative to BSP 3.0% ±1.0pp target band (2025–2028).
+- March 2026 inflation (4.1%) classified as above_band; April 2026 model forecast (5.02%) also classified as above_band.
+- Produced three scenario outputs: inflation_target_band_summary.csv, policy_interpretation_summary.csv, dashboard_policy_notes.md.
+- Generated two diagnostic figures: inflation trend with BSP band overlay, model RMSE comparison bar chart.
+- Completed research_memo.md with full macro and policy narrative (8 sections).
+- Updated model_notes.md with Phase 4 outputs and limitations.
+- Phase 5 dashboard inputs are ready.
+- matplotlib 3.10.9 installed to resolve NumPy 2.x compatibility issue documented in Phase 3.
 
 ## Phase 5: Dashboard
 
-Status: Not started
+Status: Next
 
-- Build dashboard only after clean macro outputs exist.
+- Build Streamlit dashboard in dashboard/app.py.
+- Consume pre-computed outputs from Phases 3 and 4.
+- No model retraining in the app layer.
 
 ## Phase 6: GitHub Polish
 

@@ -92,15 +92,17 @@ Macro data will be collected from public sources or manually placed later. No ma
 
 ## Current Status
 
-Phase 3 one-month-ahead baseline inflation forecasting is complete.
+Phase 4 policy interpretation is complete. Dashboard is next.
 
 - Phase 0 setup: completed
 - Phase 1 macro data collection: completed
 - Phase 2 cleaning and feature engineering: completed
 - Phase 3 baseline forecasting: completed
-- Phase 4 policy interpretation: next
-- Phase 5 dashboard: not started
+- Phase 4 policy interpretation: completed
+- Phase 5 dashboard: next
 - Phase 6 GitHub polish: not started
+
+**Disclaimer:** This is a portfolio research project. Nothing in this repository constitutes an official economic forecast, investment advice, or guidance from the BSP, PSA, or any official institution.
 
 ## Collected Phase 1 Sources
 
@@ -169,6 +171,31 @@ Figures:
 - `reports/figures/latest_forecast_context.png`
 
 Current best baseline by RMSE is the simple linear regression model. Forecasting remains intentionally simple: no advanced nowcasting, policy-rate parser, macro scenario model, or dashboard has been built yet.
+
+## Phase 4 Policy Interpretation
+
+Policy context and scenario outputs:
+
+- `outputs/scenarios/inflation_target_band_summary.csv` — BSP band position for latest observation and forecast
+- `outputs/scenarios/policy_interpretation_summary.csv` — Nine-row policy and business interpretation table
+- `outputs/scenarios/dashboard_policy_notes.md` — Pre-authored narrative blocks for Phase 5 dashboard
+
+Figures:
+
+- `reports/figures/inflation_trend_with_bsp_band.png` — Full inflation history with BSP target band
+- `reports/figures/phase4_metrics_bar.png` — Model RMSE comparison
+
+Research outputs:
+
+- `reports/research_memo.md` — Full macro research memo with data, forecasting, and policy narrative
+- `reports/model_notes.md` — Updated with Phase 4 policy interpretation limitations
+
+## Run the Phase 4 Notebook
+
+```bash
+cd projects/philippines-macro-nowcasting-dashboard
+python3 -m jupyter nbconvert --to notebook --execute notebooks/04_policy_interpretation.ipynb --output 04_policy_interpretation_executed.ipynb
+```
 
 ## Run the Phase 3 Notebook
 

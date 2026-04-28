@@ -1,0 +1,2 @@
+latest_observed_date,latest_observed_inflation,latest_forecast_date,latest_forecast_inflation,target_midpoint,target_lower_bound,target_upper_bound,observed_position_vs_target,forecast_position_vs_target
+2026-03-01,4.1,2026-04-01,5.0198,3.0,2.0,4.0,above_band,above_band
