@@ -12,16 +12,19 @@ Status: Done
 
 ## Phase 1: Macro Data Collection
 
-Status: Next
+Status: Done
 
-- Verify data sources.
-- Collect or manually place inflation and policy rate data.
-- Document source URLs, update frequency, and data caveats.
+- Built source inventory for BSP, PSA, and World Bank macro sources.
+- Downloaded BSP historical inflation Excel file.
+- Downloaded BSP peso-dollar Excel file.
+- Downloaded World Bank annual GDP growth, unemployment, inflation backup, and remittances indicators.
+- Saved source inventory and data collection summary.
 
 ## Phase 2: Cleaning and Features
 
-Status: Not started
+Status: Next
 
+- Inspect raw workbook sheets.
 - Clean raw macro time series.
 - Align dates and frequencies.
 - Build lag, growth, and momentum features.

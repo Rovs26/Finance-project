@@ -92,4 +92,30 @@ Macro data will be collected from public sources or manually placed later. No ma
 
 ## Current Status
 
-Setup phase only. The repository structure and placeholder files are created, but no macro data collection, cleaning, forecasting, dashboard, or results have been implemented.
+Phase 1 macro data source inventory and initial collection is complete.
+
+- Phase 0 setup: completed
+- Phase 1 macro data collection: completed
+- Phase 2 cleaning and feature engineering: next
+- Phase 3 baseline forecasting: not started
+- Phase 4 policy interpretation: not started
+- Phase 5 dashboard: not started
+- Phase 6 GitHub polish: not started
+
+## Collected Phase 1 Sources
+
+Raw files collected:
+
+- `data/raw/bsp_inflation_infrate.xls`
+- `data/raw/bsp_peso_dollar.xlsx`
+- `data/raw/world_bank_gdp_growth.csv`
+- `data/raw/world_bank_unemployment.csv`
+- `data/raw/world_bank_inflation_backup.csv`
+- `data/raw/world_bank_remittances_pct_gdp.csv`
+
+Inventory and summary outputs:
+
+- `outputs/indicators/source_inventory.csv`
+- `outputs/indicators/data_collection_summary.csv`
+
+Phase 1 only collects raw source files and records availability. Cleaning, feature engineering, forecasting, scenario analysis, and dashboard work are not yet done.
