@@ -1,150 +1,225 @@
 # Finance Data Engineering Stack
 
-A Python portfolio project demonstrating a production-style finance data engineering pipeline — ingestion, transformation, data quality validation, and SQL-ready warehouse tables — built on publicly available market data.
+Finance data engineering portfolio project that ingests public market data, validates it, loads it into DuckDB, and exposes analyst-ready SQL and API outputs.
 
-**Disclaimer:** This is a portfolio data engineering project. It is not investment advice and does not represent any institutional view.
-
----
+**Disclaimer:** This is a portfolio data engineering project. It is not investment advice, an institutional research product, or a production trading platform.
 
 ## Business Problem
 
-Finance, risk, and analytics teams need reliable, auditable pipelines that ingest raw market data, standardise it into SQL-ready formats, validate quality, and serve clean tables to downstream models, dashboards, and APIs. This project demonstrates that end-to-end workflow using public equity data.
+Finance, banking, and fintech teams need reliable pipelines before they can trust analytics, models, dashboards, or reporting. Raw price data has to be ingested, reshaped, validated, stored in queryable tables, and documented clearly enough for other analysts to use.
 
----
+This project demonstrates that workflow using public equity market data.
 
 ## Target Roles and Companies
 
-**Roles:** Data engineer, quantitative analyst, risk analytics analyst, financial data analyst, fintech analytics engineer
+Target roles:
 
-**Companies:** ING Hubs Philippines, GCash, Maya, UnionBank, MSCI, PwC Philippines, JPMorgan Chase, Wells Fargo, BPI
+- Finance data analyst
+- Data engineer
+- Fintech analytics engineer
+- Risk analytics analyst
+- Banking data analyst
+- Junior quantitative analyst
 
----
+Target companies:
 
-## Phase Plan
+- ING Hubs Philippines
+- GCash
+- Maya
+- UnionBank
+- MSCI
+- PwC Philippines
+- JPMorgan Chase
+- Wells Fargo
+- BPI
 
-| Phase | Status | Description |
-|---|---|---|
-| Phase 0: Setup + Ingestion | Done | Project structure, yfinance ingestion, SQL-ready tables |
-| Phase 1: Validation + Warehouse | Done | Data quality checks, DuckDB warehouse, SQL outputs, optional API |
-| Phase 2: GitHub Polish | Next | Reports, career materials, final packaging |
+## Pipeline Overview
 
----
+1. Download adjusted close prices from yfinance.
+2. Save raw and processed CSV outputs.
+3. Calculate daily returns.
+4. Create SQL-ready dimension and fact tables.
+5. Run validation checks on schema, duplicates, missing values, ranges, and referential integrity.
+6. Load validated tables into a local DuckDB warehouse.
+7. Run sample analytical SQL queries.
+8. Optionally serve warehouse summaries through a small FastAPI layer.
 
-## Current Status
+## Architecture Summary
 
-Phase 1 validation and warehouse work is complete.
-
-- Asset universe ingested: AAPL, MSFT, JPM, PG, XOM, JNJ, KO, NVDA, SPY
-- Date range: 2020-01-01 to present
-- Adjusted close prices, daily returns, and SQL-ready dimension and fact tables produced
-- Ingestion log and summary saved
-- Data quality validation suite executed with `15` checks passing
-- Local DuckDB warehouse created at `data/warehouse/finance_data.duckdb`
-- Analytical SQL query outputs generated
-- Optional FastAPI read layer added for local warehouse summaries
-
----
-
-## How to Run Phase 0
-
-```bash
-cd projects/finance-data-engineering-stack
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Execute the ingestion notebook
-python3 -m jupyter nbconvert --to notebook --execute \
-    notebooks/01_ingestion_pipeline.ipynb \
-    --output 01_ingestion_pipeline_executed.ipynb
+```text
+yfinance
+  -> data/raw/market_prices_raw.csv
+  -> data/processed/adjusted_close_prices.csv
+  -> data/processed/daily_returns.csv
+  -> data/processed/dim_assets.csv
+  -> data/processed/fact_prices.csv
+  -> data/processed/fact_returns.csv
+  -> validation checks
+  -> data/warehouse/finance_data.duckdb
+  -> SQL query outputs
+  -> optional FastAPI endpoints
 ```
 
-## How to Run Phase 1
+## Data Sources
 
-```bash
-cd projects/finance-data-engineering-stack
+- Source: Yahoo Finance data accessed through `yfinance`
+- Asset universe: `AAPL`, `MSFT`, `JPM`, `PG`, `XOM`, `JNJ`, `KO`, `NVDA`, `SPY`
+- Date range: 2020-01-01 to latest available run date
+- Main field used: adjusted close price
 
-# Execute validation, warehouse loading, SQL exports, and figures
-python3 -m jupyter nbconvert --to notebook --execute \
-    notebooks/02_data_quality_and_warehouse.ipynb \
-    --output 02_data_quality_and_warehouse_executed.ipynb
+## Tables Created
+
+- `dim_assets`: one row per ticker with asset metadata
+- `fact_prices`: long-format adjusted close prices by date and ticker
+- `fact_returns`: long-format daily returns by date and ticker
+- `adjusted_close_prices.csv`: wide price table for analysis
+- `daily_returns.csv`: wide returns table for analysis
+
+## Validation Checks
+
+The Phase 1 validation suite checks:
+
+- Required columns in all core tables
+- Unique ticker values in `dim_assets`
+- No duplicate `(date, ticker)` keys in fact tables
+- Date range validity
+- Missing values
+- Positive adjusted close prices
+- Daily returns between `-1` and `1`
+- Fact table tickers exist in `dim_assets`
+
+Latest validation result:
+
+- Total checks: `15`
+- Passed: `15`
+- Failed: `0`
+- Warnings: `0`
+- Overall status: `PASS`
+
+## DuckDB Warehouse Layer
+
+The notebook builds a local DuckDB warehouse at:
+
+```text
+data/warehouse/finance_data.duckdb
 ```
 
-Optional API after running the notebook:
+Warehouse tables:
 
-```bash
-# Requires FastAPI and uvicorn in the local environment.
-uvicorn api.app:app --host 127.0.0.1 --port 8011
-```
+- `dim_assets`
+- `fact_prices`
+- `fact_returns`
 
-API endpoints:
+The DuckDB file is not committed because it is generated from reproducible notebook outputs.
+
+## Optional API Layer
+
+The project includes a lightweight read-only FastAPI app:
 
 - `GET /health`
 - `GET /assets`
 - `GET /latest-prices`
 - `GET /return-stats`
 
----
+This is a small local demonstration layer, not a deployed service.
 
-## Generated Outputs
+## SQL Examples
 
-### Processed data
-- `data/processed/adjusted_close_prices.csv` — wide price table (date x ticker)
-- `data/processed/daily_returns.csv` — wide returns table (date x ticker)
-- `data/processed/dim_assets.csv` — asset dimension table
-- `data/processed/fact_prices.csv` — long-format price fact table
-- `data/processed/fact_returns.csv` — long-format returns fact table
+`sql/sample_queries.sql` includes analyst-style queries for:
 
-### Raw data
-- `data/raw/market_prices_raw.csv` — raw OHLCV download from yfinance (flattened)
+- Latest price by ticker
+- Daily return history by ticker
+- Best daily returns
+- Worst daily returns
+- Average return and volatility by ticker
+- Missing price checks
+- Joined price and return table
+- Cumulative return approximation by ticker
 
-### Logs
-- `outputs/logs/ingestion_log.csv` — per-ticker ingestion metadata
-- `outputs/summaries/ingestion_summary.csv` — overall pipeline run summary
-- `outputs/summaries/data_quality_results.csv` — detailed validation results
-- `outputs/summaries/data_quality_summary.csv` — pass/fail validation summary
-- `outputs/summaries/query_latest_prices.csv` — latest adjusted close price by ticker
-- `outputs/summaries/query_return_stats.csv` — return and volatility summary
-- `outputs/summaries/query_best_worst_returns.csv` — best and worst daily returns
-- `outputs/summaries/query_joined_prices_returns_sample.csv` — joined price/return sample
+## Key Results
 
-### Warehouse
-- `data/warehouse/finance_data.duckdb` — local DuckDB warehouse with `dim_assets`, `fact_prices`, and `fact_returns`
+- Ingested market data for 9 tickers.
+- Produced SQL-ready dimension and fact tables.
+- Built a validation suite with 15 checks.
+- Latest validation run passed all checks.
+- Created a local DuckDB warehouse.
+- Exported query summaries for latest prices, return statistics, best/worst returns, and joined price-return samples.
+- Added a small optional API for local warehouse reads.
 
-### SQL
-- `sql/create_tables.sql` — DDL for dim_assets, fact_prices, fact_returns
-- `sql/sample_queries.sql` — 8 analyst-ready queries
+## How to Run
 
-### Figures
-- `reports/figures/data_quality_status.png`
-- `reports/figures/return_volatility_by_ticker.png`
-- `reports/figures/latest_prices_by_ticker.png`
+From the repository root:
 
-Generated CSVs, raw data, processed data, logs, and the DuckDB file are ignored by Git and can be regenerated by rerunning the notebooks.
-
----
-
-## Project Structure
-
-```
-finance-data-engineering-stack/
-  README.md
-  requirements.txt
-  .gitignore
-  data/           raw/, processed/, warehouse/
-  notebooks/      01_ingestion_pipeline.ipynb, 02_data_quality_and_warehouse.ipynb
-  src/            config.py, ingestion.py, transforms.py,
-                  validation.py, warehouse.py, visualization.py
-  api/            app.py
-  sql/            create_tables.sql, sample_queries.sql
-  reports/        figures/, architecture_notes.md, data_quality_report.md
-  outputs/        logs/, summaries/
-  docs/           PROJECT_BRIEF.md, DECISION_LOG.md, KNOWN_ISSUES.md,
-                  AGENT_HANDOFF.md, PRODUCTION_PROGRESS.md
+```bash
+cd projects/finance-data-engineering-stack
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
----
+Run Phase 0 ingestion:
 
-## Disclaimer
+```bash
+python3 -m jupyter nbconvert --to notebook --execute \
+  notebooks/01_ingestion_pipeline.ipynb \
+  --output 01_ingestion_pipeline_executed.ipynb
+```
 
-This is a portfolio data engineering project. All data is sourced from publicly available market data via yfinance. Nothing in this repository constitutes investment advice, official financial analysis, or a production trading system.
+Run Phase 1 validation and warehouse build:
+
+```bash
+python3 -m jupyter nbconvert --to notebook --execute \
+  notebooks/02_data_quality_and_warehouse.ipynb \
+  --output 02_data_quality_and_warehouse_executed.ipynb
+```
+
+Run the optional API after the warehouse has been generated:
+
+```bash
+uvicorn api.app:app --host 127.0.0.1 --port 8011
+```
+
+## Generated Artifacts Policy
+
+The following files are generated and intentionally ignored by Git:
+
+- `data/raw/**`
+- `data/processed/**`
+- `data/warehouse/**`
+- `outputs/logs/**`
+- `outputs/summaries/**`
+
+Run the notebooks in order to regenerate data, warehouse files, logs, and query summary CSVs after cloning.
+
+Committed project materials include source code, notebooks, SQL, docs, reports, and selected report figures.
+
+## Key Reports
+
+- `reports/data_quality_report.md`
+- `reports/architecture_notes.md`
+- `reports/resume_bullets.md`
+- `reports/interview_talking_points.md`
+- `reports/company_positioning.md`
+- `reports/linkedin_post.md`
+
+## Limitations
+
+- yfinance is a public data source and can change, fail, or differ from paid institutional feeds.
+- The pipeline is batch-oriented and notebook-driven.
+- There is no Airflow, Prefect, or cloud scheduler yet.
+- The API is local and read-only.
+- Validation checks are useful but not a full production monitoring system.
+- No live deployment or CI pipeline is included in the MVP.
+
+## Future Improvements
+
+- Add scheduled orchestration with Airflow or Prefect.
+- Add CI checks for validation functions and SQL queries.
+- Add incremental ingestion.
+- Add a data freshness dashboard or alerting layer.
+- Add cloud warehouse deployment.
+- Add authentication and deployment configuration for the API.
+
+## Resume Bullet
+
+Built a finance data engineering pipeline in Python that ingests public equity prices, transforms them into SQL-ready fact and dimension tables, validates data quality with 15 checks, loads a DuckDB warehouse, and exposes analyst-ready SQL/API outputs.

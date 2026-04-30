@@ -19,3 +19,14 @@ Chosen to cover technology (AAPL, MSFT, NVDA), financials (JPM), consumer staple
 
 **Default date range: 2020-01-01 to present**
 Starting from 2020 covers the COVID shock, recovery, 2022 rate cycle, and AI-driven rally — a rich multi-regime sample for demonstrating data engineering and quality checks.
+
+## Final Packaging Decisions
+
+**Stop at GitHub-ready portfolio version**
+The project stops after ingestion, validation, DuckDB warehouse loading, SQL outputs, optional API access, and final documentation. This keeps the scope focused on finance data engineering instead of drifting into dashboards, trading systems, or cloud infrastructure.
+
+**Keep the API as a lightweight demonstration layer**
+The FastAPI app is included to show how validated warehouse outputs can be served as a simple data product. It remains local, read-only, and optional.
+
+**Do not commit generated data or warehouse files**
+Raw data, processed data, logs, summary CSVs, and the DuckDB database are reproducible outputs. They stay ignored by Git so the repository remains lightweight and avoids committing generated market data.

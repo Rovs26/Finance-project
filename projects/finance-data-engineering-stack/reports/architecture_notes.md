@@ -1,66 +1,105 @@
 # Architecture Notes
 
-## Pipeline Architecture
+## Overview
 
-The project follows a simple finance data engineering flow:
+This project is a small finance data engineering stack built around a realistic data flow: ingest market data, transform it into usable tables, validate quality, load a warehouse, and expose simple query outputs.
 
-1. Ingest public adjusted close market data with `yfinance`.
-2. Save raw and processed CSV files.
-3. Transform wide price and return panels into SQL-ready dimension and fact tables.
-4. Validate processed tables before warehouse loading.
-5. Load clean tables into a local DuckDB warehouse.
-6. Run analyst-style SQL queries and export summary outputs.
-7. Optionally serve warehouse summaries through a small FastAPI layer.
+It is intentionally compact. The point is to show clear engineering structure without pretending to be a full enterprise platform.
 
 ## Raw to Processed to Warehouse Flow
 
-- `data/raw/market_prices_raw.csv`: flattened raw market data download.
-- `data/processed/adjusted_close_prices.csv`: wide adjusted close price table.
-- `data/processed/daily_returns.csv`: wide daily returns table.
-- `data/processed/dim_assets.csv`: ticker metadata.
-- `data/processed/fact_prices.csv`: long-format adjusted close prices.
-- `data/processed/fact_returns.csv`: long-format daily returns.
-- `data/warehouse/finance_data.duckdb`: local DuckDB warehouse generated from processed CSVs.
+```text
+yfinance download
+  -> raw market data CSV
+  -> adjusted close price panel
+  -> daily returns panel
+  -> dim_assets
+  -> fact_prices
+  -> fact_returns
+  -> validation suite
+  -> DuckDB warehouse
+  -> SQL query outputs
+  -> optional local API
+```
 
-The warehouse file is intentionally ignored by Git because it is generated from reproducible processed inputs.
+## Data Model
+
+The data model is simple and analyst-friendly:
+
+- `dim_assets`: ticker-level metadata
+- `fact_prices`: adjusted close prices by date and ticker
+- `fact_returns`: daily returns by date and ticker
+
+The fact tables use `(date, ticker)` as the natural analytical key. Surrogate IDs are included for a familiar warehouse-style layout, but the validation checks focus on the ticker-date grain.
 
 ## Validation Layer
 
-`src/validation.py` provides reusable checks for schema, duplicate keys, date ranges, missing values, numeric ranges, and referential integrity. The Phase 1 notebook saves:
+The validation layer is implemented in `src/validation.py`. It checks:
 
-- `outputs/summaries/data_quality_results.csv`
-- `outputs/summaries/data_quality_summary.csv`
+- Schema completeness
+- Duplicate keys
+- Date coverage
+- Missing values
+- Numeric ranges
+- Referential integrity
 
-The latest validation run passed all configured checks.
+The latest run passed all checks. This gives downstream users a cleaner starting point for SQL analysis and API reads.
 
 ## SQL Layer
 
-`sql/create_tables.sql` documents DuckDB-compatible table definitions for:
+`sql/create_tables.sql` documents the intended DuckDB table structure.
 
-- `dim_assets`
-- `fact_prices`
-- `fact_returns`
+`sql/sample_queries.sql` includes examples for:
 
-`sql/sample_queries.sql` includes analyst-ready examples for latest prices, return history, best and worst returns, return statistics, missing-price checks, joined price/return views, and cumulative return approximation.
+- Latest prices
+- Return history
+- Best and worst daily returns
+- Return and volatility summaries
+- Missing-price checks
+- Joined price and return samples
+- Cumulative return approximation
 
-The notebook exports selected query results to `outputs/summaries/`.
+This makes the project useful for both data engineering and finance analytics interviews.
 
 ## Optional API Layer
 
-`api/app.py` adds a small read-only FastAPI service with:
+`api/app.py` provides a small FastAPI read layer over the local DuckDB warehouse.
 
-- `GET /health`
-- `GET /assets`
-- `GET /latest-prices`
-- `GET /return-stats`
+Endpoints:
 
-The API reads from the generated DuckDB warehouse. It is optional and should be run only after executing the Phase 1 notebook.
+- `/health`
+- `/assets`
+- `/latest-prices`
+- `/return-stats`
 
-## Production Improvements
+The API is deliberately modest. It shows how the warehouse can be served as a data product, but it is not deployed or secured.
 
-- Move from notebook execution to scheduled jobs.
-- Add CI tests for validation functions and SQL queries.
-- Add incremental ingestion and idempotent partition updates.
-- Add structured logging and run metadata tables.
-- Add data contracts for downstream consumers.
-- Add deployment configuration for the API if it becomes a real service.
+## How This Maps to Production Data Engineering
+
+This portfolio version mirrors the shape of a production workflow:
+
+- Clear separation between ingestion, transformation, validation, and serving
+- SQL-ready dimensional tables
+- Reproducible notebooks for pipeline runs
+- Data quality checks before warehouse use
+- Query outputs for analytics consumers
+- Small API layer for service-style access
+
+What is missing for production:
+
+- Scheduler or orchestrator
+- Cloud storage or warehouse deployment
+- CI/CD
+- Monitoring and alerting
+- Secrets management
+- Authentication and access control
+- Formal data contracts
+
+## Future Improvements
+
+- Move notebook execution into scheduled jobs.
+- Add Airflow or Prefect orchestration.
+- Add CI tests for Python modules and SQL queries.
+- Add incremental ingestion instead of full historical refreshes.
+- Add validation history tables.
+- Deploy the API behind authentication if it becomes more than a local demo.

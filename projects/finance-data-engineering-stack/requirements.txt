@@ -8,3 +8,5 @@ duckdb
 plotly
 jupyter
 ipykernel
+fastapi
+uvicorn
