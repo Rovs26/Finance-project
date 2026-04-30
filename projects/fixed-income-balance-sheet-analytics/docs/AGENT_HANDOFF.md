@@ -2,43 +2,59 @@
 
 ## Current State
 
-Phase 0 setup plus first bond pricing notebook is complete. The project has a synthetic bond book, cash flow generation utilities, bond pricing utilities, YTM calculation, pricing output files, and starter figures.
+Phase 1 risk analytics and stress testing is complete. The project now has bond pricing, cash flow modeling, duration, convexity, DV01, parallel rate scenarios, stress outputs, simple ALM interpretation, and updated research notes.
 
-## Files Created
+## Files Changed
 
-- `README.md`
-- `requirements.txt`
-- `.gitignore`
-- `notebooks/01_bond_pricing_engine.ipynb`
-- `src/config.py`
-- `src/cashflows.py`
-- `src/pricing.py`
+- `notebooks/02_risk_analytics_and_stress_testing.ipynb`
+- `notebooks/02_risk_analytics_and_stress_testing_executed.ipynb`
 - `src/risk.py`
 - `src/scenarios.py`
 - `src/visualization.py`
-- `docs/PROJECT_BRIEF.md`
-- `docs/DECISION_LOG.md`
-- `docs/KNOWN_ISSUES.md`
-- `docs/PRODUCTION_PROGRESS.md`
+- `README.md`
+- `reports/research_memo.md`
+- `reports/model_notes.md`
 - `docs/AGENT_HANDOFF.md`
+- `docs/PRODUCTION_PROGRESS.md`
+- `docs/KNOWN_ISSUES.md`
 
-## Outputs Created
+## Risk Metrics Created
 
-- `data/processed/synthetic_bond_book.csv`
-- `outputs/bond_book/bond_cashflows.csv`
-- `outputs/pricing/bond_pricing_results.csv`
-- `outputs/pricing/portfolio_pricing_summary.csv`
-- `reports/figures/bond_prices_by_rating.png`
-- `reports/figures/market_value_by_sector.png`
-- `reports/figures/cashflow_schedule.png`
-- `reports/figures/price_vs_yield.png`
+- Macaulay duration
+- Modified duration
+- Convexity
+- DV01
+- Portfolio weighted duration and convexity
+- Portfolio DV01
 
-## Commands Run
+## Key Portfolio Risk Results
 
-- `python3 -m compileall src`
-- `python3 -m jupyter nbconvert --to notebook --execute notebooks/01_bond_pricing_engine.ipynb --output 01_bond_pricing_engine_executed.ipynb`
-- `git status --short`
+- Total market value: about `7.23 million`
+- Portfolio Macaulay duration: `3.40`
+- Portfolio modified duration: `3.31`
+- Portfolio convexity: `17.37`
+- Portfolio DV01: about `2,393`
+
+## Stress Outputs Created
+
+- `outputs/scenarios/bond_risk_metrics.csv`
+- `outputs/scenarios/portfolio_risk_summary.csv`
+- `outputs/scenarios/rate_stress_results.csv`
+- `outputs/scenarios/rate_stress_summary.csv`
+- `outputs/scenarios/simple_alm_summary.csv`
+- `reports/figures/duration_by_bond.png`
+- `reports/figures/convexity_by_bond.png`
+- `reports/figures/dv01_by_bond.png`
+- `reports/figures/portfolio_value_under_rate_shocks.png`
+- `reports/figures/stress_loss_by_sector.png`
+
+## Stress Findings
+
+- `+100 bps` parallel shock: loss of about `233,124`, or `3.23%`
+- `+200 bps` parallel shock: loss of about `454,506`, or `6.29%`
+- Largest `+100 bps` sector stress loss: Financials
+- Largest `+100 bps` rating stress loss: BBB bonds
 
 ## Next Recommended Task
 
-Build Phase 1 risk analytics and stress testing by adding duration, convexity, and rate shock scenarios.
+Build Phase 2 GitHub polish and final reports: recruiter-readable README, final research memo, resume bullets, interview talking points, company positioning, and LinkedIn post.

@@ -13,15 +13,17 @@ Status: Complete
 
 ## Phase 1: Risk Analytics and Stress Testing
 
-Status: Next
+Status: Complete
 
-- Add duration and convexity.
-- Add rate shock scenarios.
-- Add portfolio stress summaries.
+- Added Macaulay duration, modified duration, convexity, and DV01.
+- Added parallel rate shock scenarios from `-100 bps` to `+200 bps`.
+- Saved bond-level and portfolio-level stress outputs.
+- Added simple ALM / balance sheet interpretation.
+- Saved Phase 1 figures.
 
 ## Phase 2: GitHub Polish and Reports
 
-Status: Not started
+Status: Next
 
 - Finalize reports and recruiter-facing materials.
 - Polish README and documentation.

@@ -66,3 +66,74 @@ def plot_price_vs_yield(yield_grid, price_grid):
     _apply_style(ax, "Price vs Yield Example", "Yield (%)", "Model price")
     fig.tight_layout()
     return fig
+
+
+def plot_duration_by_bond(risk_results):
+    """Plot modified duration by bond."""
+    data = risk_results.sort_values("modified_duration", ascending=True)
+    fig, ax = plt.subplots(figsize=(9, 5))
+    ax.barh(data["bond_id"], data["modified_duration"], color="#2563eb")
+    _apply_style(ax, "Modified Duration by Bond", "Modified duration")
+    fig.tight_layout()
+    return fig
+
+
+def plot_convexity_by_bond(risk_results):
+    """Plot convexity by bond."""
+    data = risk_results.sort_values("convexity", ascending=True)
+    fig, ax = plt.subplots(figsize=(9, 5))
+    ax.barh(data["bond_id"], data["convexity"], color="#7c3aed")
+    _apply_style(ax, "Convexity by Bond", "Convexity")
+    fig.tight_layout()
+    return fig
+
+
+def plot_dv01_by_bond(risk_results):
+    """Plot DV01 by bond."""
+    data = risk_results.sort_values("dv01", ascending=True)
+    fig, ax = plt.subplots(figsize=(9, 5))
+    ax.barh(data["bond_id"], data["dv01"], color="#059669")
+    _apply_style(ax, "DV01 by Bond", "DV01")
+    fig.tight_layout()
+    return fig
+
+
+def plot_portfolio_value_under_shocks(stress_summary):
+    """Plot portfolio market value under rate shocks."""
+    data = stress_summary.sort_values("shock_bps")
+    fig, ax = plt.subplots(figsize=(9, 5))
+    ax.plot(
+        data["shock_bps"],
+        data["portfolio_market_value"],
+        marker="o",
+        color="#dc2626",
+        linewidth=2,
+    )
+    _apply_style(
+        ax,
+        "Portfolio Market Value Under Parallel Rate Shocks",
+        "Rate shock (bps)",
+        "Portfolio market value",
+    )
+    fig.tight_layout()
+    return fig
+
+
+def plot_stress_loss_by_group(stress_results, group_col, shock_bps=100):
+    """Plot market value loss by group for a selected rate shock."""
+    data = stress_results[stress_results["shock_bps"] == shock_bps].copy()
+    data["stress_loss"] = -data["market_value_change"]
+    summary = (
+        data.groupby(group_col, as_index=False)["stress_loss"]
+        .sum()
+        .sort_values("stress_loss", ascending=True)
+    )
+    fig, ax = plt.subplots(figsize=(9, 5))
+    ax.barh(summary[group_col], summary["stress_loss"], color="#f97316")
+    _apply_style(
+        ax,
+        f"Stress Loss by {group_col.replace('_', ' ').title()} ({shock_bps:+d} bps)",
+        "Estimated market value loss",
+    )
+    fig.tight_layout()
+    return fig
