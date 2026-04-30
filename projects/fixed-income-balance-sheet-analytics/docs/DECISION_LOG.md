@@ -15,3 +15,11 @@ The compressed scope stops at a GitHub-ready portfolio version before building a
 ## Transparent Pricing Assumptions
 
 Phase 0 uses fixed-rate bullet bonds, simple Actual/365 timing, and flat bond-level market yields. These assumptions keep the first version explainable before adding duration, convexity, or curve-based stress testing.
+
+## Final Portfolio Scope
+
+The project stops at a GitHub-ready portfolio version after pricing, duration, convexity, DV01, parallel rate shocks, ALM interpretation, and final documentation. A dashboard is optional and not part of the final required scope.
+
+## Synthetic Data as Intentional MVP Choice
+
+The synthetic bond book remains the project dataset because it keeps the analysis reproducible and avoids implying access to confidential fixed income holdings. The project is meant to show mechanics and workflow discipline, not to make market claims.

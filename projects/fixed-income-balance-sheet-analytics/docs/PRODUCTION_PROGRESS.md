@@ -4,7 +4,7 @@
 
 Status: Complete
 
-- Created project structure.
+- Created the project structure.
 - Built synthetic bond book workflow.
 - Implemented coupon cash flow generation.
 - Implemented discounted cash flow bond pricing.
@@ -18,12 +18,30 @@ Status: Complete
 - Added Macaulay duration, modified duration, convexity, and DV01.
 - Added parallel rate shock scenarios from `-100 bps` to `+200 bps`.
 - Saved bond-level and portfolio-level stress outputs.
-- Added simple ALM / balance sheet interpretation.
+- Added simple asset-side ALM interpretation.
 - Saved Phase 1 figures.
 
 ## Phase 2: GitHub Polish and Reports
 
-Status: Next
+Status: Complete
 
-- Finalize reports and recruiter-facing materials.
-- Polish README and documentation.
+- Rewrote the README for GitHub portfolio presentation.
+- Added selected visuals.
+- Polished research memo and model notes.
+- Completed resume bullets, interview talking points, company positioning, and LinkedIn drafts.
+- Cleaned language for a practical early-career finance/data portfolio tone.
+
+## Project Status
+
+Status: Complete
+
+This project is complete as a GitHub-ready portfolio project.
+
+## Optional Next Phase
+
+Status: Optional only
+
+- Add a real market yield curve.
+- Add key-rate duration.
+- Add spread shock scenarios.
+- Add a small dashboard.

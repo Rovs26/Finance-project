@@ -2,16 +2,23 @@
 
 ## Pricing Assumptions
 
-- Synthetic fixed-rate bond book.
-- Bullet principal repayment at maturity.
-- Coupon dates generated from maturity backwards based on coupon frequency.
-- Actual/365 year fractions.
-- Flat bond-level market yield.
-- No accrued interest, settlement calendar, or holiday adjustment.
+- The bond book is synthetic.
+- Bonds are fixed-rate bullet instruments.
+- Principal is repaid at maturity.
+- Coupon dates are generated backward from maturity based on coupon frequency.
+- Cash flows are discounted with a flat market yield for each bond.
+- Timing uses a simple Actual/365 year fraction.
+- Accrued interest, settlement calendars, holidays, and business-day adjustments are not included.
 
-## Duration Method
+## YTM Assumptions
 
-Macaulay duration is calculated as the present-value-weighted average time to cash flow receipt.
+Yield-to-maturity is calculated as the yield that equates the present value of scheduled cash flows to the modeled price.
+
+The implementation uses a transparent root-solving approach with a fallback search. It is intended for learning and portfolio demonstration, not production bond analytics.
+
+## Duration Assumptions
+
+Macaulay duration is calculated as the present-value-weighted average time to receive cash flows.
 
 Modified duration is calculated as:
 
@@ -19,9 +26,9 @@ Modified duration is calculated as:
 modified_duration = macaulay_duration / (1 + market_yield / coupon_frequency)
 ```
 
-It estimates percentage price sensitivity to a small yield change.
+This is used as a first-order estimate of price sensitivity to yield changes.
 
-## Convexity Method
+## Convexity Assumptions
 
 Convexity is calculated from discounted cash flows using a periodic-compounding approximation:
 
@@ -30,21 +37,21 @@ sum(PV_cashflow * t * (t + 1 / coupon_frequency))
 / (price * (1 + yield / coupon_frequency)^2)
 ```
 
-Convexity is used to improve the duration-only estimate for larger rate moves.
+It helps explain why price-yield relationships are curved rather than perfectly linear.
 
-## DV01 Method
+## DV01 Assumptions
 
 DV01 is calculated as:
 
 ```text
-price_or_market_value * modified_duration * 0.0001
+market_value * modified_duration * 0.0001
 ```
 
-The project reports DV01 as a positive exposure amount. A one basis point rate increase would approximately reduce market value by this amount before convexity adjustment.
+The report treats DV01 as a positive exposure amount. A one basis point rate increase would approximately reduce market value by this amount before convexity effects.
 
-## Stress Scenario Assumptions
+## Rate Shock Assumptions
 
-Scenarios are parallel shocks to each bond's market yield:
+The stress test applies parallel shifts to each bond's market yield:
 
 - `-100 bps`
 - `-50 bps`
@@ -53,17 +60,13 @@ Scenarios are parallel shocks to each bond's market yield:
 - `+100 bps`
 - `+200 bps`
 
-Each bond is repriced under the shocked yield. No curve shape changes, spread shocks, liquidity effects, or credit migration effects are included.
+Each bond is repriced under the shocked yield. The model does not change curve shape, credit spreads, liquidity premiums, or issuer fundamentals.
 
-## Simplified ALM Assumptions
+## Synthetic Data Limitations
 
-The ALM output is an asset-side interpretation of market value sensitivity. It does not model liabilities, deposit repricing, insurance liabilities, hedges, or behavioral assumptions.
-
-## Limitations
-
-- Synthetic data only.
-- Simplified day count and compounding.
-- No real yield curve calibration.
-- Parallel shocks only.
-- No liquidity or credit spread modeling.
-- No optionality, callable bonds, amortization, or floating-rate instruments.
+- The book is not calibrated to actual market holdings.
+- Ratings, yields, sectors, and values are illustrative.
+- There is no real yield curve.
+- There are no callable bonds, amortizing bonds, floating-rate notes, or securitized instruments.
+- There is no liability-side model.
+- Results should be interpreted as fixed income mechanics, not market views.
