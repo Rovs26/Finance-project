@@ -15,17 +15,19 @@ Status: Done
 
 ## Phase 1: Data Validation and Warehouse
 
-Status: Next
+Status: Done
 
-- Implement validation.py (missing values, staleness, outlier checks).
-- Populate DuckDB warehouse from fact/dim CSVs.
-- Run sample_queries.sql against the warehouse.
-- Generate data_quality_report.md.
-- Optional: simple CLI or API for querying the warehouse.
+- Implemented reusable validation checks for schema, duplicate keys, date ranges, missing values, numeric ranges, and referential integrity.
+- Populated local DuckDB warehouse from `dim_assets`, `fact_prices`, and `fact_returns`.
+- Expanded `sample_queries.sql` to 8 analyst-ready SQL examples.
+- Exported validation and SQL summary CSVs.
+- Generated Phase 1 figures.
+- Added optional FastAPI read layer for local warehouse summaries.
+- Updated data quality and architecture reports.
 
 ## Phase 2: GitHub Polish
 
-Status: Not started
+Status: Next
 
 - Finalise README with outputs and screenshots.
 - Write career-facing reports: resume_bullets, interview_talking_points, company_positioning, linkedin_post.

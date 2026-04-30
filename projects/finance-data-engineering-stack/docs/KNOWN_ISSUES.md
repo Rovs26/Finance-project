@@ -18,7 +18,20 @@
 
 ## Still Open for Phase 1
 
-- Data quality validation (missing values, staleness, outlier detection)
-- DuckDB warehouse population from fact/dim CSVs
-- Ingestion summary API or CLI
-- Data quality report document
+Phase 1 is complete.
+
+## Phase 1
+
+- No blocking issue found in Phase 1.
+- Generated files under `data/warehouse/`, `outputs/logs/`, and `outputs/summaries/` remain ignored by Git. Re-run the notebooks after cloning to regenerate the DuckDB warehouse and summary CSVs.
+- Validation checks passed in the latest run, but they are batch checks only. They are not scheduled, monitored, or wired into CI yet.
+- The return range rule `-1` to `1` is a broad reasonableness check, not a full financial anomaly detection system.
+- The optional FastAPI layer depends on FastAPI and uvicorn being available in the local environment.
+- Raw and processed market data remain generated artifacts and are not intended to be committed.
+
+## Still Open for Phase 2
+
+- Final GitHub polish and recruiter-readable packaging
+- Career-facing reports
+- Optional API dependency formalization
+- Optional CI checks for validation utilities and SQL queries
