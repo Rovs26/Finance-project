@@ -1,0 +1,35 @@
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+
+# Generated data (regenerate by running notebooks)
+data/raw/**
+data/processed/**
+data/warehouse/**
+outputs/logs/**
+outputs/summaries/**
+
+# Keep directory placeholders
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/warehouse/.gitkeep
+!outputs/logs/.gitkeep
+!outputs/summaries/.gitkeep
