@@ -55,15 +55,30 @@ Status: Done
 
 ## Phase 5: Dashboard
 
-Status: Next
+Status: Done
 
-- Build Streamlit dashboard in dashboard/app.py.
-- Consume pre-computed outputs from Phases 3 and 4.
-- No model retraining in the app layer.
+- Built five-page Streamlit dashboard in dashboard/app.py.
+- Pages: Overview, Inflation and Target Band, Forecast Performance, Policy Interpretation, Data and Limitations.
+- All pages consume pre-computed outputs from Phases 3 and 4 — no model retraining.
+- Uses Plotly for all interactive charts (full history, 5-year zoom, RMSE bar, actual-vs-forecast, error chart).
+- KPI cards, callout boxes, and professional CSS with no external dependencies.
+- dashboard_policy_notes.md sections rendered as callout blocks in the dashboard.
+- Smoke test passed: streamlit start on port 8503, clean exit.
 
 ## Phase 6: GitHub Polish
 
-Status: Not started
+Status: Done
 
-- Clean README and reports.
-- Prepare career-facing materials.
+- Rewrote README.md as final recruiter-readable portfolio README with all project sections.
+- research_memo.md polished with 8-section structure.
+- model_notes.md updated with Phase 4 policy interpretation outputs and limitations.
+- Created resume_bullets.md with six role-specific bullets.
+- Created interview_talking_points.md with ten Q&A pairs.
+- Created company_positioning.md for nine target companies with rationale and tailored bullets.
+- Created linkedin_post.md with short, medium, and technical post drafts.
+
+## Next (Optional)
+
+- Screenshots of dashboard for README.
+- Deployment to Streamlit Cloud or Hugging Face Spaces (public demo).
+- Rolling-origin validation upgrade for Phase 3 forecasting.

@@ -21,8 +21,8 @@
 
 ## Still Open for Future Phases
 
-- No advanced nowcasting model has been built yet.
-- Dashboard not yet implemented.
+- No advanced nowcasting model has been built. Baseline linear regression only.
+- Rolling-origin validation not yet implemented; single chronological holdout used throughout.
 
 ## Phase 3
 
@@ -42,3 +42,13 @@
 - Scenario descriptions are analytical frames. They do not constitute macroeconomic guidance, investment advice, or BSP guidance.
 - This project is not an official BSP forecast. All outputs are portfolio research materials only.
 - BSP target band constants (2.0%–4.0%, midpoint 3.0%, 2025–2028) are hardcoded in the Phase 4 notebook. If BSP announces a new target period, update the constants in notebook Cell 3 and re-execute before Phase 5 dashboard launch.
+
+## Phase 5 and Phase 6
+
+- No blocking issue found in Phases 5 or 6.
+- Policy rate data remains unparsed across all phases. BSP key rates page is referenced in the source inventory but requires manual handling. Policy rate is not included in any forecasting features or dashboard inputs.
+- The forecasting model is a simple linear regression baseline only. No advanced nowcasting, structural model, or machine-learning model has been built.
+- This project is not an official BSP, PSA, or institutional forecast. All outputs are portfolio research materials only.
+- Generated output files (outputs/forecasts/*.csv, outputs/scenarios/*.csv, outputs/scenarios/*.md, reports/figures/*.png) are committed to the repository for reproducibility. After a fresh clone, notebooks may be re-executed to regenerate them; matplotlib 3.10.9 and standard scientific Python packages are required.
+- The Streamlit dashboard reads pre-computed output files. If output files are deleted or moved, the dashboard will show Streamlit warnings for each missing file rather than crashing.
+- BSP target band constants (2.0%–4.0%, midpoint 3.0%, 2025–2028) are hardcoded in `dashboard/app.py` and in the Phase 4 notebook. Update both if BSP announces a new target period.
