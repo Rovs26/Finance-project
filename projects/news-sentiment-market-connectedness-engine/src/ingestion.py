@@ -13,7 +13,7 @@ def load_csv(path):
     return pd.read_csv(path)
 
 
-def load_json_lines_or_records(path):
+def load_json_records(path):
     """Load JSON records from a JSON array, object, or JSON-lines file."""
     path = Path(path)
     text = path.read_text(encoding="utf-8").strip()
@@ -32,6 +32,30 @@ def load_json_lines_or_records(path):
         records = [json.loads(line) for line in text.splitlines() if line.strip()]
         return pd.DataFrame(records)
     return pd.DataFrame()
+
+
+def load_json_lines_or_records(path):
+    """Backward-compatible wrapper for JSON record loading."""
+    return load_json_records(path)
+
+
+def load_available_raw_datasets(raw_dir):
+    """Load expected raw datasets that are available in a raw directory."""
+    raw_dir = Path(raw_dir)
+    datasets = {}
+    for path in sorted(raw_dir.glob("*")):
+        if not path.is_file():
+            continue
+        try:
+            if path.suffix.lower() == ".csv":
+                datasets[path.name] = load_csv(path)
+            elif path.suffix.lower() == ".json":
+                datasets[path.name] = load_json_records(path)
+        except Exception as exc:
+            datasets[path.name] = pd.DataFrame(
+                [{"load_error": str(exc), "source_file": path.name}]
+            )
+    return datasets
 
 
 def inspect_dataframe(df, name):
@@ -62,5 +86,13 @@ def inspect_dataframe(df, name):
 def save_audit_summary(summary, path):
     """Save a list of audit dictionaries to CSV."""
     df = pd.DataFrame(summary)
+    df.to_csv(path, index=False)
+    return df
+
+
+def save_dataframe(df, path):
+    """Save a DataFrame to CSV."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(path, index=False)
     return df

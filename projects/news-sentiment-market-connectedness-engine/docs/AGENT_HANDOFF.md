@@ -2,37 +2,49 @@
 
 ## Current State
 
-Phase 0 audit and restructure is complete. The project structure, reusable audit modules, legacy placeholders, documentation, and audit notebook are in place.
+Phase 0 and Phase 1 are complete. The project now has a clean repo structure, recovered legacy scripts, loaded raw prototype files, standardized sentiment outputs, a clean merged sentiment-market file, and a documented connectedness fallback.
 
-## Files Created
+## Files Changed in Phase 1
 
-- `README.md`
-- `requirements.txt`
-- `.gitignore`
-- `notebooks/01_project_audit_and_data_review.ipynb`
 - `notebooks/02_sentiment_market_merge_and_connectedness.ipynb`
-- `src/*.py`
-- `legacy/*.py`
-- `reports/*.md`
-- `docs/*.md`
+- `notebooks/02_sentiment_market_merge_and_connectedness_executed.ipynb`
+- `src/ingestion.py`
+- `src/sentiment.py`
+- `src/market_data.py`
+- `src/merge.py`
+- `src/connectedness.py`
+- `reports/research_memo.md`
+- `reports/methodology_notes.md`
+- `README.md`
+- `docs/KNOWN_ISSUES.md`
+- `docs/PRODUCTION_PROGRESS.md`
+- `docs/AGENT_HANDOFF.md`
 
-## Data Found
+## Raw Files Found
 
-No expected prototype data files were found in the current workspace during Phase 0:
+- `data/raw/sentiment_log.csv`: found, 11 rows.
+- `data/raw/merged_data.json`: found, 2 JSON-line records.
+- `data/raw/scraped_news.csv`: found but empty.
 
-- `merged_data.json`
-- `scraped_news.csv`
-- `sentiment_log.csv`
+## Legacy Script Status
 
-## Audit Outputs Created
+Recovered scripts are available in `legacy/`, including the original expected steps plus `step5_dynamic_filtering.py` and `step9_visualize.py`.
 
-- `outputs/audit/file_inventory.csv`
-- `outputs/audit/legacy_script_inventory.csv`
-- `outputs/audit/data_schema_summary.csv`
-- `outputs/audit/data_coverage_summary.csv`
-- `outputs/audit/company_coverage_summary.csv`
-- `reports/figures/audit_records_by_source.png`
+## Outputs Created
+
+- `outputs/sentiment/standardized_sentiment_log.csv`
+- `outputs/sentiment/sentiment_by_date.csv`
+- `outputs/sentiment/sentiment_by_company.csv`
+- `outputs/sentiment/signal_summary.csv`
+- `outputs/merged/clean_merged_sentiment_market.csv`
+- `outputs/connectedness/connectedness_matrix.csv`
+- `outputs/connectedness/connectedness_edges.csv`
+- `outputs/connectedness/connectedness_summary.csv`
+
+## Connectedness Method Used
+
+Formal GFEVD was not used because the recovered merged dataset has only two observations. Phase 1 uses an absolute-correlation connectedness fallback for workflow demonstration only.
 
 ## Next Recommended Task
 
-Build Phase 1 after adding or recovering raw prototype files. The next phase should clean sentiment logs, merge sentiment with market data, and repair or run connectedness analysis without making trading performance claims.
+Build Phase 2 GitHub polish: final README cleanup, research memo polish, methodology notes, resume bullets, interview talking points, company positioning, LinkedIn post, and human-authenticity cleanup.

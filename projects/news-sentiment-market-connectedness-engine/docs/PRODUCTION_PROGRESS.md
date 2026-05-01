@@ -12,15 +12,17 @@ Status: Complete
 
 ## Phase 1: Sentiment, Market Merge, and Connectedness Analysis
 
-Status: Next
+Status: Complete
 
-- Add or recover usable sentiment and market files.
-- Clean sentiment logs.
-- Merge sentiment with market data.
-- Repair or run connectedness analysis.
+- Loaded recovered prototype files.
+- Standardized sentiment scores, labels, dates, and action fields.
+- Created sentiment by date, company, and signal summaries.
+- Standardized AMZN market columns from the merged JSON file.
+- Created a clean sentiment-market merged output.
+- Used a correlation-based connectedness fallback because formal GFEVD is not valid from two merged observations.
 
 ## Phase 2: GitHub Polish and Final Reports
 
-Status: Not started
+Status: Next
 
 - Finalize README, research memo, methodology notes, career-facing reports, and authenticity cleanup.
