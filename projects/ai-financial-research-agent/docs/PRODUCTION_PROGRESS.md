@@ -6,10 +6,8 @@ Status: Complete
 
 - Created project structure.
 - Created six synthetic sample finance documents.
-- Implemented document ingestion utilities.
-- Implemented text cleaning and chunking utilities.
-- Implemented local TF-IDF retrieval.
-- Saved corpus metadata, chunk table, retrieval results, evidence table, and figures.
+- Implemented local ingestion, cleaning, chunking, and TF-IDF retrieval.
+- Saved corpus metadata, chunk table, retrieval outputs, evidence table, and starter figures.
 
 ## Phase 1: Memo Generation and Evaluation
 
@@ -24,8 +22,16 @@ Status: Complete
 
 ## Phase 2: GitHub Polish and Reports
 
-Status: Next
+Status: Complete
 
-- Polish README and final career-facing reports.
-- Keep limitations visible.
-- Prepare final GitHub packaging.
+- Rewrote README for GitHub portfolio use.
+- Polished memo, prompt notes, and evaluation report.
+- Completed resume bullets, interview talking points, company positioning, and LinkedIn drafts.
+- Added selected visuals to README.
+- Completed final documentation cleanup.
+
+## Project Status
+
+Status: Complete
+
+Next optional phases: API, dashboard, embeddings, real document ingestion, PDF parsing, or stricter claim-level evaluation.

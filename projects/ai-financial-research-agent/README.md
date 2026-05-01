@@ -1,37 +1,93 @@
 # AI Financial Research Agent
 
-Local finance research workflow that ingests sample documents, retrieves evidence with TF-IDF, extracts risk flags, and builds a cited template-based research memo.
+Local finance research prototype that ingests sample documents, retrieves evidence, flags risk themes, and builds a cited research memo without paid APIs or external LLM calls.
 
-**Disclaimer:** This is a portfolio analytics project. The sample documents are synthetic examples created for learning and demonstration. The project does not use paid APIs, external LLMs, private company reports, investment advice, or production research infrastructure.
+**Disclaimer:** This is a portfolio research prototype, not a production investment research system. The documents in `data/sample_docs/` are synthetic examples created for demonstration and should not be treated as real company reports, investment advice, or official policy material.
 
 ## Business Problem
 
-Finance, fintech, risk, and consulting teams often need to review documents quickly while keeping conclusions traceable to source evidence. This project builds a local baseline workflow for document ingestion, evidence retrieval, citation grounding, and research memo preparation before adding heavier AI or paid API tools.
+Financial analysts, fintech teams, consultants, and risk teams often need to review long document sets while keeping conclusions traceable to source evidence. This project shows a practical first version of that workflow: collect documents, chunk them, retrieve relevant evidence, cite the source chunks, and evaluate whether the memo is grounded.
 
 ## Target Roles and Companies
 
-Target roles include finance analytics analyst, research analyst, AI workflow analyst, fintech analytics analyst, risk analytics analyst, and data analyst.
+Target roles include finance analytics analyst, fintech analytics analyst, risk analyst, research analyst, AI workflow analyst, consulting analyst, and data analyst.
 
 Target companies include GCash, Maya, ING Hubs Philippines, PwC Philippines, KPMG Philippines, JPMorgan Chase, MSCI, UnionBank, BPI, and startups.
 
-## Phase Plan
+## Methodology
 
-| Phase | Status | Description |
-|---|---|---|
-| Phase 0 | Complete | Setup, sample document ingestion, chunking, TF-IDF retrieval |
-| Phase 1 | Complete | Template memo generation, risk flags, citation grounding, retrieval evaluation |
-| Phase 2 | Next | GitHub polish and final reports |
+1. **Document ingestion:** Load local `.txt` finance sample documents and create document-level metadata.
+2. **Chunking:** Clean text and split each document into overlapping chunks with stable chunk IDs.
+3. **TF-IDF retrieval:** Build a local TF-IDF index and retrieve top chunks for finance research questions.
+4. **Cited memo workflow:** Convert retrieved chunks into citation-style references such as `[FINLEN-CHUNK001]` and use them in a template-based memo.
+5. **Risk flag extraction:** Apply transparent keyword rules for credit, liquidity, interest-rate, inflation, market, operational, profitability, and adoption risks.
+6. **Evaluation:** Check retrieval coverage, source traceability, and whether memo citations exist in the evidence table.
 
-## What the Project Does
+No paid APIs, OpenAI API usage, or external LLM services are used.
 
-- Loads local sample finance documents from `data/sample_docs/`.
-- Cleans and chunks text into traceable document segments.
-- Builds a local TF-IDF retrieval index.
-- Retrieves evidence for finance research questions.
-- Creates citation-style references such as `[FINLEN-CHUNK001]`.
-- Extracts rule-based risk flags across credit, liquidity, rates, inflation, market, operational, profitability, and adoption risks.
-- Builds a template-based research memo from retrieved evidence.
-- Evaluates retrieval coverage, source traceability, and memo grounding.
+## Results
+
+- Retrieved evidence for 6 of 6 research questions.
+- Produced 30 traceable evidence rows with document and chunk references.
+- Grounded 8 of 8 memo sections with citations found in the evidence table.
+- Flagged all planned risk categories using local keyword rules.
+- Produced a cited research memo in `reports/research_memo.md`.
+
+## Selected Visuals
+
+![Chunks by document](reports/figures/chunks_by_document.png)
+
+Document chunk counts by sample finance note.
+
+![Top terms overall](reports/figures/top_terms_overall.png)
+
+Most frequent non-stopword terms across the sample corpus.
+
+![Risk flags by category](reports/figures/risk_flags_by_category.png)
+
+Keyword-based risk flags found in retrieved evidence.
+
+![Evidence count by question](reports/figures/evidence_count_by_question.png)
+
+Retrieved evidence coverage across Phase 1 research questions.
+
+![Grounding check summary](reports/figures/grounding_check_summary.png)
+
+Memo section citation checks against the cited evidence table.
+
+## Key Outputs
+
+- `data/processed/corpus_metadata.csv`
+- `outputs/chunks/document_chunks.csv`
+- `outputs/retrieval/research_question_retrieval.csv`
+- `outputs/retrieval/retrieval_evaluation_summary.csv`
+- `outputs/evidence/cited_evidence_table.csv`
+- `outputs/evidence/risk_flags.csv`
+- `outputs/evidence/memo_section_evidence_map.csv`
+- `reports/research_memo.md`
+- `reports/prompt_notes.md`
+- `reports/evaluation_report.md`
+
+## Repo Structure
+
+```text
+ai-financial-research-agent/
+  data/
+    sample_docs/          Synthetic sample finance documents
+    processed/            Regenerated corpus metadata
+  notebooks/
+    01_document_ingestion_and_retrieval.ipynb
+    02_memo_generation_and_evaluation.ipynb
+  src/
+    ingestion.py          Local document loading
+    chunking.py           Text cleaning and chunk creation
+    retrieval.py          TF-IDF search and citation tables
+    evaluation.py         Risk flags and grounding checks
+    visualization.py      Figure helpers
+  reports/                Memo, evaluation notes, career outputs, figures
+  outputs/                Regenerated chunks, retrieval, and evidence files
+  docs/                   Project brief, progress, handoff, known issues
+```
 
 ## How to Run
 
@@ -45,52 +101,29 @@ python3 -m jupyter nbconvert --to notebook --execute notebooks/01_document_inges
 python3 -m jupyter nbconvert --to notebook --execute notebooks/02_memo_generation_and_evaluation.ipynb --output 02_memo_generation_and_evaluation_executed.ipynb
 ```
 
-## Generated Outputs
+## Generated Artifacts Policy
 
-Phase 0:
-
-- `data/processed/corpus_metadata.csv`
-- `outputs/chunks/document_chunks.csv`
-- `outputs/retrieval/sample_retrieval_results.csv`
-- `outputs/evidence/evidence_table.csv`
-
-Phase 1:
-
-- `outputs/evidence/cited_evidence_table.csv`
-- `outputs/evidence/risk_flags.csv`
-- `outputs/evidence/memo_section_evidence_map.csv`
-- `outputs/retrieval/research_question_retrieval.csv`
-- `outputs/retrieval/retrieval_evaluation_summary.csv`
-- `outputs/retrieval/coverage_by_question.csv`
-- `outputs/retrieval/source_traceability.csv`
-- `outputs/retrieval/grounding_checks.csv`
-- `reports/research_memo.md`
-
-Figures:
-
-- `reports/figures/chunks_by_document.png`
-- `reports/figures/top_terms_overall.png`
-- `reports/figures/retrieval_score_distribution.png`
-- `reports/figures/risk_flags_by_category.png`
-- `reports/figures/evidence_count_by_question.png`
-- `reports/figures/source_traceability_status.png`
-- `reports/figures/grounding_check_summary.png`
-
-Generated processed data and output CSVs are ignored by Git and can be regenerated from the notebooks.
-
-## Phase 1 Evaluation Snapshot
-
-- Retrieval coverage: 6 of 6 research questions covered.
-- Source traceability: 30 of 30 evidence rows traceable to document and chunk IDs.
-- Memo grounding: 8 of 8 memo sections contain citations found in the evidence table.
-- Risk flags found: credit risk, liquidity risk, interest-rate risk, inflation risk, market risk, operational risk, profitability risk, and adoption risk.
+The project commits source code, notebooks, reports, docs, figures, and sample documents. Processed data and retrieval outputs under `data/processed/` and `outputs/` are ignored by Git because they can be regenerated from the notebooks.
 
 ## Limitations
 
 - Synthetic sample documents only.
+- Text files only; no production PDF, table, or spreadsheet parser yet.
 - TF-IDF retrieval only; no embeddings yet.
-- Template-based memo only; no external LLM or OpenAI API calls.
-- Risk flags use transparent keyword rules and need human review.
-- Grounding checks validate citation presence, not full semantic correctness.
-- No production PDF, spreadsheet, or table parser yet.
-- No dashboard yet.
+- Template-based memo only; no external LLM drafting.
+- Keyword risk flags require analyst review.
+- Grounding checks confirm citation traceability, not full semantic correctness.
+- No dashboard or API layer.
+
+## Future Improvements
+
+- Add real public documents or user-provided reports.
+- Add PDF and table parsing.
+- Add semantic embeddings after preserving traceability.
+- Add claim-level grounding checks.
+- Add optional LLM drafting with strict citation guardrails.
+- Add a lightweight API or dashboard for evidence review.
+
+## Resume Bullet
+
+Built a local AI financial research prototype in Python that ingests sample finance documents, chunks text, retrieves evidence with TF-IDF, extracts risk flags, and generates a cited memo with retrieval coverage and grounding checks.

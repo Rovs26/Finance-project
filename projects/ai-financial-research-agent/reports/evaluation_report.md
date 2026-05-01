@@ -2,35 +2,35 @@
 
 ## Scope
 
-Phase 1 evaluates the local TF-IDF retrieval and template-based memo workflow. The checks are intentionally simple and transparent.
+This report summarizes the Phase 1 checks for the local TF-IDF retrieval and template memo workflow.
 
-## Retrieval Coverage Results
+## Retrieval Coverage
 
 - Research questions evaluated: 6
 - Questions with retrieved evidence: 6
-- Status: pass
+- Result: pass
 
-Every Phase 1 research question returned five evidence rows.
+Every research question returned five evidence rows. This confirms that the local index can retrieve material for each planned memo section.
 
-## Source Traceability Results
+## Source Traceability
 
 - Evidence rows evaluated: 30
 - Rows with citation, document ID, title, chunk ID, and snippet: 30
-- Status: pass
+- Result: pass
 
-Each retrieved evidence row can be traced back to a source document and chunk.
+Each retrieved evidence row can be traced back to a specific document and chunk.
 
-## Grounding Check Results
+## Grounding Checks
 
 - Memo sections evaluated: 8
 - Sections with citations found in the evidence table: 8
-- Status: pass
+- Result: pass
 
-The grounding check confirms that memo citations exist in the cited evidence table. It does not prove that every sentence is semantically complete or suitable for final research publication.
+The check confirms citation consistency. It does not prove that every sentence is complete, final, or suitable for a real investment research report.
 
-## Risk Flag Extraction Method
+## Risk Flag Extraction
 
-Risk flags use keyword rules across these categories:
+The workflow uses transparent keyword rules for:
 
 - credit risk
 - liquidity risk
@@ -41,19 +41,19 @@ Risk flags use keyword rules across these categories:
 - profitability risk
 - adoption risk
 
-All eight categories were found in the retrieved evidence set.
+All eight categories appeared in the retrieved evidence set.
 
 ## Limitations
 
 - Synthetic sample documents only.
-- TF-IDF retrieval can miss semantically related evidence.
-- Keyword-based risk flags can over-tag or under-tag risk themes.
+- TF-IDF can miss semantic matches that use different wording.
+- Keyword flags can create false positives.
 - Citation checks validate traceability, not full factual truth.
-- No external LLM or paid API is used.
+- No external LLM, paid API, or production parser is used.
 
 ## Next Improvements
 
-- Add a small human-labeled evaluation set.
+- Add a small hand-labeled relevance set.
 - Add relevance thresholds by question.
-- Add semantic retrieval or embeddings later.
-- Add stricter claim-level citation validation before LLM drafting.
+- Add embeddings after keeping the citation workflow intact.
+- Add claim-level support checks before any optional LLM drafting.

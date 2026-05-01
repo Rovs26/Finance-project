@@ -1,41 +1,30 @@
-# Prompt and Generation Notes
+# Prompt and Workflow Notes
 
-## Why No Paid API Is Used
+## Local Template Workflow
 
-Phase 1 stays fully local so the project is reproducible from a fresh clone without paid API keys, external LLM services, or private data access. This keeps the first version focused on evidence retrieval, traceability, and evaluation.
+Phase 1 uses deterministic templates rather than external text generation. Each memo section is tied to a research question, retrieves top TF-IDF evidence chunks, and inserts citation-style references from the evidence table.
 
-## Template-Based Generation Approach
+The goal is to show the evidence workflow first: retrieve, cite, draft, and check grounding.
 
-The research memo is generated with deterministic section templates. Each section is linked to a research question, retrieves top TF-IDF evidence chunks, and inserts citation-style references from the evidence table.
+## Why No Paid APIs Are Used
 
-This is not an LLM-generated memo. It is closer to a structured analyst draft created from local retrieval results.
+The project is designed to run from a fresh clone without API keys, usage credits, or private data access. This keeps the first version easy to reproduce and easy to inspect during interviews.
 
-## Citation Handling
+## Source-Grounding Rules
 
-Citations use chunk-level labels such as `[FINLEN-CHUNK001]`. Each label maps back to:
+- Every memo section should include at least one citation.
+- Every citation must exist in `outputs/evidence/cited_evidence_table.csv`.
+- Every cited evidence row must include a document ID, document title, chunk ID, snippet, and retrieval score.
+- Risk flags are keyword-based and should be reviewed before formal use.
 
-- research question
-- document ID
-- document title
-- chunk ID
-- evidence snippet
-- retrieval score
+## Optional Future LLM Path
 
-The mapping is saved in `outputs/evidence/cited_evidence_table.csv` and `outputs/evidence/memo_section_evidence_map.csv`.
+A later version could add LLM drafting after the retrieval and grounding layer is stronger. A safer flow would be:
 
-## Source-Grounding Guardrails
+1. Retrieve evidence locally.
+2. Pass only cited evidence into the drafting step.
+3. Require citations for material claims.
+4. Reject or flag unsupported claims.
+5. Keep a human analyst review step before final use.
 
-- Memo sections must include citations.
-- Citations must exist in the evidence table.
-- Evidence rows must include document and chunk identifiers.
-- Risk flags are keyword-based and should be reviewed by a person before formal use.
-
-## Future LLM Improvement Path
-
-A later version could add local or paid LLM drafting only after the retrieval layer is stronger. The preferred path would be:
-
-1. Retrieve evidence.
-2. Pass only cited evidence into a memo-drafting prompt.
-3. Require citations in every generated claim.
-4. Reject unsupported claims.
-5. Keep the final memo editable and reviewable by a human analyst.
+LLM integration is intentionally outside the current version.

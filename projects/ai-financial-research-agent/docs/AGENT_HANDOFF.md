@@ -1,51 +1,57 @@
 # Agent Handoff
 
-## Current State
+## Final Project State
 
-Phase 0 and Phase 1 are complete. The project now has local sample document ingestion, chunking, TF-IDF retrieval, citation-style evidence grounding, rule-based risk flags, a template-based research memo, and basic retrieval evaluation.
+The AI Financial Research Agent project is complete through Phase 2. It is a local, reproducible portfolio project for finance document research, evidence retrieval, citation grounding, and risk flag extraction.
 
-No paid API, OpenAI API, external LLM, production parser, or dashboard has been added.
+No paid API, OpenAI API, external LLM, dashboard, or production parser has been added.
 
-## Files Changed in Phase 1
+## Pipeline Built
 
-- `notebooks/02_memo_generation_and_evaluation.ipynb`
-- `notebooks/02_memo_generation_and_evaluation_executed.ipynb`
-- `src/retrieval.py`
-- `src/evaluation.py`
-- `src/visualization.py`
+- Local sample document ingestion from `data/sample_docs/`
+- Document metadata export
+- Text cleaning and chunking
+- TF-IDF evidence retrieval
+- Citation-style evidence table
+- Template-based memo workflow
+- Keyword-based risk flag extraction
+- Retrieval coverage, source traceability, and grounding checks
+- Portfolio-ready README and reports
+
+## Key Outputs
+
 - `reports/research_memo.md`
 - `reports/prompt_notes.md`
 - `reports/evaluation_report.md`
-- `README.md`
-- `docs/PRODUCTION_PROGRESS.md`
-- `docs/KNOWN_ISSUES.md`
-- `docs/AGENT_HANDOFF.md`
-
-## Outputs Created
-
+- `reports/resume_bullets.md`
+- `reports/interview_talking_points.md`
+- `reports/company_positioning.md`
+- `reports/linkedin_post.md`
 - `outputs/evidence/cited_evidence_table.csv`
 - `outputs/evidence/risk_flags.csv`
-- `outputs/evidence/memo_section_evidence_map.csv`
-- `outputs/retrieval/research_question_retrieval.csv`
 - `outputs/retrieval/retrieval_evaluation_summary.csv`
-- `outputs/retrieval/coverage_by_question.csv`
-- `outputs/retrieval/source_traceability.csv`
-- `outputs/retrieval/grounding_checks.csv`
-- `reports/research_memo.md`
 
 ## Evaluation Result
 
 - Retrieval coverage: 6 of 6 research questions covered.
-- Source traceability: 30 of 30 retrieved evidence rows traceable.
+- Source traceability: 30 of 30 evidence rows traceable.
 - Memo grounding: 8 of 8 memo sections grounded with citations found in the evidence table.
-- Risk categories found: credit risk, liquidity risk, interest-rate risk, inflation risk, market risk, operational risk, profitability risk, and adoption risk.
+- Risk categories found: credit, liquidity, interest-rate, inflation, market, operational, profitability, and adoption risk.
 
-## Commands Run
+## Reports Completed
 
-- `python3 -m compileall src`
-- `python3 -m jupyter nbconvert --to notebook --execute notebooks/02_memo_generation_and_evaluation.ipynb --output 02_memo_generation_and_evaluation_executed.ipynb`
-- `git status --short`
+- Research memo
+- Prompt and workflow notes
+- Evaluation report
+- Resume bullets
+- Interview talking points
+- Company positioning
+- LinkedIn post drafts
 
-## Next Recommended Task
+## Next Optional Improvements
 
-Build Phase 2 by polishing the GitHub README, final reports, resume bullets, interview talking points, company positioning, and LinkedIn post while keeping the local-only limitations clear.
+- Add real public reports or user-provided documents.
+- Add PDF and table parsing.
+- Add semantic embeddings.
+- Add optional LLM drafting with strict citation controls.
+- Add API or dashboard for evidence review.

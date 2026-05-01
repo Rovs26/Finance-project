@@ -1,33 +1,35 @@
 # Template-Based Financial Research Memo
 
-## Executive summary
+## Executive Summary
 
-The sample corpus points to a finance research workflow where lending quality, macro sensitivity, payments adoption, profitability pressure, and portfolio volatility can be traced back to source chunks. The strongest evidence areas in this run are supported by [FINLEN-CHUNK001], [INFINT-CHUNK001], [DIGPAY-CHUNK001]. Because this is a local prototype, the memo should be read as a retrieval-grounded research draft rather than a final analyst report.
+The sample corpus shows how a local research workflow can connect finance themes to traceable source chunks. The main themes are lending quality, macro sensitivity, payments adoption, profitability pressure, and portfolio volatility. The strongest evidence areas in this run are supported by [FINLEN-CHUNK001], [INFINT-CHUNK001], and [DIGPAY-CHUNK001].
 
-## Credit and lending risk
+This memo is a portfolio prototype output. It is not a final analyst report.
 
-The retrieved evidence highlights borrower selection, repayment behavior, delinquency movement, and early default signals as the core lending risks. For a fintech or bank portfolio, these are the areas where monitoring should connect application data, transaction behavior, and collections outcomes. Supporting citations: [FINLEN-CHUNK001], [CRERIS-CHUNK002].
+## Credit and Lending Risk
 
-## Inflation and rate sensitivity
+The retrieved evidence highlights borrower selection, repayment behavior, delinquency movement, and early default signals as core lending risks. For a fintech or bank portfolio, monitoring should connect application data, transaction behavior, and collections outcomes. Supporting citations: [FINLEN-CHUNK001], [CRERIS-CHUNK002].
 
-Inflation and interest-rate pressure appear in the corpus as funding-cost, affordability, loan-demand, and bond-valuation channels. The evidence suggests that higher rates can raise asset yields, but they can also pressure borrower repayment capacity and fixed-income portfolio values. Supporting citations: [INFINT-CHUNK001], [INFINT-CHUNK002].
+## Inflation and Rate Sensitivity
 
-## Digital payments and fintech adoption
+Inflation and interest-rate pressure appear through funding cost, borrower affordability, loan demand, and bond valuation channels. Higher rates can raise asset yields, but they can also pressure repayment capacity and fixed-income portfolio values. Supporting citations: [INFINT-CHUNK001], [INFINT-CHUNK002].
 
-Digital payments adoption is linked to convenience, merchant acceptance, trust, reliability, and customer education. The retrieved evidence also shows that payments data can support credit scoring, merchant analytics, and liquidity insight, while fraud and dispute handling remain important operating risks. Supporting citations: [DIGPAY-CHUNK001], [CRERIS-CHUNK002].
+## Digital Payments and Fintech Adoption
 
-## Bank profitability and funding cost
+Digital payments adoption is linked to convenience, merchant acceptance, trust, reliability, and customer education. The evidence also notes that payments data can support credit scoring, merchant analytics, and liquidity insight, while fraud and dispute handling remain important operating risks. Supporting citations: [DIGPAY-CHUNK001], [CRERIS-CHUNK002].
+
+## Bank Profitability and Funding Cost
 
 The corpus frames profitability as a balance between net interest margin, fee income, operating efficiency, credit costs, and funding mix. Rising policy rates can improve asset yields, but deposit repricing and wholesale funding costs can offset that benefit. Supporting citations: [BANPRO-CHUNK001], [INFINT-CHUNK001].
 
-## Market and portfolio risk
+## Market and Portfolio Risk
 
-The retrieved market-risk evidence focuses on volatility, changing correlations, liquidity conditions, downside scenarios, and interest-rate shocks. For portfolio analysis, the useful control points are exposure concentration, drawdown behavior, duration sensitivity, and scenario testing. Supporting citations: [MARVOL-CHUNK001], [FINLEN-CHUNK001].
+The retrieved market-risk evidence focuses on volatility, changing correlations, liquidity conditions, downside scenarios, and interest-rate shocks. Useful monitoring points include exposure concentration, drawdown behavior, duration sensitivity, and scenario testing. Supporting citations: [MARVOL-CHUNK001], [FINLEN-CHUNK001].
 
-## Key risks to monitor
+## Key Risks to Monitor
 
-The rule-based risk flag scan most frequently surfaced market risk, credit risk, liquidity risk, adoption risk, inflation risk. These flags are useful as a first review queue, but a human analyst should validate whether each keyword match is material in context. Supporting citations: [CRERIS-CHUNK002], [FINLEN-CHUNK001].
+The keyword-based risk flag scan most frequently surfaced market risk, credit risk, liquidity risk, adoption risk, and inflation risk. These flags are useful as a first review queue, but a human analyst should validate whether each keyword match is material in context. Supporting citations: [CRERIS-CHUNK002], [FINLEN-CHUNK001].
 
 ## Limitations
 
-This memo is based on synthetic sample documents, TF-IDF retrieval, and deterministic templates. It does not use paid APIs, external LLMs, private company reports, live filings, or analyst judgment beyond the transparent rules in the notebook. The synthetic nature of the corpus is visible in the source document headers, so conclusions should be treated as workflow demonstration output. Supporting citation: [FINLEN-CHUNK001].
+This memo is based on synthetic sample documents, TF-IDF retrieval, and deterministic templates. It does not use paid APIs, external LLMs, private company reports, or live filings. The corpus was created for workflow demonstration, so conclusions should be treated as examples of traceable research output rather than investment research. Supporting citation: [FINLEN-CHUNK001].

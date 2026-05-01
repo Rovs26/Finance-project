@@ -1,22 +1,19 @@
 # Known Issues
 
-## Phase 1
+## Final Project Limitations
 
-- No blocking issue found in Phase 1.
+- No blocking final issue found after Phase 2 checks.
 - Sample documents are synthetic portfolio examples only.
 - Retrieval uses TF-IDF only.
 - Memo generation is template-based only.
-- No paid API, OpenAI API, or external LLM is used.
 - Risk flags use keyword rules and can over-tag or under-tag evidence.
-- Grounding checks validate citation presence, not full semantic truth.
-- No production PDF, spreadsheet, or table parser is built yet.
-- No dashboard is built yet.
+- No paid API, OpenAI API, or external LLM is used.
+- No production PDF, spreadsheet, or table parser is built.
+- Grounding checks validate citation traceability, not full semantic truth.
+- No dashboard or API layer is included.
 
-## Phase 0
+## Practical Notes
 
-- No blocking issue found in Phase 0.
-- Sample documents are synthetic portfolio examples only.
-- Retrieval uses TF-IDF only.
-- No OpenAI API or LLM generation was used.
-- No production document parser was built.
-- No PDF, spreadsheet, or table extraction was included.
+- Processed files under `data/processed/` are ignored by Git and should be regenerated from notebooks after cloning.
+- Output files under `outputs/` are ignored by Git and should be regenerated from notebooks after cloning.
+- Figures are committed because they help reviewers understand the workflow quickly.
