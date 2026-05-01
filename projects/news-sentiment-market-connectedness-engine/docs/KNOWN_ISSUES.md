@@ -10,6 +10,8 @@
 - Formal GFEVD is not statistically valid from the available data, so Phase 1 uses a correlation-based connectedness fallback.
 - Signal labels are research tags only and are not trading advice.
 - No heavy scraping was run.
+- OpenAI structured scoring ran locally in Phase 1B, but the project keeps a fallback path because API availability should not be assumed.
+- `.env` must remain local and untracked.
 
 ## Phase 0
 

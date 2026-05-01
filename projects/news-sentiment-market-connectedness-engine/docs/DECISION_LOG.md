@@ -19,3 +19,11 @@ The project is positioned as market research and analytics infrastructure. It do
 ## Complete in Three Compressed Phases
 
 The project will stop at a GitHub-ready portfolio version after audit, core analysis, and polish phases.
+
+## Add Safe Local OpenAI Scoring in Phase 1B
+
+Phase 1B uses `OPENAI_API_KEY` and `OPENAI_MODEL` from local `.env` when available. The key is not printed, saved, or committed. The pipeline keeps a rule-based fallback so analysis remains reproducible when API access is unavailable.
+
+## Keep Connectedness Fallback Transparent
+
+The recovered dataset is too small for formal GFEVD, so Phase 1B continues to use absolute-correlation connectedness as a documented fallback.

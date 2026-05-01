@@ -9,3 +9,5 @@ matplotlib
 plotly
 jupyter
 ipykernel
+python-dotenv
+openai

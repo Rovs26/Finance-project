@@ -41,7 +41,7 @@ No matching prototype files were found in the current workspace during the initi
 
 ## Current Status
 
-Phase 1 is complete. The project loads the recovered prototype files, standardizes sentiment and market fields, creates signal summaries, builds a clean sentiment-market merge, and produces a transparent correlation-based connectedness fallback because the recovered dataset is too small for formal GFEVD.
+Phase 1B is complete. The project loads the recovered prototype files, safely reads local OpenAI settings from `.env`, scores available headlines with structured sentiment output when possible, creates signal summaries, builds a clean sentiment-market merge, and produces a transparent correlation-based connectedness fallback because the recovered dataset is too small for formal GFEVD.
 
 ## How to Run Phase 0
 
@@ -69,6 +69,7 @@ Phase 1:
 - `outputs/sentiment/sentiment_by_date.csv`
 - `outputs/sentiment/sentiment_by_company.csv`
 - `outputs/sentiment/signal_summary.csv`
+- `outputs/sentiment/openai_sentiment_scores.csv` when OpenAI scoring runs
 - `outputs/merged/clean_merged_sentiment_market.csv`
 - `outputs/connectedness/connectedness_matrix.csv`
 - `outputs/connectedness/connectedness_edges.csv`
@@ -84,7 +85,8 @@ Phase 1:
 - `sentiment_log.csv` contains 11 usable sentiment records.
 - `merged_data.json` contains 2 merged daily records with AMZN market columns.
 - `scraped_news.csv` exists but is empty.
-- Simple signal labels are research tags only: 6 `SELL` and 5 `HOLD`.
+- OpenAI structured scoring ran for the 11 available headlines in the latest local run.
+- Simple signal labels are research tags only: 6 `SELL`, 3 `HOLD`, and 2 `BUY`.
 - Formal GFEVD is not statistically valid from the small recovered dataset, so the project uses a documented correlation-based connectedness fallback.
 
 ## Limitations

@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-Phase 1 recovered and processed the local prototype files for a small news sentiment and market connectedness workflow. The usable sentiment log contains 11 records across Apple, Amazon, and Tesla. Most sentiment scores are negative under the project's simple thresholds, and the signal labels are split between `SELL` and `HOLD`.
+Phase 1B improved the recovered prototype pipeline by adding environment-based OpenAI structured scoring with a rule-based fallback. The usable sentiment log contains 11 records across Apple, Amazon, and Tesla. OpenAI structured scoring ran successfully for the available headlines, while the pipeline still preserves a local fallback path for reproducibility.
 
-The available merged market file is too small for formal GFEVD analysis. The notebook therefore uses an absolute-correlation connectedness fallback and clearly treats it as exploratory.
+The available merged market file remains too small for formal GFEVD analysis. The notebook therefore uses an absolute-correlation connectedness fallback and clearly treats it as exploratory.
 
 ## Data Used
 
@@ -14,21 +14,23 @@ The available merged market file is too small for formal GFEVD analysis. The not
 
 ## Sentiment Method
 
-Sentiment scores are classified using transparent thresholds:
+The pipeline can score headlines with OpenAI structured JSON output when a local `.env` key is available. The output includes company, ticker, sentiment score, label, confidence, rationale, risk flags, and a research signal label. If the OpenAI call fails or the key is missing, the pipeline falls back to transparent keyword rules.
+
+Sentiment labels use these thresholds:
 
 - `sentiment_score <= -0.15`: negative
 - `-0.15 < sentiment_score < 0.15`: neutral
 - `sentiment_score >= 0.15`: positive
 
-The recovered data produced 9 negative records and 2 neutral records.
+The improved run produced OpenAI structured scores for all 11 available headlines.
 
 ## Signal Labeling Method
 
-The existing `action` column is preserved. If the action column is unavailable in a future run, the pipeline can create simple labels from sentiment:
+The existing `action` column is preserved. The improved pipeline also creates `recommended_signal` using stricter thresholds:
 
-- negative: `SELL`
-- neutral: `HOLD`
-- positive: `BUY`
+- `SELL` if sentiment score is less than or equal to `-0.25`
+- `HOLD` if sentiment score is between `-0.25` and `0.25`
+- `BUY` if sentiment score is greater than or equal to `0.25`
 
 These labels are research tags only. They are not trading advice.
 
@@ -44,7 +46,7 @@ Formal GFEVD requires a longer time series and enough complete numeric observati
 
 - Sentiment coverage is concentrated on two dates: 2025-06-06 and 2025-10-20.
 - Company coverage is Apple with 5 records, Amazon with 5 records, and Tesla with 1 record.
-- Simple signal labels are 6 `SELL` and 5 `HOLD`.
+- Improved signal labels are 6 `SELL`, 3 `HOLD`, and 2 `BUY`.
 - AMZN market fields exist in the merged data, but only one row has complete market values.
 - Connectedness output is limited by sample size and should be interpreted only as an exploratory fallback.
 

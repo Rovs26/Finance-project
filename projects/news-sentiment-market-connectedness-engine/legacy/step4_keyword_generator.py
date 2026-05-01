@@ -19,7 +19,7 @@ def generate_keywords_gpt(company):
         response = openai.ChatCompletion.create(
             model="gpt-4",
             messages=[
-                {"role": "system", "content": "You are a financial research assistant."},
+                {"role": "system", "content": "You are a financial research analyst."},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.4,

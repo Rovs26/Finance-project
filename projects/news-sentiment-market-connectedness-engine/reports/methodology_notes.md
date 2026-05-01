@@ -19,15 +19,40 @@ The `legacy/` folder now contains recovered prototype scripts rather than Phase 
 
 The new Phase 1 notebook does not run heavy scraping or interactive legacy prompts. It uses the copied raw data as the source of truth.
 
+## Environment Handling
+
+The improved pipeline reads `OPENAI_API_KEY` and `OPENAI_MODEL` from a local `.env` file when available. The key is never printed, saved, or committed. `.env.example` contains placeholders only.
+
+Default model: `gpt-4o-mini`.
+
 ## Sentiment Scoring Assumptions
 
-Sentiment is classified with fixed thresholds:
+OpenAI structured scoring is used when available. It returns:
+
+- company
+- ticker
+- sentiment score between `-1` and `1`
+- sentiment label
+- confidence
+- rationale
+- risk flags
+- recommended signal
+
+If OpenAI scoring is unavailable, the pipeline uses a transparent keyword fallback. Sentiment labels use fixed thresholds:
 
 - negative: score less than or equal to `-0.15`
 - neutral: score between `-0.15` and `0.15`
 - positive: score greater than or equal to `0.15`
 
-The existing `action` column is preserved. If no action exists, the project can derive a simple signal label from sentiment, but this remains a research label only.
+The existing `action` column is preserved. The project also creates a `recommended_signal` from the scored sentiment.
+
+Signal logic:
+
+- `SELL` if sentiment score is less than or equal to `-0.25`
+- `HOLD` if sentiment score is between `-0.25` and `0.25`
+- `BUY` if sentiment score is greater than or equal to `0.25`
+
+This remains a research label only.
 
 ## Merge Assumptions
 

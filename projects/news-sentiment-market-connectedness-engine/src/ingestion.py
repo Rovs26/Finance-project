@@ -6,11 +6,15 @@ import json
 from pathlib import Path
 
 import pandas as pd
+from pandas.errors import EmptyDataError
 
 
 def load_csv(path):
     """Load a CSV file into a DataFrame."""
-    return pd.read_csv(path)
+    try:
+        return pd.read_csv(path)
+    except EmptyDataError:
+        return pd.DataFrame()
 
 
 def load_json_records(path):
