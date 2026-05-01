@@ -1,57 +1,53 @@
 # Agent Handoff
 
-## Current State
+## Final Project State
 
-Phase 0, Phase 1, and Phase 1B are complete. The project now has a clean repo structure, recovered legacy scripts, loaded raw prototype files, safe `.env`-based OpenAI scoring, rule-based fallback scoring, standardized sentiment outputs, a clean merged sentiment-market file, and a documented connectedness fallback.
+The News Sentiment and Market Connectedness Engine is complete through Phase 2. It is a GitHub-ready portfolio project focused on financial news sentiment, market-data merging, secure configuration, and connectedness methodology limits.
 
-## Files Changed in Phase 1
+## Data Used
 
-- `notebooks/02_sentiment_market_merge_and_connectedness.ipynb`
-- `notebooks/02_sentiment_market_merge_and_connectedness_executed.ipynb`
-- `src/ingestion.py`
-- `src/sentiment.py`
-- `src/market_data.py`
-- `src/merge.py`
-- `src/connectedness.py`
-- `requirements.txt`
-- `.env.example`
-- `reports/research_memo.md`
-- `reports/methodology_notes.md`
-- `README.md`
-- `docs/KNOWN_ISSUES.md`
-- `docs/PRODUCTION_PROGRESS.md`
-- `docs/AGENT_HANDOFF.md`
+- `sentiment_log.csv`: 11 usable sentiment records.
+- `merged_data.json`: 2 merged daily records with AMZN market fields.
+- `scraped_news.csv`: present but empty.
 
-## Raw Files Found
+Raw and output data remain ignored by Git.
 
-- `data/raw/sentiment_log.csv`: found, 11 rows.
-- `data/raw/merged_data.json`: found, 2 JSON-line records.
-- `data/raw/scraped_news.csv`: found but empty.
+## OpenAI Scoring and Fallback Status
 
-## Legacy Script Status
+OpenAI structured scoring ran successfully for the available headlines in the local Phase 1B run. The project reads settings from `.env`, which is ignored by Git. `.env.example` contains placeholders only.
 
-Recovered scripts are available in `legacy/`, including the original expected steps plus `step5_dynamic_filtering.py` and `step9_visualize.py`.
+If OpenAI scoring is unavailable, the pipeline uses transparent keyword-based fallback scoring.
 
-## Outputs Created
+## Outputs
 
-- `outputs/sentiment/standardized_sentiment_log.csv`
-- `outputs/sentiment/openai_sentiment_scores.csv`
-- `outputs/sentiment/sentiment_by_date.csv`
-- `outputs/sentiment/sentiment_by_company.csv`
-- `outputs/sentiment/signal_summary.csv`
-- `outputs/merged/clean_merged_sentiment_market.csv`
-- `outputs/connectedness/connectedness_matrix.csv`
-- `outputs/connectedness/connectedness_edges.csv`
-- `outputs/connectedness/connectedness_summary.csv`
+- Standardized sentiment log
+- OpenAI sentiment scores when rerun with local configuration
+- Sentiment by date
+- Sentiment by company
+- Signal summary
+- Clean merged sentiment-market file
+- Connectedness matrix
+- Connectedness edge list
+- Connectedness summary
 
-## Connectedness Method Used
+## Connectedness Method
 
-Formal GFEVD was not used because the recovered merged dataset has only two observations. Phase 1 uses an absolute-correlation connectedness fallback for workflow demonstration only.
+Formal GFEVD was not used because the recovered merged dataset has only two observations and incomplete market values. The final project uses a documented absolute-correlation fallback.
 
-## OpenAI Scoring Status
+## Reports Completed
 
-OpenAI structured scoring ran successfully for 11 local sentiment headlines using settings loaded from `.env`. The key was not printed, saved, or committed. The pipeline still has a rule-based fallback for missing keys, missing package support, or API failures.
+- Research memo
+- Methodology notes
+- Resume bullets
+- Interview talking points
+- Company positioning
+- LinkedIn post drafts
 
-## Next Recommended Task
+## Next Optional Improvements
 
-Build Phase 2 GitHub polish: final README cleanup, research memo polish, methodology notes, resume bullets, interview talking points, company positioning, LinkedIn post, and human-authenticity cleanup.
+- Recover or scrape a larger headline dataset.
+- Add more tickers and dates.
+- Validate sentiment scoring manually.
+- Rebuild complete market returns.
+- Run formal GFEVD only after enough clean observations exist.
+- Add dashboard or backtest validation only after stronger data coverage.

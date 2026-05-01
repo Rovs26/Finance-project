@@ -2,67 +2,62 @@
 
 ## Executive Summary
 
-Phase 1B improved the recovered prototype pipeline by adding environment-based OpenAI structured scoring with a rule-based fallback. The usable sentiment log contains 11 records across Apple, Amazon, and Tesla. OpenAI structured scoring ran successfully for the available headlines, while the pipeline still preserves a local fallback path for reproducibility.
+This project cleans and documents a recovered financial news sentiment prototype. The improved workflow standardizes sentiment records, uses safe environment-based OpenAI structured scoring when available, preserves a rule-based fallback, merges sentiment with recovered market fields, and creates a connectedness view.
 
-The available merged market file remains too small for formal GFEVD analysis. The notebook therefore uses an absolute-correlation connectedness fallback and clearly treats it as exploratory.
+The current analytical result is limited by data size. The usable sentiment log has 11 records, the merged market file has 2 records, and the scraped news file is empty. Because of this, the connectedness output is exploratory and based on absolute correlations, not formal GFEVD.
 
 ## Data Used
 
-- `data/raw/sentiment_log.csv`: 11 sentiment records.
-- `data/raw/merged_data.json`: 2 daily merged records with AMZN market columns.
-- `data/raw/scraped_news.csv`: file exists but is empty and could not be parsed.
+- `sentiment_log.csv`: 11 sentiment records covering Apple, Amazon, and Tesla.
+- `merged_data.json`: 2 daily merged records with AMZN price and volume columns.
+- `scraped_news.csv`: present but empty.
+- `legacy/`: recovered prototype scripts, preserved for review.
 
-## Sentiment Method
+## Sentiment Findings
 
-The pipeline can score headlines with OpenAI structured JSON output when a local `.env` key is available. The output includes company, ticker, sentiment score, label, confidence, rationale, risk flags, and a research signal label. If the OpenAI call fails or the key is missing, the pipeline falls back to transparent keyword rules.
+OpenAI structured scoring ran successfully for the 11 available headlines in the latest local run. The workflow returned standardized companies, tickers, sentiment scores, labels, confidence values, rationales, risk flags, and research signal labels.
 
-Sentiment labels use these thresholds:
+The data is concentrated on two dates, so the results are useful for pipeline demonstration rather than market inference.
 
-- `sentiment_score <= -0.15`: negative
-- `-0.15 < sentiment_score < 0.15`: neutral
-- `sentiment_score >= 0.15`: positive
+## Signal Findings
 
-The improved run produced OpenAI structured scores for all 11 available headlines.
+The improved signal labels are:
 
-## Signal Labeling Method
+- 6 `SELL`
+- 3 `HOLD`
+- 2 `BUY`
 
-The existing `action` column is preserved. The improved pipeline also creates `recommended_signal` using stricter thresholds:
+These labels are research tags only. They are not trading advice, investment advice, or a backtested strategy.
 
-- `SELL` if sentiment score is less than or equal to `-0.25`
-- `HOLD` if sentiment score is between `-0.25` and `0.25`
-- `BUY` if sentiment score is greater than or equal to `0.25`
+## Market Merge Findings
 
-These labels are research tags only. They are not trading advice.
+The merged output links daily sentiment to recovered AMZN market fields. Only the first merged row has complete AMZN price and volume values, so the market side of the dataset remains incomplete.
 
-## Market Merge Method
+## Connectedness Findings
 
-The pipeline standardizes dates, aggregates sentiment by date, and merges daily sentiment with the recovered market fields. The merged output includes two dates, but only the first date has AMZN close, high, low, open, and volume values.
+Formal GFEVD was not used because two merged observations are not enough for a reliable VAR/GFEVD estimate. The project uses an absolute-correlation connectedness fallback to show the workflow structure while clearly documenting the statistical limitation.
 
-## Connectedness Method
+## Business Interpretation
 
-Formal GFEVD requires a longer time series and enough complete numeric observations for VAR-style estimation. The recovered data has only two rows, so Phase 1 uses an absolute-correlation connectedness fallback. This creates a connectedness matrix and edge list for workflow demonstration, not a statistically reliable spillover estimate.
+The project is most useful as a practical research engineering example: it shows how to clean a prototype, preserve legacy scripts, handle environment-based scoring safely, produce reproducible summaries, and avoid overstating results when data is thin.
 
-## Key Findings
-
-- Sentiment coverage is concentrated on two dates: 2025-06-06 and 2025-10-20.
-- Company coverage is Apple with 5 records, Amazon with 5 records, and Tesla with 1 record.
-- Improved signal labels are 6 `SELL`, 3 `HOLD`, and 2 `BUY`.
-- AMZN market fields exist in the merged data, but only one row has complete market values.
-- Connectedness output is limited by sample size and should be interpreted only as an exploratory fallback.
+For market research, the next meaningful improvement is not a more complex model; it is a larger and cleaner sentiment-market dataset.
 
 ## Limitations
 
-- Very small sample size.
+- Small sentiment sample.
 - Empty scraped news file.
-- Missing market values in the merged data.
-- No heavy scraping was run.
-- No trading backtest or trading recommendation is included.
-- GFEVD is not statistically valid from the available data.
+- Two-row merged market dataset.
+- Missing market values.
+- No heavy scraping in the committed workflow.
+- No backtest.
+- No trading recommendation.
+- Correlation connectedness fallback instead of formal GFEVD.
 
 ## Next Improvements
 
-- Recover or rebuild a larger scraped news file.
-- Extend the sentiment log across more dates and tickers.
-- Rebuild the market merge with complete price data.
-- Validate sentiment scoring assumptions.
-- Run formal VAR/GFEVD only after enough clean observations exist.
+- Rebuild or recover a larger scraped news dataset.
+- Add more tickers and dates.
+- Recreate market data with complete returns.
+- Validate sentiment scoring against manually reviewed labels.
+- Run formal GFEVD only after the time series is statistically usable.

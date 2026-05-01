@@ -27,3 +27,19 @@ Phase 1B uses `OPENAI_API_KEY` and `OPENAI_MODEL` from local `.env` when availab
 ## Keep Connectedness Fallback Transparent
 
 The recovered dataset is too small for formal GFEVD, so Phase 1B continues to use absolute-correlation connectedness as a documented fallback.
+
+## Finalize at GitHub-Ready Portfolio Version
+
+Phase 2 stops the project at a clean portfolio version. Larger data collection, real GFEVD, dashboard work, and backtest validation are left as optional future phases.
+
+## Record Credential Cleanup in Legacy Scripts
+
+Recovered legacy scripts were sanitized so committed code uses environment-variable configuration instead of direct credential assignment.
+
+## Keep `.env` Local and `.env.example` Safe
+
+`.env` remains ignored by Git. `.env.example` contains placeholders only so another user can understand the configuration without exposing local credentials.
+
+## Keep No-Trading-Advice Boundary
+
+Signal labels are kept as research labels. The project does not claim trading performance, provide investment advice, or present a live recommendation system.

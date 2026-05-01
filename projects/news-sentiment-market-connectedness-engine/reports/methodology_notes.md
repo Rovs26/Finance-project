@@ -2,72 +2,87 @@
 
 ## Source Files
 
-Phase 1 uses local prototype files copied into `data/raw/`:
+The project uses local files copied into `data/raw/`:
 
 - `sentiment_log.csv`
 - `merged_data.json`
 - `scraped_news.csv`
 
-The scraped news CSV exists but is empty. The sentiment log and merged JSON are the main usable inputs.
+`scraped_news.csv` is empty. The usable analysis comes from `sentiment_log.csv` and `merged_data.json`.
 
-## Script Audit Result
+## Legacy Script Review
 
-The `legacy/` folder now contains recovered prototype scripts rather than Phase 0 placeholders. Two additional legacy files are also present:
+Recovered scripts are preserved under `legacy/`. They document the original prototype flow: sentiment testing, scraping, filtering, keyword generation, daily sentiment aggregation, market merging, GFEVD analysis, and visualization.
 
-- `step5_dynamic_filtering.py`
-- `step9_visualize.py`
+The final workflow does not run heavy scraping or interactive legacy prompts. It uses the recovered raw files as the source of truth.
 
-The new Phase 1 notebook does not run heavy scraping or interactive legacy prompts. It uses the copied raw data as the source of truth.
+## Security Cleanup Summary
+
+Recovered legacy scripts previously contained direct credential assignment. Those values were removed and replaced with environment-variable usage. `.env` is ignored by Git, and `.env.example` contains placeholders only.
 
 ## Environment Handling
 
-The improved pipeline reads `OPENAI_API_KEY` and `OPENAI_MODEL` from a local `.env` file when available. The key is never printed, saved, or committed. `.env.example` contains placeholders only.
+The pipeline reads these local settings when present:
+
+- `OPENAI_API_KEY`
+- `OPENAI_MODEL`
 
 Default model: `gpt-4o-mini`.
 
-## Sentiment Scoring Assumptions
+If the local key or package is unavailable, the scoring workflow falls back to transparent keyword rules.
 
-OpenAI structured scoring is used when available. It returns:
+## OpenAI Structured Scoring Method
+
+When available, OpenAI scoring returns structured JSON fields:
 
 - company
 - ticker
-- sentiment score between `-1` and `1`
+- sentiment score
 - sentiment label
 - confidence
 - rationale
 - risk flags
-- recommended signal
+- recommended research signal
 
-If OpenAI scoring is unavailable, the pipeline uses a transparent keyword fallback. Sentiment labels use fixed thresholds:
+Company/ticker outputs are constrained back to the approved map used in the project.
 
-- negative: score less than or equal to `-0.15`
-- neutral: score between `-0.15` and `0.15`
-- positive: score greater than or equal to `0.15`
+## Fallback Scoring Method
 
-The existing `action` column is preserved. The project also creates a `recommended_signal` from the scored sentiment.
+The fallback uses positive and negative finance keyword lists to create a score between `-1` and `1`. It also extracts simple risk flags from headline text.
 
-Signal logic:
+This fallback is not a substitute for a validated sentiment model. It is included so the notebook can run without external model access.
 
-- `SELL` if sentiment score is less than or equal to `-0.25`
-- `HOLD` if sentiment score is between `-0.25` and `0.25`
-- `BUY` if sentiment score is greater than or equal to `0.25`
+## Sentiment Scoring Thresholds
 
-This remains a research label only.
+- negative: score <= `-0.15`
+- neutral: `-0.15 < score < 0.15`
+- positive: score >= `0.15`
 
-## Merge Assumptions
+## Signal Label Method
 
-Sentiment is aggregated by normalized date, then merged to the recovered market data on date. Wide market columns such as `Close AMZN`, `Open AMZN`, and `Volume AMZN` are standardized to lower snake case.
+- `SELL`: score <= `-0.25`
+- `HOLD`: `-0.25 < score < 0.25`
+- `BUY`: score >= `0.25`
 
-## Connectedness Assumptions
+Signals are research labels only and should not be used as trading advice.
 
-Formal GFEVD requires enough complete time-series observations for VAR-style modeling. The recovered data has only two merged rows, so formal GFEVD is not valid in this phase.
+## Market Merge Method
 
-## Fallback Method
+Sentiment records are normalized by date and aggregated to daily sentiment. The recovered merged file contains AMZN market fields. Date fields and wide columns such as `Close AMZN` are standardized before merging.
 
-Phase 1 uses an absolute-correlation connectedness fallback. It creates:
+## Connectedness Fallback Method
 
-- a connectedness matrix
-- an edge list above the threshold
-- a compact connectedness summary
+The project prepares numeric sentiment and market fields, then calculates absolute correlations as a connectedness fallback. It exports a matrix, edge list, and summary.
 
-This fallback is transparent and useful for checking the workflow shape, but it should not be interpreted as a statistically reliable spillover model.
+## Why Formal GFEVD Was Not Used
+
+Formal GFEVD requires enough clean observations for VAR-style modeling. The recovered merged dataset has only two observations and incomplete market values, so GFEVD would be misleading.
+
+## Limitations
+
+- Small sample size.
+- Incomplete market fields.
+- Empty scraped news file.
+- Optional OpenAI scoring depends on local environment setup.
+- Fallback scoring is simple.
+- Connectedness output is exploratory.

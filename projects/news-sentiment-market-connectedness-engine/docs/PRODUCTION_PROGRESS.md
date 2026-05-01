@@ -31,10 +31,20 @@ Status: Complete
 - Preserved rule-based fallback if OpenAI settings or calls are unavailable.
 - Added `.env.example` with placeholders only.
 - Regenerated sentiment, merged, connectedness, and figure outputs.
-- Removed hardcoded key material from recovered legacy scripts.
+- Removed hardcoded credential material from recovered legacy scripts.
 
 ## Phase 2: GitHub Polish and Final Reports
 
-Status: Next
+Status: Complete
 
-- Finalize README, research memo, methodology notes, career-facing reports, and authenticity cleanup.
+- Rewrote README for GitHub portfolio review.
+- Polished research memo and methodology notes.
+- Completed resume bullets, interview talking points, company positioning, and LinkedIn drafts.
+- Added selected visuals to README.
+- Ran security and human-authenticity scans.
+
+## Project Status
+
+Status: Complete
+
+Next optional phases: larger dataset, real GFEVD after enough observations, dashboard, or backtest validation only after proper data quality checks.
