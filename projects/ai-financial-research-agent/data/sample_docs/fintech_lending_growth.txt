@@ -1,0 +1,10 @@
+Title: Sample Note on Fintech Lending Growth
+Document type: Synthetic portfolio example
+
+This sample document was created for a portfolio prototype. It is not a real company report.
+
+Fintech lending growth is supported by mobile-first onboarding, alternative credit data, faster loan approval, and broader customer reach. Digital lenders can serve borrowers who may not have long formal credit histories, but growth can create portfolio quality risks if underwriting standards loosen.
+
+Key risks include rapid customer acquisition without enough repayment history, concentration in short-term consumer loans, higher sensitivity to unemployment, and pressure to approve borrowers during competitive campaigns. A sustainable lending strategy should monitor delinquency roll rates, repeat borrower behavior, debt burden indicators, and collection performance.
+
+Strong data infrastructure helps fintech lenders track origination quality, borrower segments, credit line utilization, and early warning signals. Growth is healthier when approval models, affordability checks, and post-disbursement monitoring improve together.

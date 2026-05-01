@@ -1,0 +1,10 @@
+Title: Sample Note on Market Volatility and Portfolio Risk
+Document type: Synthetic portfolio example
+
+This sample document was created for a portfolio prototype. It is not investment advice or a real portfolio report.
+
+Market volatility affects portfolio risk through price swings, changing correlations, liquidity conditions, and investor behavior. Equity portfolios may experience drawdowns when earnings expectations weaken or discount rates rise. Bond portfolios may also lose value when yields increase.
+
+Risk teams monitor volatility, concentration, duration, sector exposure, and downside scenarios. Portfolio performance can be affected by macro shocks, geopolitical events, rate surprises, and changes in credit spreads.
+
+Portfolio risk analysis should combine return history, scenario testing, liquidity review, and exposure breakdowns. A research workflow should retrieve evidence from source documents and keep conclusions tied to traceable text.

@@ -1,0 +1,10 @@
+Title: Sample Note on Credit Risk and Borrower Behavior
+Document type: Synthetic portfolio example
+
+This sample document was created for a portfolio prototype. It is not a real company report.
+
+Credit risk changes when borrower income, repayment discipline, and leverage conditions change. Borrowers with volatile income may miss payments even when initial credit scores look acceptable. Early missed payments, rising utilization, repeated extensions, and inconsistent cash inflows can signal higher probability of default.
+
+Lenders should monitor delinquency buckets, payment holidays, partial payments, and restructured accounts. Borrower behavior after the first payment due date is especially useful because it provides fresh evidence on willingness and ability to repay.
+
+Credit risk analytics should connect application data, transaction behavior, macro conditions, and collections outcomes. The goal is not only to identify bad loans after default, but to detect patterns early enough for limit management, pricing, provisioning, and customer support actions.

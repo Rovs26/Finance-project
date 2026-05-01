@@ -1,0 +1,10 @@
+Title: Sample Note on Bank Profitability and Funding Cost
+Document type: Synthetic portfolio example
+
+This sample document was created for a portfolio prototype. It is not a real bank report.
+
+Bank profitability depends on net interest margin, fee income, credit costs, operating efficiency, and balance sheet mix. When policy rates rise, asset yields may increase, but deposit costs and wholesale funding costs can also rise. The net impact depends on repricing speed and customer behavior.
+
+Funding cost pressure is higher when customers shift from low-cost current and savings accounts to time deposits or money market alternatives. Banks with stable low-cost deposits may defend margins better than banks relying on expensive wholesale funding.
+
+Profitability analysis should monitor loan growth, deposit mix, cost of funds, non-performing loans, provisions, and operating expenses. Balance sheet analytics can help connect rate conditions to margin, liquidity, and capital planning.

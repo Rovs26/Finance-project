@@ -1,0 +1,10 @@
+Title: Sample Note on Inflation and Interest-Rate Risk
+Document type: Synthetic portfolio example
+
+This sample document was created for a portfolio prototype. It is not a real policy report.
+
+Inflation affects financial institutions through funding costs, loan demand, asset quality, and valuation of securities. When inflation stays above target, central banks may keep policy rates elevated. Higher rates can increase deposit costs and wholesale funding costs for banks.
+
+Interest-rate risk also affects bond portfolios. When yields rise, fixed-rate bond prices fall. Institutions with longer-duration assets may experience mark-to-market losses unless those exposures are hedged or matched with liability behavior.
+
+Inflation can also weaken borrower affordability if wages do not keep pace with prices. Higher debt service costs may increase delinquency risk. A useful research process should link inflation trends, rate expectations, funding costs, and credit performance.
