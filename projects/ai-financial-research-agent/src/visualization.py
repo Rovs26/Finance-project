@@ -79,3 +79,58 @@ def plot_retrieval_score_distribution(results):
     _style_axis(ax, "Retrieval Score Distribution", "Retrieval score", "Result count")
     fig.tight_layout()
     return fig
+
+
+def plot_risk_flags_by_category(risk_flags):
+    """Plot risk flag counts by category."""
+    summary = (
+        risk_flags.groupby("risk_category", as_index=False)
+        .size()
+        .rename(columns={"size": "flag_count"})
+        .sort_values("flag_count", ascending=True)
+    )
+    fig, ax = plt.subplots(figsize=(9, 5))
+    ax.barh(summary["risk_category"], summary["flag_count"], color="#dc2626")
+    _style_axis(ax, "Risk Flags by Category", "Flag count")
+    fig.tight_layout()
+    return fig
+
+
+def plot_evidence_count_by_question(coverage):
+    """Plot retrieved evidence counts by research question."""
+    summary = coverage.sort_values("evidence_count", ascending=True)
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.barh(summary["question"], summary["evidence_count"], color="#2563eb")
+    _style_axis(ax, "Evidence Count by Research Question", "Evidence count")
+    fig.tight_layout()
+    return fig
+
+
+def plot_source_traceability_status(traceability):
+    """Plot source traceability pass/review counts."""
+    summary = (
+        traceability.assign(status=traceability["is_traceable"].map({True: "traceable", False: "review"}))
+        .groupby("status", as_index=False)
+        .size()
+        .rename(columns={"size": "row_count"})
+    )
+    fig, ax = plt.subplots(figsize=(7, 4))
+    ax.bar(summary["status"], summary["row_count"], color="#059669")
+    _style_axis(ax, "Source Traceability Status", "Status", "Evidence rows")
+    fig.tight_layout()
+    return fig
+
+
+def plot_grounding_check_summary(grounding):
+    """Plot memo section grounding pass/review counts."""
+    summary = (
+        grounding.assign(status=grounding["grounded"].map({True: "grounded", False: "review"}))
+        .groupby("status", as_index=False)
+        .size()
+        .rename(columns={"size": "section_count"})
+    )
+    fig, ax = plt.subplots(figsize=(7, 4))
+    ax.bar(summary["status"], summary["section_count"], color="#7c3aed")
+    _style_axis(ax, "Grounding Check Summary", "Status", "Memo sections")
+    fig.tight_layout()
+    return fig

@@ -125,3 +125,61 @@ def save_retrieval_results(results, path):
     path = Path(path)
     results.to_csv(path, index=False)
     return results
+
+
+def retrieve_evidence_for_questions(chunks, questions, top_k=5):
+    """Retrieve top evidence chunks for a list of research questions."""
+    vectorizer, matrix = build_tfidf_index(chunks)
+    results = []
+    for question in questions:
+        question_results = search_chunks(question, vectorizer, matrix, chunks, top_k=top_k)
+        results.append(question_results)
+    if not results:
+        return pd.DataFrame()
+    return pd.concat(results, ignore_index=True)
+
+
+def format_citation(chunk_id, document_id, document_title):
+    """Create a compact citation label for a retrieved document chunk."""
+    chunk_text = str(chunk_id)
+    chunk_number = "000"
+    if "_chunk_" in chunk_text:
+        chunk_number = chunk_text.rsplit("_chunk_", 1)[1]
+    elif "__chunk_" in chunk_text:
+        chunk_number = chunk_text.rsplit("__chunk_", 1)[1]
+
+    document_text = str(document_id)
+    words = [word for word in re.split(r"[^a-zA-Z0-9]+", document_text) if word]
+    if words:
+        prefix = "".join(word[:3].upper() for word in words[:2])
+    else:
+        title_words = [word for word in re.split(r"[^a-zA-Z0-9]+", str(document_title)) if word]
+        prefix = "".join(word[:3].upper() for word in title_words[:2]) or "DOC"
+    return f"[{prefix}-CHUNK{int(chunk_number):03d}]"
+
+
+def create_cited_evidence_table(retrieval_results):
+    """Create evidence rows with citation labels and readable snippets."""
+    evidence = retrieval_results.copy()
+    if evidence.empty:
+        return evidence
+    evidence["citation"] = evidence.apply(
+        lambda row: format_citation(
+            row.get("chunk_id", ""),
+            row.get("document_id", ""),
+            row.get("title", ""),
+        ),
+        axis=1,
+    )
+    evidence["evidence_snippet"] = evidence["chunk_text"].fillna("").str.slice(0, 360)
+    columns = [
+        "query",
+        "rank",
+        "retrieval_score",
+        "citation",
+        "document_id",
+        "title",
+        "chunk_id",
+        "evidence_snippet",
+    ]
+    return evidence[[column for column in columns if column in evidence.columns]]

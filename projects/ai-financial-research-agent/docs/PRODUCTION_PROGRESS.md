@@ -13,16 +13,19 @@ Status: Complete
 
 ## Phase 1: Memo Generation and Evaluation
 
-Status: Next
+Status: Complete
 
-- Add memo generation from retrieved evidence.
-- Add risk flag extraction.
-- Add citation grounding checks.
-- Add retrieval evaluation.
+- Added research question retrieval workflow.
+- Added citation-style evidence references.
+- Added keyword-based risk flag extraction.
+- Built a template-based cited research memo.
+- Added retrieval coverage, source traceability, and grounding checks.
+- Saved Phase 1 evidence, evaluation outputs, and figures.
 
 ## Phase 2: GitHub Polish and Reports
 
-Status: Not started
+Status: Next
 
-- Finalize README and reports.
-- Prepare career-facing materials.
+- Polish README and final career-facing reports.
+- Keep limitations visible.
+- Prepare final GitHub packaging.

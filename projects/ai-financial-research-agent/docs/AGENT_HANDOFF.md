@@ -2,41 +2,50 @@
 
 ## Current State
 
-Phase 0 setup plus document ingestion and retrieval is complete. The project has local synthetic finance documents, ingestion utilities, chunking, TF-IDF retrieval, evidence outputs, and starter figures. No memo generation or paid API integration has been built.
+Phase 0 and Phase 1 are complete. The project now has local sample document ingestion, chunking, TF-IDF retrieval, citation-style evidence grounding, rule-based risk flags, a template-based research memo, and basic retrieval evaluation.
 
-## Files Created
+No paid API, OpenAI API, external LLM, production parser, or dashboard has been added.
 
-- `README.md`
-- `requirements.txt`
-- `.gitignore`
-- `data/sample_docs/*.txt`
-- `notebooks/01_document_ingestion_and_retrieval.ipynb`
+## Files Changed in Phase 1
+
 - `notebooks/02_memo_generation_and_evaluation.ipynb`
-- `src/config.py`
-- `src/ingestion.py`
-- `src/chunking.py`
+- `notebooks/02_memo_generation_and_evaluation_executed.ipynb`
 - `src/retrieval.py`
 - `src/evaluation.py`
 - `src/visualization.py`
-- `docs/*.md`
-- `reports/*.md`
+- `reports/research_memo.md`
+- `reports/prompt_notes.md`
+- `reports/evaluation_report.md`
+- `README.md`
+- `docs/PRODUCTION_PROGRESS.md`
+- `docs/KNOWN_ISSUES.md`
+- `docs/AGENT_HANDOFF.md`
 
 ## Outputs Created
 
-- `data/processed/corpus_metadata.csv`
-- `outputs/chunks/document_chunks.csv`
-- `outputs/retrieval/sample_retrieval_results.csv`
-- `outputs/evidence/evidence_table.csv`
-- `reports/figures/chunks_by_document.png`
-- `reports/figures/top_terms_overall.png`
-- `reports/figures/retrieval_score_distribution.png`
+- `outputs/evidence/cited_evidence_table.csv`
+- `outputs/evidence/risk_flags.csv`
+- `outputs/evidence/memo_section_evidence_map.csv`
+- `outputs/retrieval/research_question_retrieval.csv`
+- `outputs/retrieval/retrieval_evaluation_summary.csv`
+- `outputs/retrieval/coverage_by_question.csv`
+- `outputs/retrieval/source_traceability.csv`
+- `outputs/retrieval/grounding_checks.csv`
+- `reports/research_memo.md`
+
+## Evaluation Result
+
+- Retrieval coverage: 6 of 6 research questions covered.
+- Source traceability: 30 of 30 retrieved evidence rows traceable.
+- Memo grounding: 8 of 8 memo sections grounded with citations found in the evidence table.
+- Risk categories found: credit risk, liquidity risk, interest-rate risk, inflation risk, market risk, operational risk, profitability risk, and adoption risk.
 
 ## Commands Run
 
 - `python3 -m compileall src`
-- `python3 -m jupyter nbconvert --to notebook --execute notebooks/01_document_ingestion_and_retrieval.ipynb --output 01_document_ingestion_and_retrieval_executed.ipynb`
+- `python3 -m jupyter nbconvert --to notebook --execute notebooks/02_memo_generation_and_evaluation.ipynb --output 02_memo_generation_and_evaluation_executed.ipynb`
 - `git status --short`
 
 ## Next Recommended Task
 
-Build Phase 1 by adding memo generation from retrieved evidence, risk flags, citation grounding, and basic retrieval evaluation.
+Build Phase 2 by polishing the GitHub README, final reports, resume bullets, interview talking points, company positioning, and LinkedIn post while keeping the local-only limitations clear.
